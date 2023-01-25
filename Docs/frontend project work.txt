@@ -1,0 +1,117 @@
+STRUTTURA PAGINA:
+-navbar(dinamica)
+-template di turno
+-footer (anche non template)
+
+-----------------------------------------------------------------------
+
+<html>
+	<head>
+		import e cose varie
+	</head>
+
+	<body>
+		<header>
+			<nav>
+				(template) navbar
+			</nav>
+		</header>
+		
+		<main>
+			(template) scelto in base ai vari click
+		</main>
+		
+		<footer>
+			(template) footer
+		</footer>
+	
+	</body>
+
+</html>
+
+------------------------------------------------------------------------
+
+-navbar (template)
+	-home
+	-crea annuncio (solo user log)
+	-getione utenti (solo admin log)
+	-registrati (solo se non log)
+	-login (solo se non log)
+	-logout (solo se log)
+	-icona utente
+	
+
+-footer (template)
+	-copyright
+
+-------------------------------------------------------------------------
+
+VISIBILE A TUTTI:
+-home.html (template)
+	-lista di annunci (tipo carosello o altro)
+
+-registrati.html (template) (visibile solo se non loggato)
+	-form di registrazione
+
+-login.html (template) (visibile solo se non loggato)
+	-form di login (crea l'utente se l'account esiste ma solo su altri portali)
+
+-logout.html (template) (visibile solo se loggato)
+	-nulla?
+
+--------------------------------------------------------------------------
+
+VISIBILE SOLO A USER LOGGATI:
+-inserimento annuncio(template)
+	-form per inserire annuncio
+
+--------------------------------------------------------------------------
+
+VISIBILE SOLO AD ADMIN LOGGATI:
+-gestioneUtenti.html (template)
+	-mostra lista utenti + tasto per rendere admin + tasto per bannare
+-gestioneAnnuncio.html (template)
+-gestionePost.html (template)
+
+--------------------------------------------------------------------------
+
+VISIBILE SOLO AD ADMIN E USER LOGGATI:
+-lista utenti online(template)
+	-lista apri e chiudi in basso a dx nella pagina che mostra tutti gli utenti online
+
+-chat live (template)
+	-quadratino in basso dx per chattare con un altro utente
+
+-iconaUtente.html (template)
+	-mostra info profilo
+	-eventualmente possibilità di cambiare nick, password, ecc
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+fetch("post", requesmessaggio)
+	
+
+.then((r) => {r.json})
+	.then((d) => {
+ 		fetch("/getMessage/d.id") ????? delirio?
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

@@ -1,0 +1,31 @@
+-RestTemplate: copiare da DesingPatternAdapterDemoService2
+-Messaggi:  dal client ogni 2sec eseguire get solo dello stato 
+		(se idUltimoMessaggio > di ultimoId)
+		in quel caso scaricare solo i messaggi 
+		da idUltimoMessaggio a ultimoId
+
+-foto : come stringhe url per adesso
+
+-
+
+
+MESSAGGIO
+id	timestamp	messaggio	userID
+1	32423		ciao		1
+2	25233		gdfbdf	1
+
+
+CHAT
+id	userID	messageId
+1	1		1
+1	1		2
+1	2		3
+1	1		4
+2	2		5
+2	3		6
+1	2		7
+
+
+CHAT_REL
+chatID	
+1
