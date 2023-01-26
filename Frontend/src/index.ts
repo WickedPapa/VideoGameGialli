@@ -1,1 +1,2 @@
-console.log("benvenuto in video game lover");
+import nav from "./navbar/navbar.html"
+document.getElementById("header").innerHTML = nav;
