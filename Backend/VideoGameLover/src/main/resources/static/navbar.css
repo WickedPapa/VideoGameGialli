@@ -71,6 +71,7 @@ nav ul li {
 .profile-li{
   padding: 0px;
   height: 43px;
+  vertical-align: middle;
 }
 
 .profile{
@@ -88,9 +89,6 @@ nav ul li:hover {
   animation: rumble 0.3s linear;
 }
 
-.profile{
-
-}
 
 @keyframes rumble {
   25% {
