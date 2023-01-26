@@ -24,11 +24,12 @@ nav ul {
   list-style: none;
 }
 
-nav ul li {
+nav ul button {
   display: inline-block;
   text-transform: uppercase;
   font-family: 'Press Start 2P', cursive;
   font-size: 1.5vh;
+  border:none;
 }
 
 .nav-button{
@@ -68,7 +69,7 @@ nav ul li {
   box-shadow: -3px 3px 3px #C4A31C;
 }
 
-.profile-li{
+.profile-button{
   padding: 0px;
   height: 43px;
   vertical-align: middle;
@@ -80,7 +81,7 @@ nav ul li {
 }
 
 /*button click hover effect*/
-nav ul li:hover {
+nav ul button:hover {
   transform: scale(.9, .9);
 }
 
@@ -119,12 +120,11 @@ nav ul li:hover {
 }
 
 header img {
-  padding-left: 10px;
   width: 56px;
   height: 66px;
 }
 
-nav ul li {
+nav ul button {
   padding: 10px 15px;
   margin-right: 20px;
   font-size: 1em;
@@ -138,12 +138,11 @@ nav ul li {
 }
 
 header img {
-  padding-left: 20px;
   width: 72px;
   height: 82px;
 }
 
-nav li {
+nav button {
   padding: 10px 15px;
   margin-right: 20px;
   font-size: 1.2em;
