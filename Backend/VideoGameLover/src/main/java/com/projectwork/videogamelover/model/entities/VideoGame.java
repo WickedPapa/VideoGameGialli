@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Videogame {
+public class VideoGame {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,14 +17,14 @@ public class Videogame {
 	private Genre genre;
 	private int year;
 	
-	public Videogame(int id, String name, Genre genre, int year) {
+	public VideoGame(int id, String name, Genre genre, int year) {
 		this.id = id;
 		this.name = name;
 		this.genre = genre;
 		this.year = year;
 	}
 
-	public Videogame(String name, Genre genre, int year) {
+	public VideoGame(String name, Genre genre, int year) {
 		this.name = name;
 		this.genre = genre;
 		this.year = year;
