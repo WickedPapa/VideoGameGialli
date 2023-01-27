@@ -1,35 +1,6 @@
 import registrazione from "./registrazione.html"
 
-function tryToSignUp() {
-    let name = document.getElementById('nameSignUp') as HTMLInputElement;
-    name.validity.valid;
-    let surname = document.getElementById('surnameSignUp') as HTMLInputElement;
-    surname.validity.valid;
-    let username = document.getElementById('usernameSignUp') as HTMLInputElement;
-    username.validity.valid;
-    let email = document.getElementById('emailSignUp') as HTMLInputElement;
-    email.validity.valid;
-    let password = document.getElementById('passwordSignUp') as HTMLInputElement;
-    password.validity.valid;
-    let confirm_password = document.getElementById('confirm_passwordSignUp') as HTMLInputElement;
-    confirm_password.validity.valid;
-
-
-    if (!validatePassword2()) {
-        return;
-    }
-    console.log("e facciamola sta fecci");
-    const user = {
-        username: "",
-        password: "",
-        name: "",
-        surname: "",
-        email: ""
-    }
-
-    fetch("/account");
-}
-
+/*
 function validatePassword() {
     let password = document.getElementById("passwordSignUp") as HTMLInputElement;
     let confirm_password = document.getElementById("confirm_passwordSignUp") as HTMLInputElement;
@@ -52,27 +23,26 @@ function validatePassword2(): boolean {
     }
     return true;
 }
-
-function stamp(){
-    console.log("ciao");
-}
-
+*/
 export function createModalSignUp() {
-    let buttonSignUp = document.getElementById("signUpButton");
-    buttonSignUp.setAttribute("data-bs-toggle", "modal");
-    buttonSignUp.setAttribute("data-bs-target", "#signUpModal");
     document.getElementById("header").innerHTML += registrazione;
-
-    let submitSignUp : HTMLElement = document.getElementById("submitSignUp");
-    console.log(submitSignUp);
-    submitSignUp.addEventListener('click', stamp);
-    
-    //submitSignUp.setAttribute("onclick", stamp+'stamp()' );  SOLUZIONE ESTREMA 
-    //document.getElementById("submitSignUp").setAttribute("onclick", 'console.log("ciao")' );
-    //document.getElementById("submitSignUp").onclick = () => {stamp()};
-    //document.getElementById("submitSignUp").onclick = tryToSignUp;
-    //document.getElementById("submitSignUp").onclick = () =>{ console.log("buongiorno da lambda")};
-    console.log(document.getElementById("submitSignUp").onclick);
 }
 
+/*
+function tryToSignUp() {
+    if (!validatePassword2()) {
+        return;
+    }
+    console.log("e facciamola sta fecci");
+    const user = {
+        username: "",
+        password: "",
+        name: "",
+        surname: "",
+        email: ""
+    }
+
+    fetch("/account");
+}
+*/
 export default createModalSignUp;
