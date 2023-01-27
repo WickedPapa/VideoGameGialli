@@ -18,7 +18,7 @@ export function createNav() {
     document.getElementById("management").onclick = () => {
         document.getElementById("main").innerHTML = gestioneUtenti;
     };
-    document.getElementById("management").onclick = () => {
+    document.getElementById("profile").onclick = () => {
         document.getElementById("main").innerHTML = profile;
     };
 }
