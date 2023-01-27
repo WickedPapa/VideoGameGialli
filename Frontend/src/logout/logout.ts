@@ -6,3 +6,5 @@ export function createModalSignOut(){
     buttonSignOut.setAttribute("data-bs-target", "#signOutModal");
     document.getElementById("main").innerHTML += logout;  
 }
+
+export default createModalSignOut;

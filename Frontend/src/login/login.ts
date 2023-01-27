@@ -6,3 +6,5 @@ export function createModalSignIn(){
     buttonSignIn.setAttribute("data-bs-target", "#signInModal");
     document.getElementById("main").innerHTML += login;
 }
+
+export default createModalSignIn;

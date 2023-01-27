@@ -1,17 +1,6 @@
 import registrazione from "./registrazione.html"
 
-export function createModalSignUp() {
-    let buttonSignUp = document.getElementById("signUpButton");
-    buttonSignUp.setAttribute("data-bs-toggle", "modal");
-    buttonSignUp.setAttribute("data-bs-target", "#signUpModal");
-    document.getElementById("main").innerHTML += registrazione;
-
-    //document.getElementById("submitSignUp").setAttribute("onclick", "tryToSignUp()");
-    document.getElementById("submitSignUp").onclick = tryToSignUp;
-    //console.log(document.getElementById("submitSignUp").onclick);
-}
-
-export function tryToSignUp() {
+function tryToSignUp() {
     let name = document.getElementById('nameSignUp') as HTMLInputElement;
     name.validity.valid;
     let surname = document.getElementById('surnameSignUp') as HTMLInputElement;
@@ -62,4 +51,28 @@ function validatePassword2(): boolean {
         return false;
     }
     return true;
-} 
+}
+
+function stamp(){
+    console.log("ciao");
+}
+
+export function createModalSignUp() {
+    let buttonSignUp = document.getElementById("signUpButton");
+    buttonSignUp.setAttribute("data-bs-toggle", "modal");
+    buttonSignUp.setAttribute("data-bs-target", "#signUpModal");
+    document.getElementById("main").innerHTML += registrazione;
+
+    let submitSignUp : HTMLElement = document.getElementById("submitSignUp");
+    console.log(submitSignUp);
+    submitSignUp.addEventListener('click', stamp);
+    
+    //submitSignUp.setAttribute("onclick", stamp+'stamp()' );  SOLUZIONE ESTREMA 
+    //document.getElementById("submitSignUp").setAttribute("onclick", 'console.log("ciao")' );
+    //document.getElementById("submitSignUp").onclick = () => {stamp()};
+    //document.getElementById("submitSignUp").onclick = tryToSignUp;
+    //document.getElementById("submitSignUp").onclick = () =>{ console.log("buongiorno da lambda")};
+    console.log(document.getElementById("submitSignUp").onclick);
+}
+
+export default createModalSignUp;
