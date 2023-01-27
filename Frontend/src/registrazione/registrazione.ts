@@ -1,4 +1,5 @@
 import registrazione from "./registrazione.html"
+import registrazioneFooter from "./registrazioneFooter.html"
 
 /*
 function validatePassword() {
@@ -24,8 +25,18 @@ function validatePassword2(): boolean {
     return true;
 }
 */
+
+function stamp(){
+    console.log("porca puttana funziona");
+}
+
 export function createModalSignUp() {
-    document.getElementById("header").innerHTML += registrazione;
+
+    let divSignUp = document.createElement("div");
+    divSignUp.innerHTML = registrazione;
+    document.body.appendChild(divSignUp);
+    let submitSignUp = document.getElementById("submitSignUp");
+    submitSignUp.onclick = stamp;
 }
 
 /*

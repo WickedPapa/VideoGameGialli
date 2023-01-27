@@ -1,20 +1,11 @@
 import nav from "./navbar.html"
+import createModal from "../modal/modal";
 import createModalSignUp from "../registrazione/registrazione"
-import createModalSignIn from "../login/login"
-import createModalSignOut from "../logout/logout"
-import registrazione from "../registrazione/registrazione.html"
 
-function stamp(){
-    console.log("porca puttana funziona");
-}
 
 export function createNav() {
     document.getElementById("header").innerHTML = nav;
-    let divSignUp = document.createElement("div");
-    divSignUp.innerHTML = registrazione;
-    document.body.appendChild(divSignUp);
-    let submitSignUp = document.getElementById("submitSignUp");
-    submitSignUp.onclick = stamp;
+    createModal();
     //createModalSignUp();
     //createModalSignIn();
     //createModalSignOut();
