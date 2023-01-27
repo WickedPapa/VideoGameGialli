@@ -16,7 +16,7 @@ import com.projectwork.videogamelover.view.AccountDTO;
 @RestController
 public class UserRestController {
 	
-	@Autowired
+	@Autowired //dependency injection, fornisce un'istanza della variabile successiva
 	IAccountManager accountManager;
 	@Autowired
 	UserRepository userRepo;
