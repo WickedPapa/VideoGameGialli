@@ -1,10 +1,13 @@
-import nav from "./navbar/navbar.html"
-import registrazione from "./registrazione/registrazione.html"
+import * as navts from "./navbar/navbar"
+import * as registrazionets from "./registrazione/registrazione"
+import * as logints from "./login/login"
+import * as logoutts from "./logout/logout"
 
-document.body.onload= () => {
-    let button = document.getElementById("signUp");
-    button.setAttribute("data-bs-toggle", "modal");
-    button.setAttribute("data-bs-target", "#exampleModal");
-    document.getElementById("main").innerHTML = registrazione;   
+navts.createNav();
+window.onload= () => {
+    registrazionets.createModalSignUp();
+    //document.getElementById("submitSignUp").onclick = registrazionets.tryToSignUp;
+    logints.createModalSignIn();
+    logoutts.createModalSignOut();
 }
-document.getElementById("header").innerHTML = nav;
+
