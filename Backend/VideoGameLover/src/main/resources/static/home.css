@@ -3,5 +3,25 @@ body {
 }
 
 .headerImg {
+<<<<<<< Updated upstream
     align-content: center;
+=======
+    width: 100%;
+
+}
+
+.card {
+    margin: 20%;
+}
+
+
+
+h1 {
+    color: #ffff;
+    font-weight: bold;
+}
+
+h2 {
+    color: #9999;
+>>>>>>> Stashed changes
 }
