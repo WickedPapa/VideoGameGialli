@@ -61,7 +61,7 @@ export function createModalSignUp() {
     let buttonSignUp = document.getElementById("signUpButton");
     buttonSignUp.setAttribute("data-bs-toggle", "modal");
     buttonSignUp.setAttribute("data-bs-target", "#signUpModal");
-    document.getElementById("main").innerHTML += registrazione;
+    document.getElementById("header").innerHTML += registrazione;
 
     let submitSignUp : HTMLElement = document.getElementById("submitSignUp");
     console.log(submitSignUp);

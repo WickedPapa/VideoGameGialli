@@ -4,7 +4,7 @@ export function createModalSignOut(){
     let buttonSignOut = document.getElementById("signOutButton");
     buttonSignOut.setAttribute("data-bs-toggle", "modal");
     buttonSignOut.setAttribute("data-bs-target", "#signOutModal");
-    document.getElementById("main").innerHTML += logout;  
+    document.getElementById("header").innerHTML += logout;  
 }
 
 export default createModalSignOut;
