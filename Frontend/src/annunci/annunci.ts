@@ -1,4 +1,6 @@
 import annunci from './annunci.html'
+import inserisciAnnuncio from './inserisciAnnuncio.html'
+
 
 let list: any[] = [];
 let view: number = 5
@@ -124,6 +126,10 @@ function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch p
     //     }
     // });
 }
+
+/*da qui in poi le funzioni servono a 
+creare la pagina una volta cliccato  
+sul bottone annunci e a ricaricarle*/
 
 function createPagination(){
     let size:number = list.length
