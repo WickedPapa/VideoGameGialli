@@ -3,43 +3,52 @@
 <h1>TODO realizzare una vista di tutti gli annunci dal più recente divisi in pagine da 5 (vedere library)</h1>
 <h1>TODO tasto crea anunncio per mostrare template creaAnnuncio</h1>
 
-<div>
+<div style="display: flex;">
 
-    <button class="btn btn-primary" id="selectAll">Visualizza tutti</button> <!--funzione che prendere tutti gli annunci e li schiaffa nel contenuto annunci-->
-    <span style="display:inline" class="dropdown">
+<span style="margin-right: 40px">
+    <button class="btn btn-primary" id="selectAll">Visualizza tutti</button>
+</span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
+    <span style="margin-right: 40px" class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Visualizza per Genere
         </button>
-        <ul class="dropdown-menu">
-        <li><button class="dropdown-item" type="button">Lista dei generi</button></li>
+        <ul id="genres" class="dropdown-menu">
+        <li id="PLATFORM"><button class="dropdown-item" type="button">PLATFORM</button></li>
         </ul>
     </span>
-    <span class="dropdown">
+    <span style="margin-right: 40px" class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Visualizza per Anno
         </button>
-        <ul class="dropdown-menu">
-        <li><button class="dropdown-item" type="button">Lista degli anni</button></li>
+        <ul id="years" class="dropdown-menu">
+        <li id="1985"><button class="dropdown-item" type="button">1985</button></li>
         </ul>
-        <div class="col-md-2 mx-auto">
-            <div class="input-group">
-                <input class="form-control border-end-0 border rounded-pill" type="search" value="search" id="example-search-input">
-                <span class="input-group-append">
-                    <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
     </span>
+    <div style="vertical-align: middle;" class="col-md-2 mx-auto">
+        <div class="input-group">
+            <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="cerca" id="searchTitle">
+            <span class="input-group-append">
+                <button id="searchButton" class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="button">
+                    trova
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
 
             
              
 
 </div>
 
-<div id="insertionContent">
+<div>
+    <ul id="insertionContent">
+        
+    </ul>
     
+</div>
+<div id="pages">
+
 </div>
 
 
