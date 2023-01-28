@@ -1,5 +1,5 @@
 import annunci from './annunci.html'
-import inserisciAnnuncio from './inserisciAnnuncio.html'
+import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
 
 
 let list: any[] = [];
