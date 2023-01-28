@@ -5,6 +5,7 @@ import createPage from "../annunci/annunci";
 import home from "../home/home.html";
 import profile from "../profiloUtente/profile.html";
 import gestioneUtenti from "../gestioneUtenti/gestioneUtenti.html";
+import getAllUsers from "../gestioneUtenti/gestioneUtenti";
 
 
 export function createNav() {
@@ -15,10 +16,11 @@ export function createNav() {
     };
     document.getElementById("insertions").onclick = () => {
         document.getElementById("main").innerHTML = annunci;
-        createPage()
+        createPage();
     };
     document.getElementById("management").onclick = () => {
         document.getElementById("main").innerHTML = gestioneUtenti;
+        getAllUsers();
     };
     document.getElementById("profile").onclick = () => {
         document.getElementById("main").innerHTML = profile;

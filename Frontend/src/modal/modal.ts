@@ -48,7 +48,7 @@ function tryToSignUp() {
         email: ""
     }
 
-    fetch("/account");
+    //fetch("/account");
 }
 
 function tryToLogIn() {
