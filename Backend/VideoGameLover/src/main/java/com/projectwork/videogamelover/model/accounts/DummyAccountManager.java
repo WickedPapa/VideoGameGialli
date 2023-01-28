@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.accounts;
 
+import java.util.List;
+
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
@@ -28,9 +30,8 @@ public class DummyAccountManager implements IAccountManager{
 	}
 
 	@Override
-	public boolean deleteAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return true;
+	public void deleteAccount(int accountId) {
+		
 	}
 
 	@Override
@@ -62,5 +63,12 @@ public class DummyAccountManager implements IAccountManager{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public AccountDTO getAccount(int id) {
+		AccountDTO account = new AccountDTO("Pierino", "agvzz", "Piero", "Trovato", "piero.trovato@ciao.it");
+		return account;
+	}
+
 	
 }

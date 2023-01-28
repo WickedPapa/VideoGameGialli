@@ -17,6 +17,11 @@ public class VideoGame {
 	private Genre genre;
 	private int year;
 	
+	public VideoGame() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public VideoGame(int id, String name, Genre genre, int year) {
 		this.id = id;
 		this.name = name;

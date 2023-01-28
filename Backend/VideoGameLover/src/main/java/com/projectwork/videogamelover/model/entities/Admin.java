@@ -17,5 +17,10 @@ public class Admin{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private int accountId;
+	
+	public Admin(int accountId) {
+		super();
+		this.accountId = accountId;
+	}
 
 }
