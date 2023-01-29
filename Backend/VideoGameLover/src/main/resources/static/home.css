@@ -4,8 +4,11 @@ body {
 
 .headerImg {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     align-content: center;
 =======
+=======
+>>>>>>> Stashed changes
     width: 100%;
 
 }
@@ -16,12 +19,21 @@ body {
 
 
 
+<<<<<<< Updated upstream
 h1 {
+=======
+h1, h3 {
+>>>>>>> Stashed changes
     color: #ffff;
     font-weight: bold;
 }
 
+<<<<<<< Updated upstream
 h2 {
+    color: #9999;
+>>>>>>> Stashed changes
+=======
+h2, p {
     color: #9999;
 >>>>>>> Stashed changes
 }
