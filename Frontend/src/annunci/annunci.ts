@@ -1,8 +1,9 @@
 import annunci from './annunci.html'
 import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
+import insertion from '../interfaces/insertion'; 
 
 
-let list: any[] = [];
+let list: insertion[] = [];
 let view: number = 5
 
 export function createPage(){       /*Inizializza tutto ciò che serve alla pagina per funzionare */
@@ -54,7 +55,9 @@ function searchByTitle(title : string){
     let filteredList=[]
     for(let element of list){
         let titolo = element.title;
-        if(titolo.toUpperCase().includes(title.toUpperCase())){
+        let gameName = element.videogame.name
+        if( (titolo.toUpperCase().includes(title.toUpperCase())) 
+        ||  (gameName.toUpperCase().includes(title.toUpperCase())) ) {
             filteredList.push(element)
         }
     }
@@ -69,7 +72,7 @@ function searchByGenre(genre :String){
     console.log(genre);
     let filteredList=[]
     for(let element of list){
-        if(element.genre==genre){
+        if(element.videogame.genre==genre){
             filteredList.push(element)
         }
     }
@@ -83,7 +86,7 @@ function searchByYear(year : number){
     console.log(year);
     let filteredList=[];
     for(let element of list){
-        if(element.year==year){
+        if(element.videogame.year==year){
             filteredList.push(element)
         }
     }
@@ -98,11 +101,35 @@ function searchByYear(year : number){
 function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch più giù */
     list=[];
     const gioco1={
-        title:"SuperMario",
-        description: "Idraulico Innamorato",
+        id: 1,
+        name:"SuperMario",
         genre: "PLATFORM",
-        year: "1985"
+        year: 1985,
+        console:"SuperNintendo"    
     }
+    const imageGioco1={
+        link:"https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
+    }
+    const publisherGioco1={
+        userId: 1,
+        username: "Pieroaffondo",
+        name: "Pierino",
+        surname: "Ciccino",
+        email: "pierinocuoricino@amorino.com",
+        rating: 666,
+        videogames: [gioco1]
+    }
+
+    const insertion1 : insertion={
+        approved:true,
+        title:"Scambio SuperMario",
+        description: "Scambio supermario xkè mi sono sekkato a giocarci",
+        gallery:[imageGioco1],
+        videogame:gioco1,
+        publisher: publisherGioco1,
+        outcome: "WIP"       
+    }
+
     const gioco2={
         title:"Zelda",
         description: "Cavaliere Innamorato",
@@ -112,9 +139,9 @@ function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch p
 
     for(let i=0; i<27; i++){
     if(i!=17){
-        list.push(gioco2)
+        list.push(insertion1)
     }else{
-        list.push(gioco1)
+        list.push(insertion1)
     }
     }
     
@@ -175,22 +202,37 @@ function showResults(i:number){
             if (start >= list.length) {
                 return;
             }
+
+            if (!list[start].approved){
+                continue;
+            }
                 let li = document.createElement("li")
                 li.setAttribute('class', 'list-group-item');
                 li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
                 li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
-                let title = document.createElement("p");
+                let title = document.createElement("h1");
+                let image = document.createElement("img");
                 let description=document.createElement("p");
+                let game = document.createElement("p");
                 let genre = document.createElement("p");
                 let year=document.createElement("p");
+                let console = document.createElement("p");
+                image.src=list[start].gallery[0].link;
+                image.width=200;
                 title.innerHTML=list[start].title;
                 description.innerHTML=list[start].description;
-                genre.innerHTML=list[start].genre;
-                year.innerHTML=list[start].year;
+                game.innerHTML=list[start].videogame.name;
+                genre.innerHTML=list[start].videogame.genre;
+                year.innerHTML=""+list[start].videogame.year;
+                console.innerHTML=list[start].videogame.console; 
+                /* sarebbe il caso di aggiungere la console a videogames magari con una enum */
                 li.appendChild(title);
+                li.appendChild(image);
                 li.appendChild(description);
+                li.appendChild(game);
                 li.appendChild(genre);
                 li.appendChild(year);
+                li.appendChild(console);
                 content.append(li);
             
         }

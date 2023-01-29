@@ -1,23 +1,7 @@
 import gestioneUtenti from './gestioneUtenti.html'
+import userInt from '../interfaces/user';
 
-interface videogame {
-    id: number,
-    name: string,
-    genre: string,
-    year: number
-}
-
-interface user {
-    userId: number,
-    username: string,
-    name: string,
-    surname: string,
-    email: string,
-    rating: number,
-    videogames: videogame[]
-}
-
-let users: user[] = [];
+let users: userInt[] = [];
 let view = 5;
 
 function showUsers(num: number) {
