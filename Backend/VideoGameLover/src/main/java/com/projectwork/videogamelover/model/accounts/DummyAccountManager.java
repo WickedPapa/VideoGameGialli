@@ -66,7 +66,7 @@ public class DummyAccountManager implements IAccountManager{
 
 	@Override
 	public AccountDTO getAccount(int id) {
-		AccountDTO account = new AccountDTO("Pierino", "agvzz", "Piero", "Trovato", "piero.trovato@ciao.it");
+		AccountDTO account = new AccountDTO("Pierino"+id, "agvzz"+id, "Piero"+id, "Trovato"+id, "piero.trovato@ciao.it"+id);
 		return account;
 	}
 

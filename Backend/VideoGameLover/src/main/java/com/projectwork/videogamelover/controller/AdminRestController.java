@@ -13,6 +13,7 @@ import com.projectwork.videogamelover.model.entities.Admin;
 import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
+import com.projectwork.videogamelover.view.IdDTO;
 
 @RestController
 public class AdminRestController {
@@ -27,15 +28,17 @@ public class AdminRestController {
 	@PostMapping("/admin")
 	public boolean createAdmin(
 			@RequestBody
-			int id) {
-		Optional<User> opt = userRepo.findById(id);
+			IdDTO dto) {
+		Optional<User> opt = userRepo.findById(dto.getId());
+		System.out.println(dto.getId());
 		if(opt.isEmpty()) {
+			System.out.println(opt.isEmpty());
 			return false;
 		}
 		User user = opt.get();
 		Admin admin = new Admin(user.getAccountId());
 		adminRepo.save(admin);
-		userRepo.deleteById(id);
+		userRepo.deleteById(dto.getId());
 		return true;
 	}
 	

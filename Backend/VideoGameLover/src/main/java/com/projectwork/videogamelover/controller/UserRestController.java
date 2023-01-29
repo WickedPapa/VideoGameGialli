@@ -20,6 +20,7 @@ import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
+import com.projectwork.videogamelover.view.IdDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
 
 @RestController
@@ -108,16 +109,15 @@ public class UserRestController {
 	@DeleteMapping("/user")
 	public boolean deleteUser(
 			@RequestBody
-			int id) {
-		
+			IdDTO dto) {
 		//TODO: cancellare gli annunci dell'utente
-		Optional<User> opt = userRepo.findById(id);
+		Optional<User> opt = userRepo.findById(dto.getId());
 		if(opt.isEmpty()) {
 			return false;
 		}
 		User user = opt.get();
 		accountManager.deleteAccount(user.getAccountId());
-		userRepo.deleteById(id);
+		userRepo.deleteById(dto.getId());
 		return true;
 	}
 	
