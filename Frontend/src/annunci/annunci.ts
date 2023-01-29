@@ -1,4 +1,5 @@
 import annunci from './annunci.html'
+import annuncio from './annuncio.html'
 import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
 import insertion from '../interfaces/insertion'; 
 
@@ -106,8 +107,21 @@ function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch p
     }
     
     const imageGioco2={
-        link:"https://upload.wikimedia.org/wikipedia/it/1/1a/The_Legend_of_Zelda_-_cover.png"
+        link:"https://www.mobygames.com/images/covers/l/14445-the-legend-of-zelda-nes-front-cover.jpg"
     }
+    
+    const imageGallery1={
+        link:"https://upload.wikimedia.org/wikipedia/it/thumb/7/77/Pikachu.png/1024px-Pikachu.png"
+    }
+    
+    const imageGallery2={
+        link:"https://www.pngmart.com/files/11/Frog-Meme-PNG-HD.png"
+    }
+
+    const imageGallery3={
+        link:"https://media.licdn.com/dms/image/D5635AQHw3E5yYyXTLw/profile-framedphoto-shrink_800_800/0/1644518918606?e=1675620000&v=beta&t=x1RnXqWsDWAOVQUXGFujModXZhiGUQJu0a6FAsZN3Lo"
+    }
+
     const gioco1={
         id: 1,
         name:"SuperMario",
@@ -141,7 +155,7 @@ function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch p
         title:"Scambio SuperMario",
         description: "Scambio supermario xkè mi sono sekkato a giocarci",
         publisher: publisherGioco1,
-        gallery:[],
+        gallery:[imageGallery1,imageGallery2,imageGallery3],
         tradeGame:gioco1,
         wishList:[gioco2],
         outcome: "WIP",
@@ -219,6 +233,9 @@ function showResults(i:number){
                 continue;
             }
                 let li = document.createElement("li")
+                li.onclick=()=>{
+                    expandInsertion(list[start])
+                }
                 li.setAttribute('class', 'list-group-item');
                 li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
                 li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
@@ -251,6 +268,103 @@ function showResults(i:number){
             
         }
     }
+
+
+function expandInsertion(insertion :insertion){
+    
+    /*Imposto la pagina principale con il template del singolo annuncio */
+    let main= document.getElementById("main");
+    main.innerHTML=annuncio;
+
+    /*Creo un pulsante per tornare alla list annunci e il titolo */
+    let button = document.createElement("button");
+    button.setAttribute("class", "btn btn-success");
+     button.innerHTML="Indietro"
+     button.onclick=()=>{
+        document.getElementById("main").innerHTML = annunci;
+        createPage();
+     }
+    let back = document.getElementById("back") 
+    back.append(button);
+
+    let title = document.createElement("h1");
+    title.innerHTML=insertion.title;
+    back.append(title);
+
+    
+
+    /*Imposto il carosello delle immagini utente */
+    let indicator = document.getElementById("indicator")
+    for(let i=0; i<insertion.gallery.length; i++){
+        let btn = document.createElement("button");
+        btn.setAttribute("data-bs-target", "#imageSlider");
+        btn.setAttribute("data-bs-slide-to", ""+i);
+        if(i==0){
+        btn.setAttribute("class", "active");  
+        btn.setAttribute("aria-current", "true");  
+        }
+        btn.setAttribute("aria-label", "Slide "+(i+1));
+        indicator.append(btn);
+    }
+    let inner = document.getElementById("inner")
+
+    for(let i=0; i<insertion.gallery.length; i++){
+        let div = document.createElement("div");
+        if(i==0){
+            div.setAttribute("class", "carousel-item active")
+        }else{
+            div.setAttribute("class", "carousel-item")
+        }
+        let img = document.createElement("img");
+        img.src=insertion.gallery[i].link;
+        img.width=400;
+        img.setAttribute("class", "d-block w-100");
+        img.alt="Gallery Image"+(i+1)
+        div.append(img);
+        inner.append(div)
+    }
+   
+    /*Imposto l'immagine delle gioco scambiato*/
+
+    let gameImage = document.createElement("img");
+    gameImage.src=insertion.tradeGame.cover.link;
+    gameImage.width=200;
+    document.getElementById("givedGame").append(gameImage);
+
+    /*Imposto il carosello delle giochi con cui effettuare lo scambio */
+    
+    let indicatorG = document.getElementById("indicatorG")
+    for(let i=0; i<insertion.wishList.length; i++){
+        let btn = document.createElement("button");
+        btn.setAttribute("data-bs-target", "#imageSlider");
+        btn.setAttribute("data-bs-slide-to", ""+i);
+        if(i==0){
+        btn.setAttribute("class", "active");  
+        btn.setAttribute("aria-current", "true");  
+        }
+        btn.setAttribute("aria-label", "Slide "+(i+1));
+        indicatorG.append(btn);
+    }
+    let innerG = document.getElementById("innerG")
+
+    for(let i=0; i<insertion.wishList.length; i++){
+        let div = document.createElement("div");
+        if(i==0){
+            div.setAttribute("class", "carousel-item active")
+        }else{
+            div.setAttribute("class", "carousel-item")
+        }
+        let img = document.createElement("img");
+        img.src=insertion.wishList[i].cover.link;
+        img.width=400;
+        img.setAttribute("class", "d-block w-100");
+        img.alt="Gallery Image"+(i+1)
+        div.append(img);
+        innerG.append(div)
+    }
+
+
+}
 
 export default createPage
 

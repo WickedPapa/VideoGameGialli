@@ -151,3 +151,14 @@ nav button {
 .logo-button{
   border:none;
 }
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
+
+.bordocarosello{
+  border: 3px solid black;
+}
+
+.carousel .carousel-indicators {background-color:rgba(0,0,0,0.3);}
