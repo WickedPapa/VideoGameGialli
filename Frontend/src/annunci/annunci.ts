@@ -136,15 +136,29 @@ function createPagination(){
     let tabs:number = Math.ceil(size/view);
     let pages = document.getElementById("pages");
     pages.innerHTML="";
-    
-    for(let i=1; i<=tabs; i++){
-        let button = document.createElement("button");
-         button.innerHTML=""+i;
-         button.setAttribute("class", "btn btn-primary");
-         button.onclick=()=>{
+    for (let i = 1; i <= tabs; i++) {
+        let li = document.createElement("li");
+        if (i == 1) {
+            li.setAttribute("class", "page-item active");
+            li.setAttribute("aria-current", "page");
+        } else {
+            li.setAttribute("class", "page-item");
+        }
+        let btn = document.createElement("button");
+        btn.setAttribute("class", "page-link");
+        btn.onclick = () => {
+            let allLi = document.getElementById("pages").children;
+            for (let oneLi of allLi) {
+                oneLi.setAttribute("class", "page-item");
+                oneLi.removeAttribute("aria-current");
+            }
+            li.setAttribute("class", "page-item active");
+            li.setAttribute("aria-current", "page");
             showResults(i);
-         }
-        document.getElementById("pages").append(button);
+        };
+        btn.innerHTML = "" + (i);
+        li.appendChild(btn);
+        document.getElementById("pages").appendChild(li);
     }
 }
 
@@ -154,8 +168,13 @@ function showResults(i:number){
         let start = (i-1)*view;
         let stop = (i*view)-1;
         for(start; start<=stop; start++){
-            try{
+            if (start >= list.length) {
+                return;
+            }
                 let li = document.createElement("li")
+                li.setAttribute('class', 'list-group-item');
+                li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
+                li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
                 let title = document.createElement("p");
                 let description=document.createElement("p");
                 let genre = document.createElement("p");
@@ -163,16 +182,13 @@ function showResults(i:number){
                 title.innerHTML=list[start].title;
                 description.innerHTML=list[start].description;
                 genre.innerHTML=list[start].genre;
-                year.innerHTML=list[start].title;
+                year.innerHTML=list[start].year;
                 li.appendChild(title);
                 li.appendChild(description);
                 li.appendChild(genre);
                 li.appendChild(year);
                 content.append(li);
-            }
-            catch{
-                console.log("eh niente ci ho provato");
-            }    
+            
         }
     }
 
