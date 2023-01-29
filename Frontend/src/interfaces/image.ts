@@ -1,6 +1,6 @@
 
 export interface image {
-    link: string;
+        link: string;
 }
 
 export default image;

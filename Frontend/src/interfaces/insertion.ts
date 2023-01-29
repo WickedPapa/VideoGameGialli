@@ -6,10 +6,12 @@ export interface insertion{
     approved: boolean,
     title: string,
     description: string,
-    gallery: image[],
-    videogame: videogame,
     publisher: user,
+    gallery: image[],
+    tradeGame: videogame,
+    wishList: videogame[],
     outcome: string
+    publicationDate: string
 }
 
 export default insertion

@@ -55,7 +55,7 @@ function searchByTitle(title : string){
     let filteredList=[]
     for(let element of list){
         let titolo = element.title;
-        let gameName = element.videogame.name
+        let gameName = element.tradeGame.name
         if( (titolo.toUpperCase().includes(title.toUpperCase())) 
         ||  (gameName.toUpperCase().includes(title.toUpperCase())) ) {
             filteredList.push(element)
@@ -72,7 +72,7 @@ function searchByGenre(genre :String){
     console.log(genre);
     let filteredList=[]
     for(let element of list){
-        if(element.videogame.genre==genre){
+        if(element.tradeGame.genre==genre){
             filteredList.push(element)
         }
     }
@@ -86,7 +86,7 @@ function searchByYear(year : number){
     console.log(year);
     let filteredList=[];
     for(let element of list){
-        if(element.videogame.year==year){
+        if(element.tradeGame.year==year){
             filteredList.push(element)
         }
     }
@@ -100,16 +100,32 @@ function searchByYear(year : number){
 
 function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch più giù */
     list=[];
+
+    const imageGioco1={
+        link:"https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
+    }
+    
+    const imageGioco2={
+        link:"https://upload.wikimedia.org/wikipedia/it/1/1a/The_Legend_of_Zelda_-_cover.png"
+    }
     const gioco1={
         id: 1,
         name:"SuperMario",
         genre: "PLATFORM",
         year: 1985,
-        console:"SuperNintendo"    
+        console:"NES",
+        cover: imageGioco1
     }
-    const imageGioco1={
-        link:"https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
+    
+    const gioco2={
+        id: 2,
+        name:"The Legend of Zelda",
+        genre: "AVVENTURA",
+        year: 1986,
+        console:"NES",
+        cover: imageGioco2
     }
+    
     const publisherGioco1={
         userId: 1,
         username: "Pieroaffondo",
@@ -124,18 +140,14 @@ function getAllInsertions(){ /* Questa è solo una prova, scommentare la fetch p
         approved:true,
         title:"Scambio SuperMario",
         description: "Scambio supermario xkè mi sono sekkato a giocarci",
-        gallery:[imageGioco1],
-        videogame:gioco1,
         publisher: publisherGioco1,
-        outcome: "WIP"       
+        gallery:[],
+        tradeGame:gioco1,
+        wishList:[gioco2],
+        outcome: "WIP",
+        publicationDate: "29-01-2023"       
     }
 
-    const gioco2={
-        title:"Zelda",
-        description: "Cavaliere Innamorato",
-        genre: "AVVENTURA",
-        year: "1986"
-    }
 
     for(let i=0; i<27; i++){
     if(i!=17){
@@ -217,15 +229,16 @@ function showResults(i:number){
                 let genre = document.createElement("p");
                 let year=document.createElement("p");
                 let console = document.createElement("p");
-                image.src=list[start].gallery[0].link;
+                let trades = document.createElement("p");
+                image.src=list[start].tradeGame.cover.link;
                 image.width=200;
                 title.innerHTML=list[start].title;
                 description.innerHTML=list[start].description;
-                game.innerHTML=list[start].videogame.name;
-                genre.innerHTML=list[start].videogame.genre;
-                year.innerHTML=""+list[start].videogame.year;
-                console.innerHTML=list[start].videogame.console; 
-                /* sarebbe il caso di aggiungere la console a videogames magari con una enum */
+                game.innerHTML=list[start].tradeGame.name;
+                genre.innerHTML=list[start].tradeGame.genre;
+                year.innerHTML=""+list[start].tradeGame.year;
+                console.innerHTML=list[start].tradeGame.console; 
+                trades.innerHTML="Accetterei Scambio con: "+list[start].wishList[0].name;
                 li.appendChild(title);
                 li.appendChild(image);
                 li.appendChild(description);
@@ -233,6 +246,7 @@ function showResults(i:number){
                 li.appendChild(genre);
                 li.appendChild(year);
                 li.appendChild(console);
+                li.appendChild(trades);
                 content.append(li);
             
         }
