@@ -1,0 +1,60 @@
+<h1>TODO (filtro) (bottoni o select) per visualizzare gli annunci per categoria o anno</h1>
+<h1>TODO (ricerca) (input type search) per visualizzare gli annunci con quel nome nel titolo</h1>
+<h1>TODO realizzare una vista di tutti gli annunci dal più recente divisi in pagine da 5 (vedere library)</h1>
+<h1>TODO tasto crea anunncio per mostrare template creaAnnuncio</h1>
+
+<div style="display: flex;">
+
+    <span style="margin-right: 40px">
+        <button class="btn btn-primary" id="selectAll">Visualizza tutti</button>
+            </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
+                <span style="margin-right: 40px" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Visualizza per Genere
+                    </button>
+                    <ul id="genres" class="dropdown-menu">
+                        <li id="PLATFORM"><button class="dropdown-item" type="button">PLATFORM</button></li>
+                    </ul>
+                </span>
+            <span style="margin-right: 40px" class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Visualizza per Anno
+                </button>
+                <ul id="years" class="dropdown-menu">
+                <li id="1985"><button class="dropdown-item" type="button">1985</button></li>
+                </ul>
+            </span>
+    <div style="vertical-align: middle;" class="col-md-2 mx-auto">
+        <div class="input-group">
+            <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="cerca" id="searchTitle">
+            <span class="input-group-append">
+            <button id="searchButton" class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="button">
+                    trova
+            <i class="fa fa-search"></i>
+            </button>
+            </span>
+        </div>
+    </div>
+
+      <span >
+        <button  style="color:white" class="btn btn-danger">
+            <img src="./img/plus.png" alt="plus" style="width:25px">
+            Inserisci Annuncio
+        </button>
+      </span>      
+             
+
+</div>
+
+<div>
+    <ul id="insertionContent">
+        
+    </ul>
+    
+</div>
+<div id="pages">
+
+</div>
+
+
+

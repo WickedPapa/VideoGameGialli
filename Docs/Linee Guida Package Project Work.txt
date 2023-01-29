@@ -1,0 +1,23 @@
+SW architect
+
+package suddivisi in:
+	-com.package:
+		-SpringApplication
+		-eventuali altre classi non utili al programma (database h2, ecc)
+		-bean
+		-configuration
+	-com.package.controller
+		-controller
+		-restController
+	-com.package.view
+		-dto
+	-com.package.model
+		-com.model.entity
+			-entità
+		-com.model.enum
+			-eventuali enum
+		-com.model.repositories
+			-repositories
+		
+
+

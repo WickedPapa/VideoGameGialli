@@ -8,3 +8,12 @@ export function createHome(){
 }
 
 export default createHome;
+
+/*
+async function gettitle(title: string):{
+    const response = await fetch()
+    const data = await response.json();
+    return data;
+
+}
+*/
