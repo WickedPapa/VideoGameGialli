@@ -38,6 +38,11 @@ function assignFilters(){             /*Assegna le funzioni ai pulsanti nelle dr
         }
     
       let searchTitle = document.getElementById("searchTitle") as HTMLInputElement;
+      searchTitle.onkeydown=(e)=>{
+        if(e.key=='Enter'){
+          searchByTitle(searchTitle.value)
+        }
+      }
       let searchButton = document.getElementById("searchButton");
       searchButton.onclick=()=>{
         searchByTitle(searchTitle.value)
@@ -46,7 +51,6 @@ function assignFilters(){             /*Assegna le funzioni ai pulsanti nelle dr
 
 
 function searchByTitle(title : string){
-    console.log(title)
     let filteredList=[]
     for(let element of list){
         let titolo = element.title;
