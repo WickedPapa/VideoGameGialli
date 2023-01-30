@@ -36,6 +36,21 @@ public class Insertion {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Insertion(String title, String description, User publisher, List<Image> gallery, VideoGame tradeGame,
+			List<VideoGame> wishList) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.publisher = publisher;
+		this.gallery = gallery;
+		this.tradeGame = tradeGame;
+		this.wishList = wishList;
+	}
+
+
 
 	public Insertion(int id, boolean approved, String title, String description, User publisher, List<Image> gallery,
 			VideoGame tradeGame, List<VideoGame> wishList, Date publicationDate, Outcome outcome) {
@@ -64,14 +79,6 @@ public class Insertion {
 		this.wishList = wishList;
 		this.publicationDate = publicationDate;
 		this.outcome = outcome;
-	}
-
-	public Insertion(String title, String description, User publisher, VideoGame tradeGame) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.publisher = publisher;
-		this.tradeGame = tradeGame;
 	}
 
 	public int getId() {

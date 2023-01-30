@@ -35,19 +35,19 @@ public class AdminRestController {
 		
 		Object obj = session.getAttribute("logged");
 		if(accountManager.isLogged() && (obj instanceof Admin )) {
-			
+			Optional<User> opt = userRepo.findById(id);
+			System.out.println(id);
+			if(opt.isEmpty()) {
+				System.out.println(opt.isEmpty());
+				return false;
+			}
+			User user = opt.get();
+			Admin admin = new Admin(user.getAccountId());
+			adminRepo.save(admin);
+			userRepo.deleteById(id);
+			return true;
 		}
-		Optional<User> opt = userRepo.findById(id);
-		System.out.println(id);
-		if(opt.isEmpty()) {
-			System.out.println(opt.isEmpty());
-			return false;
-		}
-		User user = opt.get();
-		Admin admin = new Admin(user.getAccountId());
-		adminRepo.save(admin);
-		userRepo.deleteById(id);
-		return true;
+		return false;
 	}
 	
 	

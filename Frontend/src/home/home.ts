@@ -1,6 +1,6 @@
 import home from './home.html'
 import insertion from '../interfaces/insertion';
-import createInsertion from '../creaAnnuncio/creaAnnuncio';
+//import createInsertion from '../creaAnnuncio/creaAnnuncio';
 
 let list: insertion[] = [];
 
