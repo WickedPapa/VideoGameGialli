@@ -3,16 +3,78 @@
 
 </div>
 
+<style>
+  .imgS {
+    width: 54px;
+    height: 42px;
+  }
+
+  body {
+    text-align: center;
+  }
+</style>
+
+<div>
+  <h1>
+    Il portale dei veri gamers.
+  </h1>
+  <h2>
+    Sei alla ricerca di un gioco, vecchio o nuovo che sia, ma non riesci a trovarlo? Noi abbiamo la soluzione per te...
+    Cerca tra centinaia di annunci il titolo che non trovavi più, mettiti in contatto con l'utente che lo sta vendendo, 
+    e fai l'affare del secolo...
+  </h2>
+</div>
+
+<div class="container text-center" style="margin-top: 10%; margin-bottom: 10%;">
+  <div class="row" style="margin-left:10%;margin-right:10%;">
+    <div class="col">
+      <div class="card text-bg-danger" style="width: 18rem;height: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Cerca</h5>
+          <p class="card-text">Cerca il tuo gioco prefereito tra centinaia di annunci</p>
+          <hr>
+          <div class="input-group mb-3 form-control border rounded" style="margin-top: 10px;">
+            <input type="text" class="form-control border-0" id="searchTitle" placeholder="Cerca" aria-label="search" aria-describedby="basic-addon2">
+            <img class="ms-1 btn imgS" src="./img/search.png" alt="">
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card text-bg-primary" style="width: 18rem;height: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Esplora</h5>
+          <p class="card-text">Esplora miglialia di giochi tra gli annunci presenti</p>
+          <hr>
+          <button id="insertions" class="btn btn-info">Annunci</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card text-bg-success" style="width: 18rem;height: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Vendi</h5>
+          <p class="card-text">Hai un gioco di cui non te ne fai più nulla per le miliardi di volte che lo hai finito?
+            inserisci qui il tuo annuncio!
+          </p>
+          <hr>
+          <button id="insertions" class="btn btn-light">Inserisci Annuncio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <h1>Ultimi annunci:</h1>
 <h2>Controlla qui gli ultimi annunci</h2>
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
         
-        <div class="card" style="margin: 20%;">
+        <div class="card text-bg-secondary" style="margin: 20%;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 id="title1" class="card-title">Card title</h5>
+              <h5 id="title" class="card-title">Card title</h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
@@ -21,10 +83,10 @@
       </div>
       <div class="carousel-item">
         
-        <div class="card" style="margin: 20%;">
+        <div class="card text-bg-secondary" style="margin: 20%;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 id="title2" class="card-title">Card title</h5>
+              <h5 id="title" class="card-title">Card title</h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
@@ -33,10 +95,10 @@
       </div>
       <div class="carousel-item">
         
-        <div class="card" style="margin: 20%;">
+        <div class="card text-bg-secondary" style="margin: 20%;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 id="title3" class="card-title">Card title</h5>
+              <h5 id="title" class="card-title">Card title</h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
@@ -45,10 +107,10 @@
       </div>
       <div class="carousel-item">
         
-        <div class="card" style="margin: 20%;">
+        <div class="card text-bg-secondary" style="margin: 20%;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 id="title4" class="card-title">Card title</h5>
+              <h5 id="title" class="card-title">Card title</h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
