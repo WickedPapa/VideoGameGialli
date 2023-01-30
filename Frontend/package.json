@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bootstrap": "^5.2.6",
     "@types/jquery": "^3.5.16",
     "raw-loader": "^4.0.2",
     "ts-loader": "^9.4.2",

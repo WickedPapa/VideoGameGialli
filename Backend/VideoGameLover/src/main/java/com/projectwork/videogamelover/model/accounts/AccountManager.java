@@ -61,24 +61,18 @@ public class AccountManager implements IAccountManager {
 	}
 
 	@Override
-	public boolean isAdmin() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isUser() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public AccountDTO getAccount(int id) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/account/{id}";
 		ResponseEntity<AccountDTO> response = restTemplate.getForEntity(url, AccountDTO.class, id);
 		AccountDTO account = response.getBody();
 		return account;
+	}
+
+	@Override
+	public int getAccountId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -4,12 +4,7 @@ import java.util.List;
 
 import com.projectwork.videogamelover.model.entities.VideoGame;
 
-public class UserInfoDTO {
-	@Override
-	public String toString() {
-		return "UserInfoDTO [userId=" + userId + ", username=" + username + ", name=" + name + ", surname=" + surname
-				+ ", email=" + email + ", rating=" + rating + ", videogames=" + videogames + "]";
-	}
+public class UserInfoDTO implements IAccountInfoDTO {
 
 	private int userId;
 	private String username;

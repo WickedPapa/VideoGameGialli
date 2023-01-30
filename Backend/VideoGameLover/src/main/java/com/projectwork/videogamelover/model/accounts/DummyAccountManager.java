@@ -42,8 +42,7 @@ public class DummyAccountManager implements IAccountManager{
 
 	@Override
 	public boolean tryToLog(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+		return (username=="WickedPapa"&&password=="ciao");
 	}
 
 	@Override
@@ -53,21 +52,15 @@ public class DummyAccountManager implements IAccountManager{
 	}
 
 	@Override
-	public boolean isAdmin() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isUser() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public AccountDTO getAccount(int id) {
 		AccountDTO account = new AccountDTO("Pierino"+id, "agvzz"+id, "Piero"+id, "Trovato"+id, "piero.trovato@ciao.it"+id);
 		return account;
+	}
+
+	@Override
+	public int getAccountId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
