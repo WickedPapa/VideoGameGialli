@@ -1,7 +1,10 @@
 import creaAnnuncio from './creaAnnuncio.html'
+import annunci from './annunci.html'
 
 export function createInsertion(){
-    let main = document.getElementById("main");
-    main.innerHTML = creaAnnuncio;
+    let btn = document.getElementById("addInsertion");
+    btn.onclick=()=>{
+        document.getElementById("main").innerHTML=creaAnnuncio;
+    }
 }
 export default createInsertion;
