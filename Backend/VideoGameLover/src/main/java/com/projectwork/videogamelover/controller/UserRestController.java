@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectwork.videogamelover.model.accounts.IAccountManager;
+import com.projectwork.videogamelover.model.entities.Admin;
 import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.entities.VideoGame;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
@@ -22,6 +23,8 @@ import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
 import com.projectwork.videogamelover.view.IdDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class UserRestController {
@@ -90,8 +93,10 @@ public class UserRestController {
 	@PutMapping("/user")
 	public boolean updateUser(
 			@RequestBody
-			AddGameDTO dto) {
-		if(accountManager.isLogged()) {
+			AddGameDTO dto,
+			HttpSession session) {
+		Object obj = session.getAttribute("logged");
+		if(accountManager.isLogged() && ((obj instanceof User  && ((User)obj).getId() == dto.getIdUser() ))) {
 			Optional<User> opt = userRepo.findById(dto.getIdUser());
 			if(opt.isPresent()) {
 				User user = opt.get();
@@ -109,16 +114,22 @@ public class UserRestController {
 	@DeleteMapping("/user")
 	public boolean deleteUser(
 			@RequestBody
-			int id) {
+			int id,
+			HttpSession session) {
 		//TODO: cancellare gli annunci dell'utente
-		Optional<User> opt = userRepo.findById(id);
-		if(opt.isEmpty()) {
-			return false;
+		Object obj = session.getAttribute("logged");
+		
+		if(accountManager.isLogged() && ((obj instanceof Admin )||(obj instanceof User && ((User)obj).getId() == id ))) {
+			Optional<User> opt = userRepo.findById(id);
+			if(opt.isEmpty()) {
+				return false;
+			}
+			User user = opt.get();
+			accountManager.deleteAccount(user.getAccountId());
+			userRepo.deleteById(id);
+			return true;
 		}
-		User user = opt.get();
-		accountManager.deleteAccount(user.getAccountId());
-		userRepo.deleteById(id);
-		return true;
+		return false;
 	}
 
 	
