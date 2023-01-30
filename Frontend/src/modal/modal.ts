@@ -11,7 +11,7 @@ import logout from '../logout/logout.html'
 export function createModal(){
     let divModal = document.createElement("div");
     divModal.innerHTML = modal;
-    document.body.appendChild(divModal);
+    document.getElementById("container").appendChild(divModal);
     showLogInModal();
     document.getElementById("login").onclick = showLogInModal;
     document.getElementById("signOutButton").onclick = showLogOutModal;
