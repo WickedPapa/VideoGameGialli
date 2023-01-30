@@ -6,26 +6,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Genre {
+public class Console {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String genre;
 	
-	public Genre() {
+	private String console;
+
+	public Console() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Genre(int id, String genre) {
+	public Console(String console) {
+		super();
+		this.console = console;
+	}
+
+	public Console(int id, String console) {
 		super();
 		this.id = id;
-		this.genre = genre;
-	}
-
-	public Genre(String genre) {
-		super();
-		this.genre = genre;
+		this.console = console;
 	}
 
 	public int getId() {
@@ -36,16 +36,13 @@ public class Genre {
 		this.id = id;
 	}
 
-	public String getGenre() {
-		return genre;
+	public String getConsole() {
+		return console;
 	}
 
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setConsole(String console) {
+		this.console = console;
 	}
-	
-	
-	
 	
 	
 }
