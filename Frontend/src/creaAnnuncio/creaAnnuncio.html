@@ -1,61 +1,82 @@
-<form action="createInsertion">
-
-  <div class="container" style="margin-left: 20%;margin-right: 20%;">
-    <div class="row">
-      <div class="col-9">
-        <h2><b>Inserisci Annuncio</b></h2>
-      </div>
-
-      <div class="col-4">
-
-        <div class="mb-3">
-          <label for="title" class="form-label">
-            <h3><b>Titolo</b></h3>
-          </label>
-          <input type="text" class="form-control" id="title" placeholder="Nome Videogioco">
-        </div>
-
-        <div class="mb-3">
-          <label for="description" class="form-label">
-            <h3><b>Descrizione</b></h3>
-          </label>
-          <textarea class="form-control" id="description" rows="3" placeholder="Descrizione Videogioco"></textarea>
-        </div>
-
-        <div>
-          <label for="tradeGame">
-            <h3><b>Scambio</b></h3>
-          </label>
-          <select class="form-select" id="tradeGame" aria-label="Default select example">
-            <option selected><button>button 1</button></option>
-            <option value="1"><button>button 2</button></option>
-            <option value="2"><button>button 3</button></option>
-            <option value="3"><button>button 4</button></option>
-          </select>
-        </div>
-
-      </div>
-      <div class="col-6">
-
-        <div class="mb-3">
-          <label for="gallery" class="form-label">
-            <h3><b>Imagini</b></h3>
-          </label>
-          <textarea class="form-control" id="gallery" rows="7"
-            placeholder="Inserisci le url delle imagini dell'annuncio da inserire, ogn'una divisa dalla virgola Es: http://imgurl/img.png,http://imgurl/img2.png"></textarea>
-        </div>
-
-      </div>
-
-      <div class="col-12">
-
-        <div class="mb-3 mt-3">
-          <a href="#" class="btn btn-primary" style="margin-right:50%;margin-left:30%;">Aggiungi</a>
-        </div>
-
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h2><b>Inserisci Annuncio</b></h2>
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-4">
+      <div class="mb-3">
+        <label for="title" class="form-label">
+          <h3><b>Titolo Annuncio</b></h3>
+        </label>
+        <input type="text" class="form-control" id="title" placeholder="Titolo Annuncio">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">
+          <h3><b>Descrizione Videogioco</b></h3>
+        </label>
+        <textarea class="form-control" id="description" rows="3" placeholder="Descrizione Annuncio"></textarea>
+      </div>
+      <div>
+        <label for="tradeGame" class="text-center">
+          <h3><b>Trade-Game</b></h3>
+          <h5>Da quale tesorino ti vorresti separare?</h5>
+          <span class="dropdown text-center">
+            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Quanti bei giochini!
+            </button>
+            <ul id="tradeGame" class="dropdown-menu">
+            </ul>
+          </span>
+        </label>
+      </div>
 
-</form>
+    </div>
+    <div class="col-4">
+      <div>
+        <label for="wishGames" class="text-center">
+          <h3><b>Wish-List</b></h3>
+          <h5>Che giochi vorresti ricevere in cambio del tuo tesorino?</h5>
+
+          <span class="dropdown text-center">
+            <button class="btn btn-light dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Solo 3 Eh! Non bariamo!
+            </button>
+            <ul id="wishGames" class="dropdown-menu">
+            </ul>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="mb-3">
+        <label for="gallery" class="form-label">
+          <h3><b>Immagini</b></h3>
+        </label>
+        <textarea class="form-control" id="gallery" rows="7"
+          placeholder="Inserisci le url delle imagini dell'annuncio da inserire, ognuna divisa dalla virgola Es: http://imgurl/img.png,http://imgurl/img2.png"></textarea>
+      </div>
+      <div class="mb-3">
+        <ul id="selectedGames">
+          
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="mb-3 mt-3 text-center">
+      <button class="btn btn-primary">Aggiungi</button>
+    </div>
+  </div>
+</div>
