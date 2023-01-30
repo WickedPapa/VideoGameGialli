@@ -14,7 +14,9 @@ function showUsers(num: number) {
             return;
         }
         let li = document.createElement("li");
-        li.onclick = showUserProfile;
+        let btn_profile = document.createElement("button");
+        btn_profile.setAttribute("class", "btn");
+        btn_profile.onclick = showUserProfile;
         li.setAttribute('class', 'list-group-item');
         li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
         li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
@@ -29,8 +31,8 @@ function showUsers(num: number) {
         btn_ban.onclick = () => { kickHisAssOutOfThisSite(users[i].userId)};
         btn_adm.onclick = () => { makeHimAdmin(users[i].userId) };
         span.append(btn_adm, btn_ban);
-        li.innerHTML = users[i].username + " | " + users[i].name + " " + users[i].surname + " | " + users[i].email + " | " + users[i].rating + "<i class='fa-regular fa-star'></i>";
-        li.appendChild(span);
+        btn_profile.innerHTML = users[i].username + " | " + users[i].name + " " + users[i].surname + " | " + users[i].email + " | " + users[i].rating + "<i class='fa-regular fa-star'></i>";
+        li.append(btn_profile, span);
         list.appendChild(li);
     }
 
@@ -101,7 +103,7 @@ function makeHimAdmin(id: number) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id: id})
+        body: JSON.stringify(id)
     })
         .then((response) => response.json())
         .then((data) => { console.log("admin creato? " + data); getAllUsers(); });
@@ -113,7 +115,7 @@ function kickHisAssOutOfThisSite(id: number) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id: id})
+        body: JSON.stringify(id)
     }
     fetch("/user", request)
         .then((response) => response.json())
