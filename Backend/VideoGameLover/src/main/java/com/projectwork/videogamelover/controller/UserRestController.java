@@ -116,7 +116,7 @@ public class UserRestController {
 			@RequestBody
 			int id,
 			HttpSession session) {
-		//TODO: cancellare gli annunci dell'utente
+		//TODO: cancellare gli annunci dell'utente  oppure disabilitarli (esito = chiuso)
 		Object obj = session.getAttribute("logged");
 		
 		if(accountManager.isLogged() && ((obj instanceof Admin )||(obj instanceof User && ((User)obj).getId() == id ))) {
@@ -131,6 +131,4 @@ public class UserRestController {
 		}
 		return false;
 	}
-
-	
 }
