@@ -109,15 +109,15 @@ public class UserRestController {
 	@DeleteMapping("/user")
 	public boolean deleteUser(
 			@RequestBody
-			IdDTO dto) {
+			int id) {
 		//TODO: cancellare gli annunci dell'utente
-		Optional<User> opt = userRepo.findById(dto.getId());
+		Optional<User> opt = userRepo.findById(id);
 		if(opt.isEmpty()) {
 			return false;
 		}
 		User user = opt.get();
 		accountManager.deleteAccount(user.getAccountId());
-		userRepo.deleteById(dto.getId());
+		userRepo.deleteById(id);
 		return true;
 	}
 

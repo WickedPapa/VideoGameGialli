@@ -3,6 +3,7 @@ package com.projectwork.videogamelover.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class LoginController {
 	AdminRepository adminRepo;
 
 	@PostMapping("/login")
-	public LoggedDTO login(@RequestBody LoginDTO dto, HttpSession session) { // TODO non mandare dto.getpassword ma la password criptata
+	public LoggedDTO login(@RequestBody LoginDTO dto, HttpSession session) {
 		LoggedDTO loggedDto = new LoggedDTO(false, null, null);
 		if (accountManager.tryToLog(dto.getUsername(), dto.getPassword())) {
 			int id = accountManager.getAccountId();
@@ -69,7 +70,17 @@ public class LoginController {
 		return loggedDto;
 	}
 	
+	@GetMapping("/logout")
+	public boolean logout(HttpSession session) {
+		return accountManager.logOut();
+	}
 	
-	//TODO: implementare getAccountId(), logout e islogged
+	@GetMapping("/isLogged")
+	public boolean isLogged(HttpSession session) {
+		return accountManager.isLogged();
+	}
+	
+	
+	//TODO:logout e islogged
 
 }
