@@ -1,14 +1,24 @@
 <style>
   .cardfooter {
+    margin-top: 10%;
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     text-align: center;
   }
 
+  .footerlinks {
+    text-decoration-line: none;
+    -webkit-text-fill-color: black;
+  }
+
+  a:hover, a:active {
+    -webkit-text-fill-color: grey;
+  }
+
   li {
     display: inline;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
 
@@ -32,22 +42,22 @@
   div.container {
     flex: 1;
   }
+
 </style>
 
 <div class="cardfooter">
   <div class="card-header">
-    <h3 class="card-title">VideoGame Lover</h3>
+    <img src="./img/videogameloverfooter.png" style="width:27%; padding: 2%;  opacity: 0.8;" alt="">
   </div>
-  <div class="card-body">
-    <p class="card-text">Testo Aggiuntivo Se Volete</p>
+  <div class="card-body" style="padding-bottom: 1%;">
     <ul>
-      <li> <a href="#" class="btn btn-primary">Home</a> </li>
-      <li> <a href="#" class="btn btn-primary">Paolo</a> </li>
-      <li> <a href="#" class="btn btn-primary">Piero</a> </li>
-      <li> <a href="#" class="btn btn-primary">About Us</a> </li>
+      <li> <a href="#" class="footerlinks">Home</a> </li>
+      <li> <a href="#" class="footerlinks">Paolo</a> </li>
+      <li> <a href="#" class="footerlinks">Piero</a> </li>
+      <li> <a href="#" class="footerlinks">About Us</a> </li>
     </ul>
   </div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted" style="padding-bottom: 1%; -webkit-text-fill-color: rgb(22, 22, 22);">
     <p> ©2023 Paolo Enterprise Inc. | Tutti i diritti riservati (a Pierino) </p>
   </div>
 </div>
