@@ -60,7 +60,10 @@ function tryToSignUp() {
 
     fetch("/user", request).then((response)=>response.json()).then((data)=>{
         if(data){
-            document.getElementById("main").innerHTML = profile;
+            document.getElementById("signUpResult").innerHTML="Registrato con successo!";
+            //document.getElementById("main").innerHTML = profile;
+        }else{
+            document.getElementById("signUpResult").innerHTML="Ops, qualcosa è andato storto!";
         }
     });
     
