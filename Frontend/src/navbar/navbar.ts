@@ -31,6 +31,7 @@ export function createNav() {
     document.getElementById("profile").onclick = () => {
         document.getElementById("main").innerHTML = profile;
     };
+    //TODO: account.TYPE
     setNav(" ");
 }
 

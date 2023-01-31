@@ -41,7 +41,7 @@ public class AccountManager implements IAccountManager {
 	public void deleteAccount(int id) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/account/{id}";
-
+		// TODO: solo l'admin può
 		// TODO: da provare
 		restTemplate.delete(url, id);
 	}
