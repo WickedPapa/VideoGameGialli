@@ -6,7 +6,7 @@ import expandInsertion from './annuncio'
 import createInsertion from '../creaAnnuncio/creaAnnuncio'
 
 let list: insertion[] = [];
-let view: number = 5
+let view: number = 6
 
 export function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
     document.getElementById("selectAll").onclick = searchByAll;
@@ -262,26 +262,37 @@ function showResults(i: number) {
         if (!list[start].approved) {
             continue;
         }
-        let li = document.createElement("li")
-        li.onclick = () => {
+
+
+        let col = document.createElement("div")
+        col.setAttribute("class", "col-4 text-center");
+        col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
+        col.onmouseover=()=>{
+            col.setAttribute("style", "background-color: rgba(0,0,0,0.6)");
+        }
+        col.onmouseout=()=>{
+            col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
+        }
+
+        col.onclick = () => {
             expandInsertion(list[start])
         }
-        li.setAttribute('class', 'list-group-item');
-        li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
-        li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
+       
         let title = document.createElement("h1");
         let image = document.createElement("img");
-        let description = document.createElement("p");
-        let game = document.createElement("p");
-        let genre = document.createElement("p");
-        let year = document.createElement("p");
-        let console = document.createElement("p");
-        let trades = document.createElement("p");
+        let description = document.createElement("h5");
+        let game = document.createElement("h5");
+        let genre = document.createElement("h5");
+        let year = document.createElement("h5");
+        let console = document.createElement("h5");
+        let trades = document.createElement("h5");
+        let date = document.createElement("h5");
         image.src = list[start].tradeGame.cover.link;
         image.width = 200;
         title.innerHTML = list[start].title;
         description.innerHTML = list[start].description;
         game.innerHTML = list[start].tradeGame.name;
+        
         for(let i= 0; i<list[start].tradeGame.genre.length; i++){
             genre.innerHTML += list[start].tradeGame.genre[i].genre + " ";
         }
@@ -290,15 +301,9 @@ function showResults(i: number) {
         console.innerHTML = list[start].tradeGame.console.console;
 
         trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
-        li.appendChild(title);
-        li.appendChild(image);
-        li.appendChild(description);
-        li.appendChild(game);
-        li.appendChild(genre);
-        li.appendChild(year);
-        li.appendChild(console);
-        li.appendChild(trades);
-        content.append(li);
+        date.innerHTML= list[start].publicationDate;
+        col.append(title,image,description,game,genre,year,console,trades,date)
+        content.append(col);
 
     }
 }
