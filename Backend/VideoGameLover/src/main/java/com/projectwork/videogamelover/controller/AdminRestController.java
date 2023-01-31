@@ -36,9 +36,7 @@ public class AdminRestController {
 		Object obj = session.getAttribute("logged");
 		if(accountManager.isLogged() && (obj instanceof Admin )) {
 			Optional<User> opt = userRepo.findById(id);
-			System.out.println(id);
 			if(opt.isEmpty()) {
-				System.out.println(opt.isEmpty());
 				return false;
 			}
 			User user = opt.get();
@@ -48,7 +46,5 @@ public class AdminRestController {
 			return true;
 		}
 		return false;
-	}
-	
-	
+	}	
 }
