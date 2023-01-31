@@ -42,7 +42,6 @@ async function showLogOutModal(){
 }
 
 function tryToSignUp() {
-    console.log("e facciamola sta fecci");
     const user = {
         username: (document.getElementById("usernameSignUp") as HTMLInputElement).value ,
         password: (document.getElementById("passwordSignUp") as HTMLInputElement).value,
@@ -59,8 +58,15 @@ function tryToSignUp() {
         body: JSON.stringify(user)
     }
 
-    fetch("/user", request).then((response)=>response.json()).then((data)=>console.log(data));
-    document.getElementById("main").innerHTML = profile;
+    fetch("/user", request).then((response)=>response.json()).then((data)=>{
+        if(data){
+            document.getElementById("signUpResult").innerHTML="Registrato con successo!";
+            //document.getElementById("main").innerHTML = profile;
+        }else{
+            document.getElementById("signUpResult").innerHTML="Ops, qualcosa è andato storto!";
+        }
+    });
+    
 }
 
 function tryToLogIn() {
@@ -82,6 +88,8 @@ function tryToLogIn() {
         if(data.logged){
             document.getElementById("loginResult").innerHTML="Loggato con successo!";
             nav.setNav(data.accountType);
+            document.getElementById("tryToLog").setAttribute("disabled", "true");
+            document.getElementById("loginSignUp").setAttribute("disabled", "true");
         }else{
             document.getElementById("loginResult").innerHTML="Ops, qualcosa è andato storto";
         }
@@ -94,6 +102,8 @@ async function tryToLogOut() :Promise<boolean>{
     .then((data)=>{
         if(data){
             nav.setNav("");
+            document.getElementById("tryToLog").removeAttribute("disabled");
+            document.getElementById("loginSignUp").removeAttribute("disabled");
         }
         return data});
     return promiseResult;
@@ -104,7 +114,6 @@ function validatePassword(): void {
     let confirm_password = document.getElementById("confirm_passwordSignUp") as HTMLInputElement;
     confirm_password.setAttribute("style", "");
     if (password.value != confirm_password.value) {
-        console.log("ciao dall'if");
         confirm_password.setAttribute("style", "border-color: red;");
         (document.getElementById("trytoSignUp") as HTMLButtonElement).disabled = true;
     }else{

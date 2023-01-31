@@ -1,0 +1,67 @@
+<div style="display: flex;">
+
+        <span style="margin-right: 40px">
+            <button class="btn btn-primary" id="selectAll2">Visualizza tutti</button>
+                </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
+                    <span style="margin-right: 40px" class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Visualizza per Genere
+                        </button>
+                        <ul id="genres2" class="dropdown-menu">
+                            <li id="PLATFORM"><button class="dropdown-item" type="button">PLATFORM</button></li>
+                        </ul>
+                    </span>
+                <span style="margin-right: 40px" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Visualizza per Anno
+                    </button>
+                    <ul id="years2" class="dropdown-menu">
+                    <li id="1985"><button class="dropdown-item" type="button">1985</button></li>
+                    </ul>
+                </span>
+        <div style="vertical-align: middle;" class="col-md-3 mx-auto">
+            <div class="input-group">
+                <input class="form-control border-end-1 border rounded-pill" type="search" placeholder="cerca" style="margin-right:20px" id="searchTitle">
+                <span class="input-group-append">
+                <button id="searchButton2" class="btn btn-outline-secondary bg-white border-bottom-1 border rounded-pill ms-n5" type="button">
+                        trova
+                <i class="fa fa-search"></i>
+                </button>
+                </span>
+            </div>
+        </div>
+    
+          <span >
+            <!-- Allerta Martellata: se tolgo il bottone tolgo pure la lista,
+                quindi l'ho messo hidden-->
+            <button hidden id="addInsertion" style="color:white" class="btn btn-danger">
+                <img src="./img/plus.png" alt="plus" style="width:25px">
+                Inserisci Annuncio
+            </button>
+          </span>      
+                 
+    
+    </div>
+
+    <br>
+    <div style="display: inline-flex;">
+
+        <h4> Nome Categoria: </h4>
+        <input class="form-control border-end-1 border rounded-pill" type="text" placeholder="Categoria" style="margin-right:20px" id="categoryName">
+        <button class="btn btn-primary" id="createCategory">Crea Categoria</button>
+
+    </div>
+    <br>
+    
+    <div id="remains">
+        <ul id="insertionContent2" class="list-group" >
+            
+        </ul>
+        
+    </div>
+    <div>
+        <ul id="pages2" class="pagination pagination-sm my-2">
+            
+        </ul>
+    
+    </div>    
