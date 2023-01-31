@@ -37,18 +37,21 @@ public class DummyAccountManager implements IAccountManager{
 
 	@Override
 	public boolean logOut() {
-		try {
-			session.removeAttribute("logged");
-			return true;
-		}catch(IllegalStateException e) {
-			return false;
+		if(session.getAttribute("logged")!=null) {
+			try {
+				session.removeAttribute("logged");
+				return true;
+			}catch(IllegalStateException e) {
+				return false;
+			}
 		}
+		return false;
 	}
 
 	@Override
 	public boolean tryToLog(String username, String password) {
 		String encPassword = encryptPassword(password);
-		return (username=="WickedPapa"&&encPassword==encryptPassword("ciao"));
+		return (username.equals("WickedPapa")&&encPassword.equals(encryptPassword("ciao")));
 	}
 
 	@Override

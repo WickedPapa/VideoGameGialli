@@ -25,10 +25,30 @@ export function createNav() {
     document.getElementById("profile").onclick = () => {
         document.getElementById("main").innerHTML = profile;
     };
+    setNav(" ");
 }
 
-export function setNav() {
-    document.getElementById("header").innerHTML = nav;
+export function setNav(accountType : string) {
+    const btn_gestUtenti = document.getElementById("management");
+    const btn_insManagement = document.getElementById("insManagement");
+    const btn_login = document.getElementById("login");
+    const btn_signOutButton = document.getElementById("signOutButton");
+    if(accountType=="ADMIN"){
+        btn_gestUtenti.removeAttribute("hidden");
+        btn_insManagement.removeAttribute("hidden");
+        btn_login.setAttribute("hidden", "true");
+        btn_signOutButton.removeAttribute("hidden");
+    }else if(accountType=="USER"){
+        btn_gestUtenti.setAttribute("hidden", "true");
+        btn_insManagement.setAttribute("hidden", "true");
+        btn_login.setAttribute("hidden", "true");
+        btn_signOutButton.removeAttribute("hidden");
+    }else{
+        btn_gestUtenti.setAttribute("hidden", "true");
+        btn_insManagement.setAttribute("hidden", "true");
+        btn_login.removeAttribute("hidden");
+        btn_signOutButton.setAttribute("hidden", "true");
+    }
 }
 
 

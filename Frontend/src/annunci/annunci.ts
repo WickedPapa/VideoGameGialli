@@ -74,8 +74,11 @@ function searchByGenre(genre: String) {
     console.log(genre);
     let filteredList = []
     for (let element of list) {
-        if (element.tradeGame.genre == genre) {
-            filteredList.push(element)
+        for (let i = 0; i < element.tradeGame.genre.length; i++) {
+            if (element.tradeGame.genre[i].genre == genre) {
+                filteredList.push(element);
+                i=element.tradeGame.genre.length;
+            }
         }
     }
     list = [];
@@ -134,36 +137,36 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
     const gioco1 = {
         id: 1,
         name: "SuperMario",
-        genre: "PLATFORM",
+        genre: [{genre: "PLATFORM"}],
         year: 1985,
-        console: "NES",
+        console: {console: "NES"},
         cover: imageGioco1
     }
 
     const gioco2 = {
         id: 2,
         name: "The Legend of Zelda",
-        genre: "AVVENTURA",
+        genre: [{genre: "AVVENTURA"}],
         year: 1986,
-        console: "NES",
+        console: {console: "NES"},
         cover: imageGioco2
     }
 
     const gioco3 = {
         id: 3,
         name: "Pokemon Giallo",
-        genre: "GDR",
+        genre: [{genre: "GDR"}],
         year: 1998,
-        console: "GAME_BOY_COLOR",
+        console: {console: "GAME_BOY_COLOR"},
         cover: imageGioco3
     }
 
     const gioco4 = {
         id: 4,
         name: "Metal Gear",
-        genre: "STEALTH",
+        genre: [{genre: "STEALTH"}],
         year: 1987,
-        console: "NES",
+        console: {console: "NES"},
         cover: imageGioco4
     }
 
@@ -279,9 +282,13 @@ function showResults(i: number) {
         title.innerHTML = list[start].title;
         description.innerHTML = list[start].description;
         game.innerHTML = list[start].tradeGame.name;
-        genre.innerHTML = list[start].tradeGame.genre;
+        for(let i= 0; i<list[start].tradeGame.genre.length; i++){
+            genre.innerHTML += list[start].tradeGame.genre[i].genre + " ";
+        }
         year.innerHTML = "" + list[start].tradeGame.year;
-        console.innerHTML = list[start].tradeGame.console;
+
+        console.innerHTML = list[start].tradeGame.console.console;
+
         trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
         li.appendChild(title);
         li.appendChild(image);

@@ -5,10 +5,8 @@ import registrazione from '../registrazione/registrazione.html'
 import regFooter from '../registrazione/registrazioneFooter.html'
 import logout from '../logout/logout.html'
 import profile from '../profiloUtente/profile.html'
-
-
-
-
+import * as nav from "../navbar/navbar";
+import logged from '../interfaces/logged'
 
 export function createModal(){
     let divModal = document.createElement("div");
@@ -32,20 +30,18 @@ function showLogInModal(){
     document.getElementById("myModalBody").innerHTML = login;
     document.getElementById("myModalFooter").innerHTML = loginFooter;
     document.getElementById("loginSignUp").onclick = showSignUpModal;
+    document.getElementById("tryToLog").onclick = tryToLogIn;
 }
 
-function showLogOutModal(){
-    document.getElementById("myModalBody").innerHTML = logout;
-    document.getElementById("myModalFooter").innerHTML = "";
-    //TODO: changeNavBar
+async function showLogOutModal(){
+    let result : boolean= await tryToLogOut();
+    if(result){
+        document.getElementById("myModalBody").innerHTML = logout;
+        document.getElementById("myModalFooter").innerHTML = "";
+    }
 }
 
 function tryToSignUp() {
-    /*
-    if (!validatePassword2()) {
-        return;
-    }
-    */
     console.log("e facciamola sta fecci");
     const user = {
         username: (document.getElementById("usernameSignUp") as HTMLInputElement).value ,
@@ -64,20 +60,47 @@ function tryToSignUp() {
     }
 
     fetch("/user", request).then((response)=>response.json()).then((data)=>console.log(data));
-    //$("#myModal").modal("toggle");
     document.getElementById("main").innerHTML = profile;
 }
 
 function tryToLogIn() {
-    //TODO
+    const login = {
+        username: (document.getElementById("usernameSignIn") as HTMLInputElement).value,
+        password: (document.getElementById("passwordSignIn") as HTMLInputElement).value
+    }
+
+    const request = {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(login)
+    };
+    let result : any = fetch("/login", request)
+    .then((response)=>response.json)
+    .then((data)=>data
+        /*
+        console.log("logged: "+data+" accountType: "+(data as unknown as logged).accountType);
+        if((data as unknown as logged).logged){
+            nav.setNav((data as unknown as logged).accountType)
+        }
+        */
+    );
+    console.log(result);
 }
 
-function tryToLogOut() {
-    //TODO
+async function tryToLogOut() :Promise<boolean>{
+    let promiseResult = fetch("/logout")
+    .then((response)=>response.json())
+    .then((data)=>{
+        if(data){
+            nav.setNav("");
+        }
+        return data});
+    return promiseResult;
 }
 
 function validatePassword(): void {
-    console.log("ciao da validate2");
     let password = document.getElementById("passwordSignUp") as HTMLInputElement;
     let confirm_password = document.getElementById("confirm_passwordSignUp") as HTMLInputElement;
     confirm_password.setAttribute("style", "");

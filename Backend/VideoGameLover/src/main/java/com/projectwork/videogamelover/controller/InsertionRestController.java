@@ -109,5 +109,7 @@ public class InsertionRestController {
 		return false;
 	}
 	
+//	@DeleteMapping("")
+	
 	//TODO: delete, readOne(forse)
 }

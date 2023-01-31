@@ -1,11 +1,13 @@
+import genre from "./genre"
 import image from "./image"
+import console from "./console"
 
 export interface videogame {
     id: number,
     name: string,
-    genre: string,
+    genre: genre[],
     year: number,
-    console: string,
+    console: console,
     cover: image
 }
 
