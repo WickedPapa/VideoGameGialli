@@ -50,6 +50,10 @@ function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle 
     searchButton.onclick = () => {
         searchByTitle2(searchTitle.value)
     }
+    let categoryButton = document.getElementById("createCategory");
+    categoryButton.onclick = () => {
+        createCategory();
+    }
 }
 
 
@@ -192,12 +196,24 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
         publicationDate: "29-01-2023"
     }
 
+    const insertion2: insertion = {
+        approved: true,
+        title: "Scambio Zelda",
+        description: "Scambio zelda xkè mi sono sekkato a giocarci",
+        publisher: publisherGioco1,
+        gallery: [imageGallery1, imageGallery2, imageGallery3],
+        tradeGame: gioco2,
+        wishList: [gioco1, gioco3, gioco4],
+        outcome: "WIP",
+        publicationDate: "30-01-2023"
+    }
+
 
     for (let i = 0; i < 27; i++) {
-        if (i != 17) {
+        if (i != 2) {
             list.push(insertion1)
         } else {
-            list.push(insertion1)
+            list.push(insertion2)
         }
     }
 
@@ -263,61 +279,84 @@ function showResults2(i: number) {
             continue;
         }
         let li = document.createElement("li")
-        li.onclick = () => {
-            expandInsertion(list[start])
-        }
+        li.onclick = () => {addInsertionToList(list[start])};
         li.setAttribute('class', 'list-group-item');
-        li.setAttribute('id', 'oggetto');
+        //gli id devono essere diversi
+        li.setAttribute('id', list[start].title);
         li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
         li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
-        let title = document.createElement("h1");
-        let image = document.createElement("img");
+        let title = document.createElement("h2");
         let description = document.createElement("p");
-        let game = document.createElement("h2");
-        let genre = document.createElement("h2");
-        let year = document.createElement("p");
-        let console = document.createElement("p");
-        let trades = document.createElement("p");
-        image.src = list[start].tradeGame.cover.link;
-        image.width = 200;
         title.innerHTML = list[start].title;
-        description.innerHTML = list[start].description;
-        game.innerHTML = list[start].tradeGame.name;
+        description.innerHTML = "" + list[start].tradeGame.name;
         for(let i= 0; i<list[start].tradeGame.genre.length; i++){
-            genre.innerHTML += list[start].tradeGame.genre[i].genre + " ";
+            description.innerHTML += ", " + list[start].tradeGame.genre[i].genre + "";
         }
-        year.innerHTML = "" + list[start].tradeGame.year;
+        description.innerHTML += ", " + list[start].tradeGame.year;
 
-        console.innerHTML = list[start].tradeGame.console.console;
+        description.innerHTML += ", " + list[start].tradeGame.console.console;
 
-        trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
         li.appendChild(title);
-        li.appendChild(image);
         li.appendChild(description);
-        li.appendChild(game);
-        li.appendChild(genre);
-        li.appendChild(year);
-        li.appendChild(console);
-        li.appendChild(trades);
         content.append(li);
 
+        console.log("ho appeso" + start);
+
     }
 
-    /*const box = document.getElementById('oggetto');
-
-    if (box != null) {
-        box.style.width = '40%';
-        box.style.display = 'inline-block';
-    }
-
-    
-        li.style.width = '40%';
-        li.style.display = 'inline';
-    */
 }
 
 export default createPage2
 
+let checkedList: insertion[] = [];
+
+export function addInsertionToList(insertion: insertion){
+
+    /*TODO: Mettere l'inserzione in una lista, impostare il bottone
+    blu e poi al click del bottone 'crea categoria' inserire la lista in
+    una categoria e svuotare la lista */
+
+    let isOnCheckedList: boolean = false;
+
+    for(let element of checkedList){
+        if(insertion==element){
+            isOnCheckedList = true;
+            checkedList.splice(checkedList.indexOf(element), 1);
+        }
+    }
+
+    //gli id devono essere diversi dal titolo
+
+    let idElement = `${insertion.title}`;
+
+    if(isOnCheckedList){
+        document.getElementById(idElement).removeAttribute('class');
+        document.getElementById(idElement).setAttribute('class', 'list-group-item');
+        document.getElementById(idElement).setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
+        document.getElementById(idElement).setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
+    } else {
+        checkedList.push(insertion);
+        document.getElementById(idElement).removeAttribute('onmouseover');
+        document.getElementById(idElement).removeAttribute('onmouseout');
+        document.getElementById(idElement).setAttribute('class', 'list-group-item active');
+    }
+
+}
+
+export function createCategory(){
+
+    //TODO: inserisci gli elementi di checkedList in una categoria nel DB
+
+    //Metodo da fare haha
+
+    //Svuota checkedList e rimette i bottoni a posto
+    for(let element of checkedList){
+        addInsertionToList(element);
+    }
+
+    checkedList = [];
+
+}
 
 
 
