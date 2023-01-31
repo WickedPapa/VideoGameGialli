@@ -1,15 +1,17 @@
 package com.projectwork.videogamelover.model.accounts;
 
-import java.security.MessageDigest;
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.projectwork.videogamelover.model.entities.Admin;
+import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.LoginDTO;
+import com.projectwork.videogamelover.view.UpdateAccountDTO;
+import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -28,10 +30,8 @@ public class AccountManager implements IAccountManager {
 
 	@Override
 	public Integer createAccount(AccountDTO dto) {
-		String encPassword = encryptPassword(dto.getPassword());
-		dto.setPassword(encPassword);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/account";
+		String url = "http://localhost:8080/accounts";
 		ResponseEntity<Integer> response = restTemplate.postForEntity(url, dto, Integer.class);
 		int id = response.getBody(); // ritorna l'id dell'account o -1 se non è riuscito a crearlo o esiste già
 		return id;
@@ -40,36 +40,26 @@ public class AccountManager implements IAccountManager {
 	@Override
 	public void deleteAccount(int id) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/account/{id}";
-		// TODO: solo l'admin può
-		// TODO: da provare
+		String url = "http://localhost:8080/accounts/{id}";
 		restTemplate.delete(url, id);
 	}
-
+	
+	
 	@Override
 	public boolean logOut() {
-		// TODO: da parlarne domani
-		// TODO: dobbiamo dare contezza?
-		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/logout";
-		ResponseEntity<Boolean> response = restTemplate.getForEntity(url, Boolean.class);
-		if(response.getBody()) {
-			try {
-				session.removeAttribute("logged");
-				return true;
-			} catch (IllegalStateException e) {
-				return false;
-			}
+		try {
+			session.removeAttribute("logged");
+			return true;
+		} catch (IllegalStateException e) {
+			return false;
 		}
-		return false;
 	}
-
+	
 	@Override
 	public boolean tryToLog(String username, String password) {
-		String encPassword = encryptPassword(password);
-		LoginDTO loginDto = new LoginDTO(username, encPassword);
+		LoginDTO loginDto = new LoginDTO(username, password);
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/account";
+		String url = "http://localhost:8080/accounts/login";
 		ResponseEntity<Boolean> response = restTemplate.postForEntity(url, loginDto, Boolean.class);
 		return response.getBody();
 	}
@@ -80,50 +70,47 @@ public class AccountManager implements IAccountManager {
 	}
 
 	@Override
-	public AccountDTO getAccount(int id) {
+	public AccountDTO getAccount(int accountId) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/account/{id}";
-		ResponseEntity<AccountDTO> response = restTemplate.getForEntity(url, AccountDTO.class, id);
+		String url = "http://localhost:8080/accounts/account/{accounId}";
+		ResponseEntity<AccountDTO> response = restTemplate.getForEntity(url, AccountDTO.class, accountId);
 		AccountDTO account = response.getBody();
 		return account;
 	}
 
 	@Override
 	public int getAccountId() {
-		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://localhost:8080/account/";
-		ResponseEntity<Integer> response = restTemplate.getForEntity(url, Integer.class);
-		return response.getBody();
-	}
-
-	private String encryptPassword(String password) {
-		try {
-			MessageDigest m = MessageDigest.getInstance("MD5");
-
-			/* Add plain-text password bytes to digest using MD5 update() method. */
-			m.update(password.getBytes());
-
-			/* Convert the hash value into bytes */
-			byte[] bytes = m.digest();
-
-			/*
-			 * The bytes array has bytes in decimal form. Converting it into hexadecimal
-			 * format.
-			 */
-			StringBuilder s = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++) {
-				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-			}
-
-			/* Complete hashed password in hexadecimal format */
-			String encryptedpassword = s.toString();
-
-			return encryptedpassword;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Object obj = session.getAttribute("logged");
+		if(obj instanceof Admin) {
+			return ((Admin)obj).getAccountId();
+		}else if(obj instanceof User) {
+			return ((User)obj).getAccountId();
+		}else {
+			return -1;
 		}
-		return "";
 	}
 
+	@Override
+	public boolean changePassword(UpdatePasswordDTO dto, int accountId) {
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://localhost:8080/accounts/updatePsw/{id}";
+		try {
+			restTemplate.put(url, dto, accountId);
+			return true;
+		} catch (RestClientException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean changeInfo(UpdateAccountDTO dto, int accountId) {
+		RestTemplate restTemplate = new RestTemplate();
+		String url = "http://localhost:8080/accounts/updateInfo/{id}";
+		try {
+			restTemplate.put(url, dto, accountId);
+			return true;
+		} catch (RestClientException e) {
+			return false;
+		}
+	}
 }

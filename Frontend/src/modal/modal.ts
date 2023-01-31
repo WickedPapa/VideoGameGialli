@@ -142,18 +142,4 @@ function validateForm(){
     
 }
 
-function validatePassword(): void {
-    let password = document.getElementById("passwordSignUp") as HTMLInputElement;
-    let confirm_password = document.getElementById("confirm_passwordSignUp") as HTMLInputElement;
-    confirm_password.setAttribute("style", "");
-    if (password.value != confirm_password.value) {
-        confirm_password.setAttribute("style", "border-color: red;");
-        (document.getElementById("trytoSignUp") as HTMLButtonElement).disabled = true;
-    }else{
-        confirm_password.setAttribute("style", "border-color: green;");
-        document.getElementById("trytoSignUp").removeAttribute("disabled");
-    }
-}
-
-
 export default createModal;

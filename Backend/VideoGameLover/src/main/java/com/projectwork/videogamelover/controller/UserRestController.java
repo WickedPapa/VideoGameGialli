@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
 import com.projectwork.videogamelover.view.IdDTO;
+import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -68,6 +70,26 @@ public class UserRestController {
 		return usersInfo;
 	}
 	
+	@GetMapping("/user/this")
+	public UserInfoDTO readThis(HttpSession session){
+		Object obj = session.getAttribute("logged");
+		if(accountManager.isLogged() && obj instanceof User) {
+			User user = (User)obj;
+			AccountDTO accountDto = accountManager.getAccount(user.getAccountId());
+			UserInfoDTO userInfo = new UserInfoDTO(
+					user.getId(),
+					accountDto.getUsername(),
+					accountDto.getName(),
+					accountDto.getSurname(),
+					accountDto.getEmail(),
+					user.getRating(),
+					user.getVideogames()
+					);
+			return userInfo;
+		}
+		return null;
+	}
+	
 	@GetMapping("/user/{id}")
 	public UserInfoDTO readOne(
 			@PathVariable("id")
@@ -90,8 +112,42 @@ public class UserRestController {
 		return null;
 	}
 	
-	@PutMapping("/user")
-	public boolean updateUser(
+	@PutMapping("/user/games")
+	public boolean updateUserGames(
+			@RequestBody
+			AddGameDTO dto,
+			HttpSession session) {
+		Object obj = session.getAttribute("logged");
+		if(accountManager.isLogged() && ((obj instanceof User  && ((User)obj).getId() == dto.getIdUser() ))) {
+			Optional<User> opt = userRepo.findById(dto.getIdUser());
+			if(opt.isPresent()) {
+				User user = opt.get();
+				List<VideoGame> list = user.getVideogames();
+				for(VideoGame videoGame : vgRepo.findAllById(dto.getVideogamesToPush())) {
+					list.add(videoGame);
+					userRepo.save(user);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@PutMapping("/user/psw")
+	public boolean updateUserPassword(
+			@RequestBody
+			UpdatePasswordDTO dto,
+			HttpSession session) {
+		Object obj = session.getAttribute("logged");
+		if(accountManager.isLogged() && (obj instanceof User)) {
+			User user = (User)obj;
+			accountManager.changePassword(dto, user.getAccountId());
+		}
+		return false;
+	}
+	
+	@PutMapping("/user/account")
+	public boolean updateUserAccount(
 			@RequestBody
 			AddGameDTO dto,
 			HttpSession session) {

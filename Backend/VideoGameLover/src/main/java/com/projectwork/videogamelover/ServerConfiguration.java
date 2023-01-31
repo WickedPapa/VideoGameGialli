@@ -3,6 +3,7 @@ package com.projectwork.videogamelover;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.projectwork.videogamelover.model.accounts.AccountManager;
 import com.projectwork.videogamelover.model.accounts.DummyAccountManager;
 import com.projectwork.videogamelover.model.accounts.IAccountManager;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
@@ -18,7 +19,7 @@ public class ServerConfiguration {
 			HttpSession session,
 			AdminRepository adminRepo,
 			UserRepository userRepo) {
-		return new DummyAccountManager(session, userRepo, adminRepo);
-		//return new AccountManager(session, userRepo, adminRepo);
+		//return new DummyAccountManager(session, userRepo, adminRepo);
+		return new AccountManager(session, userRepo, adminRepo);
 	}
 }
