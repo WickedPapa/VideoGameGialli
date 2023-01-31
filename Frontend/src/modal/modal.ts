@@ -22,8 +22,12 @@ function showSignUpModal(){
     document.getElementById("myModalFooter").innerHTML = regFooter;
     document.getElementById("trytoSignUp").onclick = tryToSignUp;
     document.getElementById("signUpLogin").onclick = showLogInModal;
-    document.getElementById("passwordSignUp").onkeyup = validatePassword;
-    document.getElementById("confirm_passwordSignUp").onkeyup = validatePassword;
+    document.getElementById("nameSignUp").onkeyup = validateForm;
+    document.getElementById("surnameSignUp").onkeyup = validateForm;
+    document.getElementById("usernameSignUp").onkeyup = validateForm;
+    document.getElementById("emailSignUp").onkeyup = validateForm;
+    document.getElementById("passwordSignUp").onkeyup = validateForm;
+    document.getElementById("confirm_passwordSignUp").onkeyup = validateForm;
 }
 
 function showLogInModal(){
@@ -61,9 +65,10 @@ function tryToSignUp() {
     fetch("/user", request).then((response)=>response.json()).then((data)=>{
         if(data){
             document.getElementById("signUpResult").innerHTML="Registrato con successo!";
-            //document.getElementById("main").innerHTML = profile;
+            document.getElementById("trytoSignUp").setAttribute("disabled", "true");
         }else{
             document.getElementById("signUpResult").innerHTML="Ops, qualcosa è andato storto!";
+            document.getElementById("trytoSignUp").removeAttribute("disabled");
         }
     });
     
@@ -107,6 +112,34 @@ async function tryToLogOut() :Promise<boolean>{
         }
         return data});
     return promiseResult;
+}
+
+function validateForm(){
+    let username = (document.getElementById("usernameSignUp") as HTMLInputElement).value ;
+    let password = (document.getElementById("passwordSignUp") as HTMLInputElement).value;
+    let name = (document.getElementById("nameSignUp") as HTMLInputElement).value;
+    let surname = (document.getElementById("surnameSignUp") as HTMLInputElement).value;
+    let email = (document.getElementById("emailSignUp") as HTMLInputElement).value;
+    let confirm_password = document.getElementById("confirm_passwordSignUp") as HTMLInputElement;
+    confirm_password.setAttribute("style", "");
+    
+    if(username=="" || password=="" ||name=="" || surname=="" || email==""){
+        console.log("ecchecazzo");
+        (document.getElementById("trytoSignUp") as HTMLInputElement ).disabled = true;
+        if (password != confirm_password.value) {
+            confirm_password.setAttribute("style", "border-color: red;");
+        }else{
+            confirm_password.setAttribute("style", "border-color: green;");
+        }
+    }else{
+        if (password != confirm_password.value) {
+            confirm_password.setAttribute("style", "border-color: red;");
+        }else{
+            confirm_password.setAttribute("style", "border-color: green;");
+            document.getElementById("trytoSignUp").removeAttribute("disabled");
+        }
+    }
+    
 }
 
 function validatePassword(): void {
