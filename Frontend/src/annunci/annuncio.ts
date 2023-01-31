@@ -66,10 +66,13 @@ export function expandInsertion(insertion: insertion) {
     let p = document.createElement("p");
     p.setAttribute("class", "card-text");
     p.setAttribute("style", "font-size: 1.5em;")
-    p.innerHTML =
-        "Genere: " + insertion.tradeGame.genre + "<br>"
+    p.innerHTML = "Genere: ";
+    for (let i = 0; i < insertion.tradeGame.genre.length; i++) {
+        p.innerHTML += insertion.tradeGame.genre[i].genre + " "
+    }
+    p.innerHTML += "<br>"
         + "Anno: " + insertion.tradeGame.year + "<br>"
-        + "Console: " + insertion.tradeGame.console;
+        + "Console: " + insertion.tradeGame.console.console;
     document.getElementById("card-body").append(h4, p);
     let desc = document.createElement("h2");
     desc.innerHTML = "Descrizione:"
@@ -82,15 +85,18 @@ export function expandInsertion(insertion: insertion) {
         let img = document.createElement("img");
         img.src = insertion.wishList[i].cover.link;
         img.setAttribute("class", "card-img-top")
-        document.getElementById("img-item-"+(i+1)).append(img);
+        document.getElementById("img-item-" + (i + 1)).append(img);
         let p = document.createElement("p");
         p.setAttribute("class", "card-text");
         p.setAttribute("style", "font-size: 1.5em;");
-        p.innerHTML =
-            "Genere: " + insertion.wishList[i].genre + "<br>"
-            + "Anno: " + insertion.wishList[i].year + "<br>"
-            + "Console: " + insertion.wishList[i].console;
-        document.getElementById("body-item-"+(i+1)).append(p);
+        p.innerHTML = "Genere: ";
+        for (let i = 0; i < insertion.tradeGame.genre.length; i++) {
+            p.innerHTML += insertion.tradeGame.genre[i].genre + " "
+        }
+        p.innerHTML += "<br>"
+            + "Anno: " + insertion.tradeGame.year + "<br>"
+            + "Console: " + insertion.tradeGame.console.console;
+        document.getElementById("body-item-" + (i + 1)).append(p);
     }
 }
 
