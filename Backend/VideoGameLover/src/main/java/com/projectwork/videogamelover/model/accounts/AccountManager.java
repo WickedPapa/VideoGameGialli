@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.accounts;
 
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -60,8 +62,19 @@ public class AccountManager implements IAccountManager {
 		LoginDTO loginDto = new LoginDTO(username, password);
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/accounts/login";
-		ResponseEntity<Boolean> response = restTemplate.postForEntity(url, loginDto, Boolean.class);
-		return response.getBody();
+		ResponseEntity<Integer> response = restTemplate.postForEntity(url, loginDto, Integer.class);
+		if(response.getBody()>=0) {
+			Optional<Admin> optAdmin = adminRepo.findByAccountId(response.getBody());
+			Optional<User> optUser = userRepo.findByAccountId(response.getBody());
+			if(optAdmin.isPresent()) {
+				session.setAttribute("logged", optAdmin.get());
+				return true;
+			}else if(optUser.isPresent()) {
+				session.setAttribute("logged", optUser.get());
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
