@@ -135,6 +135,7 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
     list.push(insertion3);
     list.push(insertion4);
 
+    
     /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! */
 
     /*Fetch a backend con tutti gli annunci, aggiorna la lista list*/
