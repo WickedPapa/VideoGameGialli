@@ -1,11 +1,13 @@
 import nav from "./navbar.html";
 import createModal from "../modal/modal";
 import annunci from "../annunci/annunci.html";
+import gestioneannunci from "../annunci/gestioneannunci.html";
 import createPage from "../annunci/annunci";
 import home from "../home/home.html";
 import profile from "../profiloUtente/profile.html";
 import gestioneUtenti from "../gestioneUtenti/gestioneUtenti.html";
 import getAllUsers from "../gestioneUtenti/gestioneUtenti";
+import createPage2 from "../annunci/gestioneannunci";
 
 
 export function createNav() {
@@ -17,6 +19,10 @@ export function createNav() {
     document.getElementById("insertions").onclick = () => {
         document.getElementById("main").innerHTML = annunci;
         createPage();
+    };
+    document.getElementById("insManagement").onclick = () => {
+        document.getElementById("main").innerHTML = gestioneannunci;
+        createPage2();
     };
     document.getElementById("management").onclick = () => {
         document.getElementById("main").innerHTML = gestioneUtenti;
