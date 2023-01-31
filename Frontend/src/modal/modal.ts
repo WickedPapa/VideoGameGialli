@@ -77,16 +77,15 @@ function tryToLogIn() {
         body: JSON.stringify(login)
     };
     let result : any = fetch("/login", request)
-    .then((response)=>response.json)
-    .then((data)=>data
-        /*
-        console.log("logged: "+data+" accountType: "+(data as unknown as logged).accountType);
-        if((data as unknown as logged).logged){
-            nav.setNav((data as unknown as logged).accountType)
+    .then((response)=>response.json())
+    .then((data)=>{
+        if(data.logged){
+            document.getElementById("loginResult").innerHTML="Loggato con successo!";
+            nav.setNav(data.accountType);
+        }else{
+            document.getElementById("loginResult").innerHTML="Ops, qualcosa è andato storto";
         }
-        */
-    );
-    console.log(result);
+    });
 }
 
 async function tryToLogOut() :Promise<boolean>{

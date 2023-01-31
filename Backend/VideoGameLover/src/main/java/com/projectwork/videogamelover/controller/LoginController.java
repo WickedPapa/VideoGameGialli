@@ -16,7 +16,6 @@ import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AdminInfoDTO;
-import com.projectwork.videogamelover.view.IAccountInfoDTO;
 import com.projectwork.videogamelover.view.LoggedDTO;
 import com.projectwork.videogamelover.view.LoginDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
