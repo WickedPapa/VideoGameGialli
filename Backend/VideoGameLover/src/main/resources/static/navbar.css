@@ -39,6 +39,10 @@ nav ul button {
   border:none;
 }
 
+.back-transparent{
+  background-color: #ffffff00;
+}
+
 .nav-button{
   text-decoration: none;
   color: #fff;

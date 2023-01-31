@@ -7,6 +7,7 @@ import logout from '../logout/logout.html'
 import profile from '../profiloUtente/profile.html'
 import * as nav from "../navbar/navbar";
 import logged from '../interfaces/logged'
+import createHome from '../home/home'
 
 export function createModal(){
     let divModal = document.createElement("div");
@@ -42,6 +43,7 @@ async function showLogOutModal(){
     if(result){
         document.getElementById("myModalBody").innerHTML = logout;
         document.getElementById("myModalFooter").innerHTML = "";
+        createHome();
     }
 }
 
@@ -106,7 +108,7 @@ async function tryToLogOut() :Promise<boolean>{
     .then((response)=>response.json())
     .then((data)=>{
         if(data){
-            nav.setNav("");
+            nav.setNav("GUEST");
             document.getElementById("tryToLog").removeAttribute("disabled");
             document.getElementById("loginSignUp").removeAttribute("disabled");
         }
@@ -124,7 +126,6 @@ function validateForm(){
     confirm_password.setAttribute("style", "");
     
     if(username=="" || password=="" ||name=="" || surname=="" || email==""){
-        console.log("ecchecazzo");
         (document.getElementById("trytoSignUp") as HTMLInputElement ).disabled = true;
         if (password != confirm_password.value) {
             confirm_password.setAttribute("style", "border-color: red;");

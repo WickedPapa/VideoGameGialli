@@ -29,46 +29,42 @@ public class LoginController {
 	UserRepository userRepo;
 	@Autowired
 	AdminRepository adminRepo;
-	
+
 	@PostMapping("/login")
 	public LoggedDTO login(@RequestBody LoginDTO dto, HttpSession session) {
 		LoggedDTO loggedDto = new LoggedDTO(false, null, null);
-		if (accountManager.tryToLog(dto.getUsername(), dto.getPassword())) {			
+		if (accountManager.tryToLog(dto.getUsername(), dto.getPassword())) {
 			InfoDTO info = (InfoDTO) session.getAttribute("info");
-			if (session.getAttribute("type")==AccountType.USER) {					
-					User user = (User) session.getAttribute("logged");
-					UserInfoDTO userInfoDto = new UserInfoDTO(
-						user.getId(),
-						info.getUsername(),
-						info.getName(), 
-						info.getSurname(), 
-						info.getEmail(), 
-						user.getRating(),
-						user.getVideogames());
-					loggedDto = new LoggedDTO(true, AccountType.USER, userInfoDto);
-				}else if (session.getAttribute("type")==AccountType.ADMIN) {
-					Admin admin = (Admin) session.getAttribute("logged");
-					AdminInfoDTO adminInfoDto = new AdminInfoDTO(
-						admin.getId(), 
-						info.getUsername(),
-						info.getName(),
-						info.getSurname(), 
-						info.getEmail());
-					loggedDto = new LoggedDTO(true, AccountType.ADMIN, adminInfoDto);
-				}
-			} 
-			return loggedDto;
+			if (session.getAttribute("type") == AccountType.USER) {
+				User user = (User) session.getAttribute("logged");
+				UserInfoDTO userInfoDto = new UserInfoDTO(user.getId(), info.getUsername(), info.getName(),
+						info.getSurname(), info.getEmail(), user.getRating(), user.getVideogames());
+				loggedDto = new LoggedDTO(true, AccountType.USER, userInfoDto);
+			} else if (session.getAttribute("type") == AccountType.ADMIN) {
+				Admin admin = (Admin) session.getAttribute("logged");
+				AdminInfoDTO adminInfoDto = new AdminInfoDTO(admin.getId(), info.getUsername(), info.getName(),
+						info.getSurname(), info.getEmail());
+				loggedDto = new LoggedDTO(true, AccountType.ADMIN, adminInfoDto);
+			}
 		}
-		
-	
-	
+		return loggedDto;
+	}
+
 	@GetMapping("/logout")
 	public boolean logout(HttpSession session) {
 		return accountManager.logOut();
 	}
-	
+
 	@GetMapping("/isLogged")
 	public boolean isLogged(HttpSession session) {
 		return accountManager.isLogged();
+	}
+	
+	@GetMapping("/whoIsLogged")
+	public AccountType whoIsLogged(HttpSession session) {
+		if(accountManager.isLogged()) {
+			return (AccountType)session.getAttribute("type");
+		}
+		return AccountType.GUEST;
 	}
 }

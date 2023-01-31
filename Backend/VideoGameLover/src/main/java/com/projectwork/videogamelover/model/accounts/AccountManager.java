@@ -71,12 +71,12 @@ public class AccountManager implements IAccountManager {
 			if (optUser.isPresent()) {
 				AccountDTO account = getAccount(response.getBody());
 
-				InfoDTO info = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
+				InfoDTO infoDto = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
 						account.getEmail());
 
 				session.setAttribute("logged", optUser.get());
 				session.setAttribute("type", AccountType.USER);
-				session.setAttribute("info", info);
+				session.setAttribute("info", infoDto);
 
 				return true;
 
