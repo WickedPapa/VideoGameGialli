@@ -1,7 +1,5 @@
 package com.projectwork.videogamelover.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +12,8 @@ import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.enums.AccountType;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
-import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AdminInfoDTO;
+import com.projectwork.videogamelover.view.InfoDTO;
 import com.projectwork.videogamelover.view.LoggedDTO;
 import com.projectwork.videogamelover.view.LoginDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
@@ -35,39 +33,34 @@ public class LoginController {
 	@PostMapping("/login")
 	public LoggedDTO login(@RequestBody LoginDTO dto, HttpSession session) {
 		LoggedDTO loggedDto = new LoggedDTO(false, null, null);
-		if (accountManager.tryToLog(dto.getUsername(), dto.getPassword())) {
-			int id = accountManager.getAccountId();
-			Optional<User> optUser = userRepo.findByAccountId(id);
-			Optional<Admin> optAdmin = adminRepo.findByAccountId(id);
-			AccountDTO accountDto = accountManager.getAccount(id);
-			if (accountDto != null) {
-				if (optUser.isPresent()) {
-					User user = optUser.get();
-					session.setAttribute("logged", user);
+		if (accountManager.tryToLog(dto.getUsername(), dto.getPassword())) {			
+			InfoDTO info = (InfoDTO) session.getAttribute("info");
+			if (session.getAttribute("type")==AccountType.USER) {					
+					User user = (User) session.getAttribute("logged");
 					UserInfoDTO userInfoDto = new UserInfoDTO(
-						user.getId(), 
-						accountDto.getUsername(),
-						accountDto.getName(), 
-						accountDto.getSurname(), 
-						accountDto.getEmail(), 
+						user.getId(),
+						info.getUsername(),
+						info.getName(), 
+						info.getSurname(), 
+						info.getEmail(), 
 						user.getRating(),
 						user.getVideogames());
 					loggedDto = new LoggedDTO(true, AccountType.USER, userInfoDto);
-				}else if (optAdmin.isPresent()) {
-					Admin admin = optAdmin.get();
-					session.setAttribute("logged", admin);
+				}else if (session.getAttribute("type")==AccountType.ADMIN) {
+					Admin admin = (Admin) session.getAttribute("logged");
 					AdminInfoDTO adminInfoDto = new AdminInfoDTO(
 						admin.getId(), 
-						accountDto.getUsername(),
-						accountDto.getName(),
-						accountDto.getSurname(), 
-						accountDto.getEmail());
+						info.getUsername(),
+						info.getName(),
+						info.getSurname(), 
+						info.getEmail());
 					loggedDto = new LoggedDTO(true, AccountType.ADMIN, adminInfoDto);
 				}
 			} 
+			return loggedDto;
 		}
-		return loggedDto;
-	}
+		
+	
 	
 	@GetMapping("/logout")
 	public boolean logout(HttpSession session) {

@@ -8,9 +8,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.projectwork.videogamelover.model.entities.Admin;
 import com.projectwork.videogamelover.model.entities.User;
+import com.projectwork.videogamelover.model.enums.AccountType;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
+import com.projectwork.videogamelover.view.InfoDTO;
 import com.projectwork.videogamelover.view.LoginDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
@@ -45,8 +47,7 @@ public class AccountManager implements IAccountManager {
 		String url = "http://localhost:8080/accounts/{id}";
 		restTemplate.delete(url, id);
 	}
-	
-	
+
 	@Override
 	public boolean logOut() {
 		try {
@@ -56,21 +57,41 @@ public class AccountManager implements IAccountManager {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean tryToLog(String username, String password) {
 		LoginDTO loginDto = new LoginDTO(username, password);
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "http://localhost:8080/accounts/login";
 		ResponseEntity<Integer> response = restTemplate.postForEntity(url, loginDto, Integer.class);
-		if(response.getBody()>=0) {
+		if (response.getBody() >= 0) {
 			Optional<Admin> optAdmin = adminRepo.findByAccountId(response.getBody());
 			Optional<User> optUser = userRepo.findByAccountId(response.getBody());
-			if(optAdmin.isPresent()) {
-				session.setAttribute("logged", optAdmin.get());
-				return true;
-			}else if(optUser.isPresent()) {
+
+			if (optUser.isPresent()) {
+				AccountDTO account = getAccount(response.getBody());
+
+				InfoDTO info = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
+						account.getEmail());
+
 				session.setAttribute("logged", optUser.get());
+				session.setAttribute("type", AccountType.USER);
+				session.setAttribute("info", info);
+
+				return true;
+
+			}
+
+			else if (optAdmin.isPresent()) {
+				AccountDTO account = getAccount(response.getBody());
+
+				InfoDTO info = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
+						account.getEmail());
+
+				session.setAttribute("logged", optAdmin.get());
+				session.setAttribute("type", AccountType.ADMIN);
+				session.setAttribute("info", info);
+
 				return true;
 			}
 		}
@@ -94,11 +115,12 @@ public class AccountManager implements IAccountManager {
 	@Override
 	public int getAccountId() {
 		Object obj = session.getAttribute("logged");
-		if(obj instanceof Admin) {
-			return ((Admin)obj).getAccountId();
-		}else if(obj instanceof User) {
-			return ((User)obj).getAccountId();
-		}else {
+
+		if (obj instanceof Admin) {
+			return ((Admin) obj).getAccountId();
+		} else if (obj instanceof User) {
+			return ((User) obj).getAccountId();
+		} else {
 			return -1;
 		}
 	}

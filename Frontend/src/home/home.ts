@@ -20,7 +20,7 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
     }
 
     const imageGioco4 = {
-        link: "https://static.wikia.nocookie.net/metalgear/images/e/e1/Metal_Gear.jpg/revision/latest/scale-to-width-down/350?cb=20210703090445&path-prefix=it"
+        link: "https://static.wikia.nocookie.net/metalgear/images/e/e1/Metal_Gear.jpg"
     }
 
     const imageGallery1 = {
@@ -162,6 +162,8 @@ export function createHome(){
 }
 
     function createItemCarousel(){
+
+        
         
         let carInner = document.getElementById('innerCarouselHome');
         
@@ -174,7 +176,7 @@ export function createHome(){
                 }
     
             let img = document.createElement('img');
-            img.setAttribute('src', list[i].gallery[0].link);
+            img.setAttribute('src', list[i].tradeGame.cover.link);
             img.setAttribute('id', 'imgCard');
             let clCard = document.createElement('div');
             clCard.setAttribute('class', 'card text-bg-secondary');
@@ -191,7 +193,7 @@ export function createHome(){
             }
             desc.innerHTML += "<br>"
             + "Anno: " + list[i].tradeGame.year + " "
-            + "Console: " + list[i].tradeGame.console + "<br>"
+            + "Console: " + list[i].tradeGame.console.console + "<br>"
             +"Descrizione:";
             let goAnn = document.createElement('a');
             goAnn.setAttribute('href', "#");
