@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-body{
+body {
   width: 100%;
   height: 100%;
   min-height: 100%;
@@ -36,14 +36,18 @@ nav ul button {
   text-transform: uppercase;
   font-family: 'Press Start 2P', cursive;
   font-size: 1.5vh;
-  border:none;
+  border: none;
 }
 
-.back-transparent{
+.back-transparent {
   background-color: #ffffff00;
 }
 
-.nav-button{
+.back-semi-transparent {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.nav-button {
   text-decoration: none;
   color: #fff;
 }
@@ -80,13 +84,13 @@ nav ul button {
   box-shadow: -3px 3px 3px #C4A31C;
 }
 
-.profile-button{
+.profile-button {
   padding: 0px;
   height: 43px;
   vertical-align: bottom;
 }
 
-.profile{
+.profile {
   height: 43px;
   width: 43px;
 }
@@ -159,8 +163,8 @@ nav button {
   font-size: 1.2em;
 }
 
-.logo-button{
-  border:none;
+.logo-button {
+  border: none;
   margin-left: 5%;
   border-radius: 40%;
 }
@@ -170,8 +174,17 @@ nav button {
   filter: invert(1);
 }
 
-.bordocarosello{
+.bordocarosello {
   border: 3px solid black;
 }
 
-.carousel .carousel-indicators {background-color:rgba(0,0,0,0.3);}
+.carousel .carousel-indicators {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+
