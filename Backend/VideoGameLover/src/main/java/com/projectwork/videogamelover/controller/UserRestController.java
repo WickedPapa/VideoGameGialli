@@ -133,6 +133,33 @@ public class UserRestController {
 		return false;
 	}
 	
+	@GetMapping("/user/game/{gameId}")
+	public boolean updateUserGame(
+			@PathVariable
+			int gameId,
+			HttpSession session) {
+		Optional<VideoGame> optGame = vgRepo.findById(gameId);
+		if(optGame.isEmpty()) {
+			return false;
+		}
+		VideoGame game = optGame.get();
+		Object obj = session.getAttribute("logged");
+		if(accountManager.isLogged() && (obj instanceof User)) {
+			User user = (User) obj;
+				List<VideoGame> list = user.getVideogames();
+				
+				if(list.contains(game)){
+					return false;
+				}else {
+				list.add(game);
+				userRepo.save(user);
+				return true;
+				}
+			}
+		return false;
+	}
+	
+	
 	@PutMapping("/user/psw")
 	public boolean updateUserPassword(
 			@RequestBody
