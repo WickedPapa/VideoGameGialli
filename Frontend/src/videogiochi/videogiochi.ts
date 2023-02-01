@@ -1,5 +1,6 @@
 import { data } from "jquery";
 import videogame from "../interfaces/videogame";
+import createVideoGame from "./creaVideogiochi";
 
 let gameList: videogame[] = [];
 let gameView: number = 6;
@@ -11,6 +12,7 @@ export function createGamePage() {
         .then((data) => {
             if (data == "ADMIN") {
                 document.getElementById("addVideogame").removeAttribute("hidden");
+                document.getElementById("addVideogame").onclick = createVideoGame;
                 type = "ADMIN";
             } else if (data == "USER") {
                 document.getElementById("addVideogame").setAttribute("hidden", "true");
@@ -23,8 +25,6 @@ export function createGamePage() {
             createGamePagination();
             showGames(1);
         })
-   
-
 }
 
 
