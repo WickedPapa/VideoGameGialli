@@ -13,6 +13,7 @@ import createPage2 from "../annunci/gestioneannunci";
 import creaAnnuncio from "../creaAnnuncio/creaAnnuncio.html"
 import videogiochi from "../videogiochi/videogiochi.html"
 import createInsertionPage from "../creaAnnuncio/creaAnnuncio"
+import createGamePage from "../videogiochi/videogiochi";
 
 export function createNav() {
     
@@ -25,7 +26,8 @@ export function createNav() {
     };
 
     document.getElementById("games").onclick=()=>{
-      document.getElementById("main").innerHTML=videogiochi;  
+      document.getElementById("main").innerHTML=videogiochi; 
+      createGamePage(); 
     };
 
     document.getElementById("insertions").onclick = () => {

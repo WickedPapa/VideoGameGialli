@@ -97,6 +97,7 @@ function tryToLogIn() {
             nav.setNav(data.accountType);
             document.getElementById("tryToLog").setAttribute("disabled", "true");
             document.getElementById("loginSignUp").setAttribute("disabled", "true");
+            createHome();
         }else{
             document.getElementById("loginResult").innerHTML="Ops, qualcosa è andato storto";
         }
