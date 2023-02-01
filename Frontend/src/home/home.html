@@ -40,17 +40,39 @@
     
   }
 
- 
+  .widgetPic {
+    width: auto;
+    height: 100%;
+  }
+
+  .picRight {
+    margin-right: 0px;
+  }
+
+  .picleft {
+    margin-left: 0px;
+  }
+
+  .sec {
+    margin: auto;
+    width: 100%;
+    background-color: white;
+    padding: auto;
+  }
+
+  .p {
+    padding: 0px;
+  }
  
 </style>
 
-<div class="widgetIntro">
-  <div>
+<section class="p sec border border-success mb-2 border-opacity-50 rounded row aling-item-start">
+  <div class="p col-4">
     <picture>
-      <img src="./img/gamesearch.jpg" style="width:30%" alt="">
+      <img class="widgetPic picLeft rounded-start" src="./img/gamesearch.jpg" style="width:100%" alt="">
     </picture>
   </div>
-  <div>
+  <div class="border-start border-3 border-primary col-8 text-start widgetText">
     <h1>
       Il portale dei veri gamers.
     </h1>
@@ -60,7 +82,7 @@
       e fai l'affare del secolo...
     </h2>
   </div>
-</div>
+</section>
 
 <div class="container text-center" style="margin-top: 10%; margin-bottom: 10%;">
   <div class="row" style="margin-left:10%;margin-right:10%;">
@@ -101,6 +123,24 @@
     </div>
   </div>
 </div>
+
+<section class="row aling-item-start">
+  <div class="col-8 text-start widgetText">
+    <h1>
+      Il portale dei veri gamers.
+    </h1>
+    <h2>
+      Sei alla ricerca di un gioco, vecchio o nuovo che sia, ma non riesci a trovarlo? Noi abbiamo la soluzione per te...
+      Cerca tra centinaia di annunci il titolo che non trovavi più, mettiti in contatto con l'utente che lo sta vendendo, 
+      e fai l'affare del secolo...
+    </h2>
+  </div>
+  <div class="col-4">
+    <picture class="widgetPic">
+      <img src="./img/gametrade.png" style="width:100%" alt="">
+    </picture>
+  </div>
+</section>
 
 <h1>Ultimi annunci:</h1>
 <h2>Controlla qui gli ultimi annunci</h2>
