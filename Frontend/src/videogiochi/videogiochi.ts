@@ -72,7 +72,6 @@ function showGames(i: number) {
         if (start >= gameList.length) {
             return;
         }
-
         let col = document.createElement("div")
         col.setAttribute("class", "col-4 text-center");
         col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
@@ -84,25 +83,17 @@ function showGames(i: number) {
         }
 
         col.onclick = () => {
-            // expandInsertion(list[start])
+            // createGameVisualization(list[start])
         }
         
-
         let gameTitle = document.createElement("h3");
+        gameTitle.setAttribute("class","my-4")
         let image = document.createElement("img");
-        let genre = document.createElement("h5");
-        let year = document.createElement("h5");
-        let consolle = document.createElement("h5");
         image.src = gameList[start].cover.link;
         image.width = 200;
         gameTitle.innerHTML = gameList[start].name;
-        for (let i = 0; i < gameList[start].genre.length; i++) {
-            genre.innerHTML += gameList[start].genre[i].genre + " ";
-        }
-        year.innerHTML = "" + gameList[start].year;
-        consolle.innerHTML = gameList[start].console.console;
 
-        col.append(gameTitle, image, genre, year, consolle);
+        col.append(gameTitle, image);
         let addButton = document.createElement("button");
         
         if (type == "USER") {
@@ -118,10 +109,7 @@ function showGames(i: number) {
             }
             col.append(addButton);
         }
-        
-        
         content.append(col);
-
     }
 }
 
