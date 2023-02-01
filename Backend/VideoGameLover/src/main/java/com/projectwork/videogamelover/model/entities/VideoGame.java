@@ -4,6 +4,8 @@ package com.projectwork.videogamelover.model.entities;
 
 
 import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class VideoGame {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	@Column(unique = true)
 	private String name;
 	@ManyToMany
 	private List<Genre> genre;
