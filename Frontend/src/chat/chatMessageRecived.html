@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-between">
+    <!--prendere la lista degli elementi con classe frienDate e cercare su db tutti i msg inviati da questo friend
+        a quello quello in sessione (anche questo restituirà una lista). Per ogni elem di questa lista mettere il testo del messaggio
+        in innerHTML dell'elemento con classe friendDate di posto [i] -->
+    <p class="small mb-1 friendUsername">Pieroaffondo</p>
+    <!-- mettere lo username dell'amico con cui chatto 
+        a tutti gli elem con la classe friendUsername -->
+    <p class="small mb-1 text-muted friendUsername">01/02/2023 9:05</p>
+</div>
+<div class="d-flex flex-row justify-content-start">
+    <!-- mettere l'avatar dell'amico con cui chatto 
+        a tutti gli elem con la classe frienUsername -->
+    <img class="friendAvatar" src="C:\Development\Java\VideoGameGialli\Backend\VideoGameLover\src\main\resources\static\img\profile.png"
+        alt="avatar 1" style="width: 45px; height: 100%;">
+    <div>
+        <!--prendere la lista degli elementi con classe friendMessage e cercare su db tutti i msg inviati da questo friend
+        a quello quello in sessione (anche questo restituirà una lista). Per ogni elem di questa lista mettere il testo del messaggio
+        in innerHTML dell'elemento con classe friendMessage di posto [i]  -->
+        <p class="small p-2 ms-3 mb-3 rounded-3 friendMessage" style="background-color: #f5f6f7;">
+            Ma...quindi...hai già implementato una chat perfettamente funzionante e l'hai messa in produzione, è corretto?
+        </p>
+    </div>
+</div>
