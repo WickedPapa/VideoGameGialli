@@ -1,17 +1,22 @@
-import gestioneannunci from './gestioneannunci.html'
-
 import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
 import insertion from '../interfaces/insertion';
 import expandInsertion from './annuncio'
-import createInsertion from '../creaAnnuncio/creaAnnuncio'
+import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
 
 let list: insertion[] = [];
-let view: number = 5
+let view: number = 6
 
 export function createPage2() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
     document.getElementById("selectAll2").onclick = searchByAll2;
     assignFilters2();
-    createInsertion();
+    document.getElementById("createCategory").onclick = createCategory;
+    document.getElementById("deleteElements").onclick = deleteElements;
+    let btn = document.getElementById("addInsertion");
+    btn.onclick=()=>{
+        document.getElementById("main").innerHTML=creaAnnuncio;
+        createInsertionPage();
+    }
+    //createInsertion();
     getAllInsertions2();
     createPagination2();
     showResults2(1);
@@ -40,7 +45,7 @@ function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle 
         }
     }
 
-    let searchTitle = document.getElementById("searchTitle") as HTMLInputElement;
+    /*let searchTitle = document.getElementById("searchTitle2") as HTMLInputElement;
     searchTitle.onkeydown = (e) => {
         if (e.key == 'Enter') {
             searchByTitle2(searchTitle.value)
@@ -49,11 +54,7 @@ function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle 
     let searchButton = document.getElementById("searchButton2");
     searchButton.onclick = () => {
         searchByTitle2(searchTitle.value)
-    }
-    let categoryButton = document.getElementById("createCategory");
-    categoryButton.onclick = () => {
-        createCategory();
-    }
+    }*/
 }
 
 
@@ -198,14 +199,14 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
 
     const insertion2: insertion = {
         approved: true,
-        title: "Scambio Zelda",
-        description: "Scambio zelda xkè mi sono sekkato a giocarci",
+        title: "Scambio SuperLuigi",
+        description: "Scambio superluigi pecché sono pro",
         publisher: publisherGioco1,
         gallery: [imageGallery1, imageGallery2, imageGallery3],
         tradeGame: gioco2,
         wishList: [gioco1, gioco3, gioco4],
         outcome: "WIP",
-        publicationDate: "30-01-2023"
+        publicationDate: "29-01-2023"
     }
 
 
@@ -278,13 +279,35 @@ function showResults2(i: number) {
         if (!list[start].approved) {
             continue;
         }
-        let li = document.createElement("li")
-        li.onclick = () => {addInsertionToList(list[start])};
-        li.setAttribute('class', 'list-group-item');
-        //gli id devono essere diversi
-        li.setAttribute('id', list[start].title);
-        li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
-        li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
+
+
+        let col = document.createElement("div")
+        let juan = "" + start;
+        //Juan è l'id dei bottoni, sarà l'id delle inserzioni quando si implementeranno gli annunci dal db
+        let isOnCheckedListResult: boolean = false;
+
+        for(let element of checkedList){
+            if(juan==element){
+                isOnCheckedListResult=true;
+            }
+        }
+
+        
+        col.setAttribute("class", 'list-group-item');
+        if(isOnCheckedListResult){
+            col.setAttribute("style", "background-color: rgba(0,0,0,0.6)");
+        } else {
+            col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
+            col.setAttribute('onmouseover', 'setAttribute("style", "background-color: rgba(0,0,0,0.6)")');
+            col.setAttribute('onmouseout', 'setAttribute("style", "background-color: rgba(0,0,0,0.2)")');
+        }
+        
+        col.setAttribute("id", juan);
+
+        col.onclick = () => {
+            addInsertionToList(juan)
+        }
+       
         let title = document.createElement("h2");
         let description = document.createElement("p");
         title.innerHTML = list[start].title;
@@ -296,49 +319,40 @@ function showResults2(i: number) {
 
         description.innerHTML += ", " + list[start].tradeGame.console.console;
 
-        li.appendChild(title);
-        li.appendChild(description);
-        content.append(li);
-
-        console.log("ho appeso" + start);
+        col.append(title,description)
+        content.append(col);
 
     }
+
+    console.log(checkedList);
 
 }
 
 export default createPage2
 
-let checkedList: insertion[] = [];
 
-export function addInsertionToList(insertion: insertion){
+let checkedList: string[] = [];
 
-    /*TODO: Mettere l'inserzione in una lista, impostare il bottone
-    blu e poi al click del bottone 'crea categoria' inserire la lista in
-    una categoria e svuotare la lista */
+export function addInsertionToList(ins: string){
 
     let isOnCheckedList: boolean = false;
 
     for(let element of checkedList){
-        if(insertion==element){
+        if(ins==element){
             isOnCheckedList = true;
             checkedList.splice(checkedList.indexOf(element), 1);
         }
     }
 
-    //gli id devono essere diversi dal titolo
-
-    let idElement = `${insertion.title}`;
-
     if(isOnCheckedList){
-        document.getElementById(idElement).removeAttribute('class');
-        document.getElementById(idElement).setAttribute('class', 'list-group-item');
-        document.getElementById(idElement).setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
-        document.getElementById(idElement).setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
+        document.getElementById(ins).setAttribute("style", "background-color: rgba(0,0,0,0.2)");
+        document.getElementById(ins).setAttribute('onmouseover', 'setAttribute("style", "background-color: rgba(0,0,0,0.6)")');
+        document.getElementById(ins).setAttribute('onmouseout', 'setAttribute("style", "background-color: rgba(0,0,0,0.2)")');
     } else {
-        checkedList.push(insertion);
-        document.getElementById(idElement).removeAttribute('onmouseover');
-        document.getElementById(idElement).removeAttribute('onmouseout');
-        document.getElementById(idElement).setAttribute('class', 'list-group-item active');
+        checkedList.push(ins);
+        document.getElementById(ins).removeAttribute('onmouseover');
+        document.getElementById(ins).removeAttribute('onmouseout');
+        document.getElementById(ins).setAttribute("style", "background-color: rgba(0,0,0,0.6)");
     }
 
 }
@@ -347,17 +361,33 @@ export function createCategory(){
 
     //TODO: inserisci gli elementi di checkedList in una categoria nel DB
 
-    //Metodo da fare haha
-
-    //Svuota checkedList e rimette i bottoni a posto
-    for(let element of checkedList){
-        addInsertionToList(element);
-    }
+    //TODO: Metodo da fare per inserire gli elementi nel database haha
+    console.log("Categoria creata più o meno");
 
     checkedList = [];
 
+    //Reimposta la pagina a come stava prima
+    getAllInsertions2();
+    createPagination2();
+    showResults2(1);
+
 }
 
+export function deleteElements(){
+
+    //TODO: cancella gli elementi di checkedList dal DB
+
+    //TODO: Metodo da fare per cancellare gli elementi dal database
+    console.log("Elementi cancellati più o meno");
+
+    checkedList = [];
+
+    //Reimposta la pagina a come stava prima
+    getAllInsertions2();
+    createPagination2();
+    showResults2(1);
+
+}
 
 
 
