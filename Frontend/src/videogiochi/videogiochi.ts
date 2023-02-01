@@ -25,8 +25,6 @@ export function createGamePage() {
             createGamePagination();
             showGames(1);
         })
-   
-
 }
 
 
