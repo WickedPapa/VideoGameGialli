@@ -37,7 +37,7 @@ public class VideoGameRestController {
 	@Autowired
 	ImageRepository imageRepo;
 	
-	@PostMapping("/videgame")
+	@PostMapping("/videogames")
 	public boolean createVideoGame(
 			@RequestBody
 			VideoGameDTO dto) {
@@ -84,7 +84,7 @@ public class VideoGameRestController {
 		return true;
 	}
 	
-	@GetMapping("videogame")
+	@GetMapping("/videogames")
 	public List<VideoGame> readAll(){
 		List<VideoGame> videogames = new LinkedList<>();
 		for(VideoGame videoGame : vgRepo.findAll()) {
@@ -93,7 +93,7 @@ public class VideoGameRestController {
 		return videogames;
 	}
 	
-	@GetMapping("videogame/user")
+	@GetMapping("/videogames/user")
 	public List<VideoGame> readUserGames(HttpSession session){
 		Object obj = session.getAttribute("logged");
 		if(obj instanceof User) {
@@ -102,7 +102,7 @@ public class VideoGameRestController {
 		return new LinkedList<>();
 	}
 	
-	@GetMapping("videogame/{id}")
+	@GetMapping("/videogames/{id}")
 	public VideoGame readOne(
 			@PathVariable
 			int id){
