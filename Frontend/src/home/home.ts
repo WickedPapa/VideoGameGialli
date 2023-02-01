@@ -1,9 +1,15 @@
 import home from './home.html'
-import insertion from '../interfaces/insertion';
+import {insertion} from '../interfaces/insertion';
 import annunci from '../annunci/annunci.html';
-import createPage from "../annunci/annunci";
+import createPage, { searchByTitle } from "../annunci/annunci";
+import { createPagination } from '../annunci/annunci';
 import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
-import insertionPage, { createInsertionPage } from "../creaAnnuncio/creaAnnuncio";
+import createInsertionPage from "../creaAnnuncio/creaAnnuncio";
+import expandInsertion from '../annunci/annuncio';
+import annuncio from '../annunci/annuncio.html';
+
+
+
 
 
 //import createInsertion from '../creaAnnuncio/creaAnnuncio';
@@ -171,43 +177,31 @@ export function createHome(){
         createInsertionPage();
     };
 
+    document.getElementById("searchButtonTitle").onclick = () => {
+        let keyword = document.getElementById("searchTitle") as HTMLInputElement;
+        if(keyword.value != ""){
+            document.getElementById("main").innerHTML = annunci;
+            createPage();
+            searchByTitle(keyword.value);
+        }
+    }
+
+    document.getElementById("searchTitle").onkeydown = (e) => {
+        let keyword = document.getElementById("searchTitle") as HTMLInputElement;
+        if(e.key == "Enter" && keyword.value!= ""){
+            document.getElementById("main").innerHTML = annunci;
+            createPage();
+            searchByTitle(keyword.value);
+        }
+
+    }
+
     getAllInsertions();
     createItemCarousel();
 
-        /*function assignFilters() {         
-        let searchTitle = document.getElementById("searchTitleBy") as HTMLInputElement;
-        searchTitle.onkeydown = (e) => {            
-            if (e.key == 'Enter') {
-                document.getElementById("main").innerHTML = annunci;
-                createPage();
-                searchByTitle(searchTitle.value)
-            }
-        document.getElementById("searchTitle").onclick  = () => {
-            document.getElementById("main").innerHTML = annunci;
-                createPage();
-                searchByTitle(searchTitle.value)
-            
-        }
-    }
-*/}/*
+    
 
-    function searchByTitle(title: string) {
-        let filteredList = []
-        for (let element of list) {
-            let titolo = element.title;
-            let gameName = element.tradeGame.name
-            if ((titolo.toUpperCase().includes(title.toUpperCase()))
-                || (gameName.toUpperCase().includes(title.toUpperCase()))) {
-                filteredList.push(element)
-            }
-        }
-        list = [];
-        list = filteredList
-        createPagination();
-        showResults(1);
-    }*/
-
-   
+} 
     
 
 
@@ -246,6 +240,10 @@ export function createHome(){
             let goAnn = document.createElement('a');
             goAnn.setAttribute('href', "#");
             goAnn.setAttribute('class', 'btn btn-primary');
+            goAnn.onclick = () => {
+                document.getElementById('main').innerHTML = annuncio;
+                expandInsertion(list[i]);
+            }
             goAnn.innerHTML = 'Vai all annuncio';
     
     
@@ -258,10 +256,7 @@ export function createHome(){
                             carBody.append(goAnn);
             }
         }
-
 export default createHome;
-
-
 
 /*
 async function gettitle(title: string):{

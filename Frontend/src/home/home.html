@@ -3,11 +3,16 @@
 </div>
 
 <style>
-  .headerImg {
-    
-    border-radius: 40%;
+
+  .widgetIntro {
+    display: inline-block;
   }
 
+  .widgetIntro-div{
+    text-align: left;
+    float: left;
+  }
+  
   #annCard {
 
     width: 40%;
@@ -39,8 +44,12 @@
  
 </style>
 
-<div>
-  <img src="./img/gamesearch.jpg" style="width:30%" alt="">
+<div class="widgetIntro">
+  <div>
+    <picture>
+      <img src="./img/gamesearch.jpg" style="width:30%" alt="">
+    </picture>
+  </div>
   <div>
     <h1>
       Il portale dei veri gamers.
@@ -63,7 +72,7 @@
           <hr>
           <div class="input-group mb-3 form-control border rounded" style="margin-top: 10px;">
             <input type="text" class="form-control border-0" id="searchTitle" placeholder="Cerca" aria-label="search" aria-describedby="basic-addon2">
-            <img class="ms-1 btn imgS" src="./img/search.png" alt="">
+            <a id="searchButtonTitle" href="#"><img class="ms-1 btn imgS" src="./img/search.png" alt=""></a>
           </div> 
         </div>
       </div>
@@ -81,7 +90,7 @@
     <div class="col">
       <div class="card text-bg-success" style="width: 18rem;height: 100%;">
         <div class="card-body">
-          <h5 class="card-title">Vendi</h5>
+          <h5 class="card-title">Scambia</h5>
           <p class="card-text">Hai un gioco di cui non te ne fai più nulla per le miliardi di volte che lo hai finito?
             inserisci qui il tuo annuncio!
           </p>

@@ -58,7 +58,7 @@ function assignFilters() {             /*Assegna le funzioni ai pulsanti nelle d
 }
 
 
-function searchByTitle(title: string) {
+export function searchByTitle(title: string) {
     let filteredList = []
     for (let element of list) {
         let titolo = element.title;
@@ -223,7 +223,7 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
 creare la pagina una volta cliccato  
 sul bottone annunci e a ricaricarle*/
 
-function createPagination() {
+export function createPagination() {
     let size: number = list.length
     let tabs: number = Math.ceil(size / view);
     let pages = document.getElementById("pages");
