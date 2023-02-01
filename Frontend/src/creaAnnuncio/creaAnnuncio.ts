@@ -46,7 +46,7 @@ function showSelectedGames(){
 
 
  /*Crea la lista dei giochi posseduti dall'utente */
-function createInsertionPage(){
+ export function createInsertionPage(){
     let tradeGame = document.getElementById("tradeGame");
     tradeGame.innerHTML="";
     for(let game of userList){
@@ -91,21 +91,19 @@ function createInsertionPage(){
 
 
 
-export function createInsertion(){
+ function createInsertion(){
     //getAllGames();
     //getUserGames();
     
-    let btn = document.getElementById("addInsertion");
+    let btn = document.getElementById("addInsertion2");
     btn.onclick=()=>{
         document.getElementById("main").innerHTML=creaAnnuncio;
         createInsertionPage();
     }
-    
-
 }
 
 
 
 
 
-export default createInsertion;
+export default createInsertionPage;

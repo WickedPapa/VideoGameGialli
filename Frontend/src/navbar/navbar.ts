@@ -10,6 +10,7 @@ import getAllUsers from "../gestioneUtenti/gestioneUtenti";
 import createPage2 from "../annunci/gestioneannunci";
 import creaAnnuncio from "../creaAnnuncio/creaAnnuncio.html"
 import videogiochi from "../videogiochi/videogiochi.html"
+import createInsertionPage from "../creaAnnuncio/creaAnnuncio"
 
 export function createNav() {
     
@@ -29,6 +30,7 @@ export function createNav() {
     };
     document.getElementById("addInsertion").onclick = () => {
         document.getElementById("main").innerHTML = creaAnnuncio;
+        createInsertionPage();
     };
     document.getElementById("insManagement").onclick = () => {
         document.getElementById("main").innerHTML = gestioneannunci;

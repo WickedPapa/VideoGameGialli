@@ -3,7 +3,7 @@ import annunci from './annunci.html'
 import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
 import insertion from '../interfaces/insertion';
 import expandInsertion from './annuncio'
-import createInsertion from '../creaAnnuncio/creaAnnuncio'
+import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
 
 let list: insertion[] = [];
 let view: number = 6
@@ -11,7 +11,12 @@ let view: number = 6
 export function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
     document.getElementById("selectAll").onclick = searchByAll;
     assignFilters();
-    createInsertion();
+    let btn = document.getElementById("addInsertion2");
+    btn.onclick=()=>{
+        document.getElementById("main").innerHTML=creaAnnuncio;
+        createInsertionPage();
+    }
+    //createInsertion();
     getAllInsertions();
     createPagination();
     showResults(1);
