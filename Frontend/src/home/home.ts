@@ -1,5 +1,11 @@
 import home from './home.html'
 import insertion from '../interfaces/insertion';
+import annunci from '../annunci/annunci.html';
+import createPage from "../annunci/annunci";
+import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
+import insertionPage, { createInsertionPage } from "../creaAnnuncio/creaAnnuncio";
+
+
 //import createInsertion from '../creaAnnuncio/creaAnnuncio';
 
 let list: insertion[] = [];
@@ -153,15 +159,59 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
 export function createHome(){
     let main = document.getElementById('main');
     main.innerHTML = home;
-    
+   
+
+    document.getElementById("insertionsCard").onclick = () => {
+        document.getElementById("main").innerHTML = annunci;
+        createPage();
+    };
+
+    document.getElementById("insertCard").onclick = () => {
+        document.getElementById("main").innerHTML = creaAnnuncio;
+        createInsertionPage();
+    };
+
     getAllInsertions();
     createItemCarousel();
-        
-}
+
+        /*function assignFilters() {         
+        let searchTitle = document.getElementById("searchTitleBy") as HTMLInputElement;
+        searchTitle.onkeydown = (e) => {            
+            if (e.key == 'Enter') {
+                document.getElementById("main").innerHTML = annunci;
+                createPage();
+                searchByTitle(searchTitle.value)
+            }
+        document.getElementById("searchTitle").onclick  = () => {
+            document.getElementById("main").innerHTML = annunci;
+                createPage();
+                searchByTitle(searchTitle.value)
+            
+        }
+    }
+*/}/*
+
+    function searchByTitle(title: string) {
+        let filteredList = []
+        for (let element of list) {
+            let titolo = element.title;
+            let gameName = element.tradeGame.name
+            if ((titolo.toUpperCase().includes(title.toUpperCase()))
+                || (gameName.toUpperCase().includes(title.toUpperCase()))) {
+                filteredList.push(element)
+            }
+        }
+        list = [];
+        list = filteredList
+        createPagination();
+        showResults(1);
+    }*/
+
+   
+    
+
 
     function createItemCarousel(){
-
-        
         
         let carInner = document.getElementById('innerCarouselHome');
         
@@ -210,6 +260,8 @@ export function createHome(){
         }
 
 export default createHome;
+
+
 
 /*
 async function gettitle(title: string):{
