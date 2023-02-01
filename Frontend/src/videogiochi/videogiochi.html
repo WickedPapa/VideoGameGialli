@@ -1,0 +1,54 @@
+<div style="display: flex;">
+
+    <span style="margin-right: 40px">
+        <button class="btn btn-primary" id="selectAll">Visualizza tutti i Videogame</button>
+            </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
+                <span style="margin-right: 40px" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Visualizza per Genere
+                    </button>
+                    <ul id="genres" class="dropdown-menu">
+                        <li id="PLATFORM"><button class="dropdown-item" type="button">PLATFORM</button></li>
+                    </ul>
+                </span>
+            <span style="margin-right: 40px" class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Visualizza per Anno
+                </button>
+                <ul id="years" class="dropdown-menu">
+                <li id="1985"><button class="dropdown-item" type="button">1985</button></li>
+                </ul>
+            </span>
+    <div style="vertical-align: middle;" class="col-md-3 mx-auto">
+        <div class="input-group">
+            <input class="form-control border-end-1 border rounded-pill" type="search" placeholder="cerca" style="margin-right:20px" id="searchTitle">
+            <span class="input-group-append">
+            <button id="searchButton" class="btn btn-outline-secondary bg-white border-bottom-1 border rounded-pill ms-n5" type="button">
+                    trova
+            <i class="fa fa-search"></i>
+            </button>
+            </span>
+        </div>
+    </div>
+
+      <span >
+        <button  id="addVideogame" style="color:white" class="btn btn-warning" hidden>
+            <img src="./img/plus.png" alt="plus" style="width:25px">
+            Inserisci Videogame
+        </button>
+      </span>      
+             
+
+</div>
+
+<div>
+    <div  id="VideogameContent" class="row">
+
+    </div>
+</div>
+
+<div>
+    <ul id="pagesV" class="pagination pagination-sm my-2">
+        
+    </ul>
+</div>

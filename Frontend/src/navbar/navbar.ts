@@ -9,13 +9,20 @@ import gestioneUtenti from "../gestioneUtenti/gestioneUtenti.html";
 import getAllUsers from "../gestioneUtenti/gestioneUtenti";
 import createPage2 from "../annunci/gestioneannunci";
 import creaAnnuncio from "../creaAnnuncio/creaAnnuncio.html"
+import videogiochi from "../videogiochi/videogiochi.html"
 
 export function createNav() {
+    
     document.getElementById("header").innerHTML = nav;
     createModal();
     document.getElementById("logo").onclick = () => {
         document.getElementById("main").innerHTML = home;
     };
+
+    document.getElementById("games").onclick=()=>{
+      document.getElementById("main").innerHTML=videogiochi;  
+    };
+
     document.getElementById("insertions").onclick = () => {
         document.getElementById("main").innerHTML = annunci;
         createPage();
