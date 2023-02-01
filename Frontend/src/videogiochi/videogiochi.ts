@@ -1,6 +1,7 @@
 import { data } from "jquery";
 import videogame from "../interfaces/videogame";
 import createVideoGame from "./creaVideogiochi";
+import createGameVisualization from "./visualizzaVideogioco"
 
 let gameList: videogame[] = [];
 let gameView: number = 6;
@@ -83,7 +84,7 @@ function showGames(i: number) {
         }
 
         col.onclick = () => {
-            // createGameVisualization(list[start])
+            createGameVisualization(gameList[start])
         }
         
         let gameTitle = document.createElement("h3");

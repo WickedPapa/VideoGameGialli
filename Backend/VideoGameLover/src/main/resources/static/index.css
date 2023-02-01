@@ -210,3 +210,7 @@ nav button {
 .button-hover:hover {
   background-color: rgb(86, 111, 11);
 }
+
+.buttonhover:hover {
+  transform: scale(1.1, 0.8);
+}
