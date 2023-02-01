@@ -19,7 +19,7 @@ export function createNav() {
     document.getElementById("header").innerHTML = nav;
     createModal();
     document.getElementById("logo").onclick = () => {
-        document.getElementById("main").innerHTML = home;
+        document.getElementById("main").innerHTML = "";
         createHome();
 
     };
