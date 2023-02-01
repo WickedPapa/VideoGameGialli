@@ -4,6 +4,8 @@ import annunci from "../annunci/annunci.html";
 import gestioneannunci from "../annunci/gestioneannunci.html";
 import createPage from "../annunci/annunci";
 import home from "../home/home.html";
+import createItemCarousel from "../home/home"
+import createHome from "../home/home";
 import profile from "../profiloUtente/profile.html";
 import gestioneUtenti from "../gestioneUtenti/gestioneUtenti.html";
 import getAllUsers from "../gestioneUtenti/gestioneUtenti";
@@ -18,6 +20,8 @@ export function createNav() {
     createModal();
     document.getElementById("logo").onclick = () => {
         document.getElementById("main").innerHTML = home;
+        createHome();
+
     };
 
     document.getElementById("games").onclick=()=>{
