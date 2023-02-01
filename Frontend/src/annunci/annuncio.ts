@@ -9,16 +9,13 @@ export function expandInsertion(insertion: insertion) {
     let main = document.getElementById("main");
     main.innerHTML = annuncio;
 
-    /*Creo un pulsante per tornare alla list annunci e il titolo */
-    let button = document.createElement("button");
-    button.setAttribute("class", "btn btn-success");
-    button.innerHTML = "Indietro"
-    button.onclick = () => {
+    
+    document.getElementById("backgames").onclick = () => {
         document.getElementById("main").innerHTML = annunci;
         createPage();
     }
     let back = document.getElementById("back")
-    back.append(button);
+    //back.append(button);
 
     let title = document.createElement("h1");
     title.innerHTML = insertion.title;
@@ -75,8 +72,10 @@ export function expandInsertion(insertion: insertion) {
         + "Console: " + insertion.tradeGame.console.console;
     document.getElementById("card-body").append(h4, p);
     let desc = document.createElement("h2");
+    desc.setAttribute("style","color:white")
     desc.innerHTML = "Descrizione:"
-    let insDesc = document.createElement("p");
+    let insDesc = document.createElement("h3");
+    insDesc.setAttribute("style","color:white")
     insDesc.innerHTML = insertion.description;
     document.getElementById("insertion-creator").innerHTML = insertion.publisher.username;
     document.getElementById("insertion-description").append(desc, insDesc);
