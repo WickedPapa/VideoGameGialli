@@ -25,19 +25,25 @@ header button img {
   width: 52px;
   height: 52px;
 }
-
+/*
 h1, h2, h3, h4, h5, h6, p{
   font-family: 'Press Start 2P', cursive;
 }
+*/
 
 /*nav button styling*/
 nav ul {
   list-style: none;
 }
 
+#createVGContainer label{
+  font-size: 15px;
+  
+}
+
 #createVGContainer label:hover{
   color:rgb(40, 51, 6);
-  
+  transform: scale(1.1, 0.8);
 }
 
 nav ul button {
@@ -53,7 +59,7 @@ nav ul button {
 }
 
 .back-semi-transparent {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .nav-button {
