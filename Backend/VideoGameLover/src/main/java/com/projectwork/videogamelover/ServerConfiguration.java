@@ -2,9 +2,7 @@ package com.projectwork.videogamelover;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import com.projectwork.videogamelover.model.accounts.AccountManager;
-import com.projectwork.videogamelover.model.accounts.DummyAccountManager;
 import com.projectwork.videogamelover.model.accounts.IAccountManager;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;

@@ -19,6 +19,7 @@ import com.projectwork.videogamelover.model.entities.VideoGame;
 import com.projectwork.videogamelover.model.repositories.ConsoleRepository;
 import com.projectwork.videogamelover.model.repositories.GenreRepository;
 import com.projectwork.videogamelover.model.repositories.ImageRepository;
+import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.VideoGameDTO;
 
@@ -35,6 +36,8 @@ public class VideoGameRestController {
 	ConsoleRepository consoleRepo;
 	@Autowired
 	ImageRepository imageRepo;
+	@Autowired
+	UserRepository userRepo;
 	
 	@PostMapping("/videogames")
 	public boolean createVideoGame(
@@ -96,7 +99,10 @@ public class VideoGameRestController {
 	public List<VideoGame> readUserGames(HttpSession session){
 		Object obj = session.getAttribute("logged");
 		if(obj instanceof User) {
-			return ((User)obj).getVideogames();
+			Optional<User> opt = userRepo.findById(((User)obj).getId());
+			if(opt.isPresent()) {
+				return opt.get().getVideogames();
+			}
 		}
 		return new LinkedList<>();
 	}

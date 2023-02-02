@@ -1,14 +1,12 @@
 package com.projectwork.videogamelover.model.accounts;
 
 import java.security.MessageDigest;
-import java.util.List;
 
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
-
 import jakarta.servlet.http.HttpSession;
 
 public class DummyAccountManager implements IAccountManager{
