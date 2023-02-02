@@ -231,7 +231,7 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
     });
 
     //Da modificare a i<3
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 9; i++) {
         if (i != 2) {
             list.push(insertion1)
         } else {
@@ -318,6 +318,7 @@ function showResults2(i: number) {
         }
        
         let title = document.createElement("h2");
+        title.setAttribute('style','font-weight: bold;');
         let description = document.createElement("p");
         title.innerHTML = list[start].title;
         description.innerHTML = "" + list[start].tradeGame.name;

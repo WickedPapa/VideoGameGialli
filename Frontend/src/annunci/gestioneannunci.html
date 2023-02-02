@@ -1,10 +1,16 @@
+<style>
+    .massimoboldi {
+        font-weight: bold;
+    }
+</style>
+<div class="my-5" style="font-weight: bold;">
 <div style="display: flex;">
 
         <span style="margin-right: 40px">
-            <button class="btn btn-primary" id="selectAll2">Visualizza tutti</button>
+            <button class="btn btn-primary" style="font-weight: bold;" id="selectAll2">Visualizza tutti</button>
                 </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
                     <span style="margin-right: 40px" class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle" style="font-weight: bold;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Visualizza per Genere
                         </button>
                         <ul id="genres2" class="dropdown-menu">
@@ -12,7 +18,7 @@
                         </ul>
                     </span>
                 <span style="margin-right: 40px" class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" style="font-weight: bold;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Visualizza per Anno
                     </button>
                     <ul id="years2" class="dropdown-menu">
@@ -23,7 +29,7 @@
             <div class="input-group">
                 <input class="form-control border-end-1 border rounded-pill" type="search" placeholder="cerca" style="margin-right:20px" id="searchTitle">
                 <span class="input-group-append">
-                <button id="searchButton2" class="btn btn-outline-secondary bg-white border-bottom-1 border rounded-pill ms-n5" type="button">
+                <button id="searchButton2" class="btn btn-outline-secondary bg-white border-bottom-1 border rounded-pill ms-n5" style="font-weight: bold;" type="button">
                         trova
                 <i class="fa fa-search"></i>
                 </button>
@@ -46,26 +52,28 @@
     <br>
     <div style="display: inline-flex;">
 
-        <span style="margin-right: 40px"> <h4> Nome Categoria: </h4> </span>
+        <span style="margin-right: 40px"> <h4 style="font-weight: bold;"> Nome Categoria: </h4> </span>
         
-        <span style="margin-right: 40px"> <input type="text" class="form-control border-end-1 border rounded-pill" value="" placeholder="Categoria" style="margin-right:20px" id="categoryName"> </span>
+        <span style="margin-right: 40px"> <input type="text" class="form-control border-end-1 border rounded-pill" style="font-weight: bold;" value="" placeholder="Categoria" style="margin-right:20px" id="categoryName"> </span>
 
-        <span style="margin-right: 40px"> <button class="btn btn-primary" id="createCategory">Crea Categoria</button> </span>
+        <span style="margin-right: 40px"> <button class="btn btn-primary" style="font-weight: bold;" id="createCategory">Crea Categoria</button> </span>
 
-        <span style="margin-right: 40px"> <button class="btn btn-danger" id="deleteElements">Elimina Annunci</button> </span>
+        <span style="margin-right: 40px"> <button class="btn btn-danger" style="font-weight: bold;" id="deleteElements">Elimina Annunci</button> </span>
 
     </div>
     <br>
     
     <div id="remains">
-        <ul id="insertionContent2" class="list-group" >
+        <br>
+        <ul id="insertionContent2" class="list-group" style="font-weight: bold;">
             
         </ul>
         
     </div>
     <div>
-        <ul id="pages2" class="pagination pagination-sm my-2">
+        <ul id="pages2" class="pagination pagination-sm my-2" style="font-weight: bold;">
             
         </ul>
     
     </div>    
+</div>
