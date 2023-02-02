@@ -18,6 +18,7 @@ import com.projectwork.videogamelover.model.entities.Image;
 import com.projectwork.videogamelover.model.entities.Insertion;
 import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.entities.VideoGame;
+import com.projectwork.videogamelover.model.repositories.ImageRepository;
 import com.projectwork.videogamelover.model.repositories.InsertionRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
@@ -37,6 +38,8 @@ public class InsertionRestController {
 	UserRepository userRepo;
 	@Autowired
 	VideoGameRepository vgRepo;
+	@Autowired
+	ImageRepository imgRepo;
 	
 	@GetMapping("/insertion")
 	public List<Insertion> readAllInsertions(){
@@ -52,19 +55,16 @@ public class InsertionRestController {
 			@RequestBody
 			InsertionDTO dto,
 			HttpSession session){
+		if(dto.getTitle().equals("")||dto.getTitle()==null
+				||dto.getDescription().equals("")||dto.getDescription()==null
+				||dto.getGallery()==null||dto.getWishListIds()==null||dto.getTradeGameId()==0) {
+			return false;
+		}
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && ((obj instanceof User && ((User)obj).getId() == dto.getPublisherId() ))) {
-			Optional<User> optUser = userRepo.findById(dto.getPublisherId());
+		if(accountManager.isLogged() && (obj instanceof User)) {
+			User user = (User) obj;
 			Optional<VideoGame> optTradeGame = vgRepo.findById(dto.getTradeGameId());
 			List<VideoGame> wishList = new LinkedList<>();
-//			for(int id : dto.getWishListIds()) {
-//				Optional<VideoGame> optWishGame = vgRepo.findById(id);
-//				if(optWishGame.isPresent()) {
-//					wishList.add(optWishGame.get());
-//				}else {
-//					return false;
-//				}
-//			}
 			for(int i = 0; i<3; i++) {
 				Optional<VideoGame> optWishGame = vgRepo.findById(dto.getWishListIds().get(i));
 				if(optWishGame.isPresent()) {
@@ -73,16 +73,17 @@ public class InsertionRestController {
 					return false;
 				}
 			}
-			if(optUser.isPresent() && optTradeGame.isPresent()) {
+			if(optTradeGame.isPresent()) {
 				List<Image> gallery = new LinkedList<>();
 				for(String imageLink : dto.getGallery()) {
 					Image img = new Image(imageLink);
+					imgRepo.save(img);
 					gallery.add(img);
 				}
 				Insertion insertion = new Insertion(
 						dto.getTitle(), 
 						dto.getDescription(), 
-						optUser.get(), 
+						user, 
 						gallery,
 						optTradeGame.get(),
 						wishList

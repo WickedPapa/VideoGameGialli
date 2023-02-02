@@ -7,19 +7,32 @@ import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
 
 let list: insertion[] = [];
 let view: number = 6
+let type: string;
 
 export function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
+
+    fetch("/whoIsLogged")
+    .then((response) => response.json())
+    .then((data) => {
+        if (data == "ADMIN" || data == "USER") {
+            document.getElementById("addInsertion2").removeAttribute("hidden");
+            let btn = document.getElementById("addInsertion2");
+            btn.onclick=()=>{
+                document.getElementById("main").innerHTML=creaAnnuncio;
+                createInsertionPage();
+            }
+           
+        } else {
+            document.getElementById("addInsertion2").setAttribute("hidden", "true");
+            type = "GUEST"
+        }
+
     document.getElementById("selectAll").onclick = searchByAll;
-    assignFilters();
-    let btn = document.getElementById("addInsertion2");
-    btn.onclick=()=>{
-        document.getElementById("main").innerHTML=creaAnnuncio;
-        createInsertionPage();
-    }
+    assignFilters();  
     getAllInsertions();
     createPagination();
     showResults(1);
-
+    })
 }
 
 

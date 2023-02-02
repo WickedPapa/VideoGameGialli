@@ -5,8 +5,19 @@ import videogame from '../interfaces/videogame';
 let fullList: videogame[] = []
 let userList: videogame[] = []
 let wishList: string[] = []
-let giocoDaScambiare: string;
+let listId:number[]=[]
+let giocoDaScambiare: number;
 let index = 0;
+
+
+/*Crea la lista dei giochi posseduti dall'utente */
+export function createInsertionPage() {
+    getUserGames();
+    getAllGames();
+    document.getElementById("sendInsertion").onclick=()=>{
+        sendAll();
+    }
+}
 
 
 function getAllGames() {
@@ -37,7 +48,6 @@ function getAllGames() {
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
                 liBtn.innerHTML = game.name;
-                console.log(game);
                 liBtn.onclick = () => {
 
                     let test: boolean = true;
@@ -53,8 +63,10 @@ function getAllGames() {
                     }
                     if (test) {
                         wishList[index] = li.innerHTML;
+                        listId[index] = game.id
                         index++;
                     }
+                    console.log("Giochi desiderati: "+listId);
                     showSelectedGames();
                 }
 
@@ -93,8 +105,10 @@ function getUserGames() {
                 pic.setAttribute('style', 'width:300%');  
                 console.log(game.name);
                 li.onclick = () => {
-                    giocoDaScambiare = li.innerHTML;
+                    giocoDaScambiare = game.id;
+                    console.log("gioco da Scambiare: "+ giocoDaScambiare)
                 }
+                
                 row.append(col, colPic);
                 col.append(li);
                 colPic.append(pic);
@@ -118,12 +132,40 @@ function showSelectedGames() {
     }
 }
 
-
-
-/*Crea la lista dei giochi posseduti dall'utente */
-export function createInsertionPage() {
-    getUserGames();
-    getAllGames();
+interface InsertionDTO{
+    title:string,
+    description:string,
+    gallery:string[],
+    tradeGameId:number,
+    wishListIds:number[]
 }
+
+
+function sendAll (){
+    let compositelink=(document.getElementById("galleryInsertion") as HTMLInputElement).value
+    let links=compositelink.split(",");
+    
+    let obj:InsertionDTO={
+    title: (document.getElementById("titleInsertion") as HTMLInputElement).value,
+	description: (document.getElementById("descriptionInsertion") as HTMLInputElement).value,
+	gallery: links,
+	tradeGameId: giocoDaScambiare,
+	wishListIds: listId
+    }
+
+    let request ={
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    }
+
+    fetch("/insertion", request)
+    .then((response)=>response.json())
+    .then((data)=>console.log(data));
+}
+
+
 
 export default createInsertionPage;

@@ -105,7 +105,6 @@ function tryToLogIn() {
     .then((response)=>response.json())
     .then((data)=>{
         if(data.logged){
-            console.log(data);
             document.getElementById("loginResult").innerHTML="Loggato con successo!";
             nav.setNav(data.accountType);
             document.getElementById("tryToLog").setAttribute("disabled", "true");

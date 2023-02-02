@@ -12,7 +12,6 @@ public class InsertionDTO {
 	
 	private String title;
 	private String description;
-	private int publisherId;
 	private List<String> gallery = new LinkedList<>();
 	private int tradeGameId;
 	private	List<Integer> wishListIds = new LinkedList<>();
@@ -22,12 +21,11 @@ public class InsertionDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InsertionDTO(String title, String description, int publisherId, List<String> gallery, int tradeGameId,
+	public InsertionDTO(String title, String description, List<String> gallery, int tradeGameId,
 			List<Integer> wishListIds) {
 		super();
 		this.title = title;
 		this.description = description;
-		this.publisherId = publisherId;
 		this.gallery = gallery;
 		this.tradeGameId = tradeGameId;
 		this.wishListIds = wishListIds;
@@ -49,13 +47,6 @@ public class InsertionDTO {
 		this.description = description;
 	}
 
-	public int getPublisherId() {
-		return publisherId;
-	}
-
-	public void setPublisherId(int publisherId) {
-		this.publisherId = publisherId;
-	}
 
 	public List<String> getGallery() {
 		return gallery;
