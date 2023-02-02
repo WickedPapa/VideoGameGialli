@@ -121,8 +121,11 @@ public class UserRestController {
 					return false;
 				}
 			}
+			//user.setVideogames(list);
 			list.add(optGame.get());
+			user.setVideogames(list);
 			userRepo.save(user);
+			session.setAttribute("logged", user);
 			return true;
 		}
 		return false;

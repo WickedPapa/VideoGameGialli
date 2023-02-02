@@ -38,6 +38,16 @@ function showLogInModal(){
     document.getElementById("myModalFooter").innerHTML = loginFooter;
     document.getElementById("loginSignUp").onclick = showSignUpModal;
     document.getElementById("tryToLog").onclick = tryToLogIn;
+    document.getElementById("usernameSignIn").onkeydown = (e) => {
+        if (e.key == 'Enter') {
+            tryToLogIn();
+        }
+    }
+    document.getElementById("passwordSignIn").onkeydown = (e) => {
+        if (e.key == 'Enter') {
+            tryToLogIn();
+        }
+    }
 }
 
 async function showLogOutModal(){

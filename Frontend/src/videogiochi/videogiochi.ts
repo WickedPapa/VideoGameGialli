@@ -92,7 +92,7 @@ function showGames(i: number) {
                     if(data){
                         alert("Videogioco aggiunto!");
                     }else{
-                        alert("Ops, si è verificato un errore!");
+                        alert("Possiedi già questo giuoco!");
                     }
                 });
             }
