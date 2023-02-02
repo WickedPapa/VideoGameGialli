@@ -23,6 +23,7 @@ import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
 import com.projectwork.videogamelover.view.IdDTO;
+import com.projectwork.videogamelover.view.InfoDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
@@ -31,100 +32,72 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class UserRestController {
-	
-	@Autowired //dependency injection, fornisce un'istanza della variabile successiva
+
+	@Autowired // dependency injection, fornisce un'istanza della variabile successiva
 	IAccountManager accountManager;
 	@Autowired
 	UserRepository userRepo;
 	@Autowired
 	VideoGameRepository vgRepo;
-	
+
 	@PostMapping("/user")
-	public boolean createUser(
-			@RequestBody
-			AccountDTO dto) {
+	public boolean createUser(@RequestBody AccountDTO dto) {
 		int accountId = accountManager.createAccount(dto);
-		if(accountId > 0) {
+		if (accountId > 0) {
 			User user = new User(accountId);
 			userRepo.save(user);
 			return true;
 		}
 		return false;
 	}
-	
+
 	@GetMapping("/user")
-	public List<UserInfoDTO> readAll(){
+	public List<UserInfoDTO> readAll() {
 		List<UserInfoDTO> usersInfo = new LinkedList<>();
-		for(User user : userRepo.findAll()) {
+		for (User user : userRepo.findAll()) {
 			AccountDTO account = accountManager.getAccount(user.getAccountId());
-			UserInfoDTO userInfo = new UserInfoDTO(
-					user.getId(),
-					account.getUsername(),
-					account.getName(),
-					account.getSurname(),
-					account.getEmail(),
-					user.getRating(),
-					user.getVideogames()
-					);
+			UserInfoDTO userInfo = new UserInfoDTO(user.getId(), account.getUsername(), account.getName(),
+					account.getSurname(), account.getEmail(), user.getRating(), user.getVideogames());
 			usersInfo.add(userInfo);
 		}
 		return usersInfo;
 	}
-	
+
 	@GetMapping("/user/this")
-	public UserInfoDTO readThis(HttpSession session){
+	public UserInfoDTO readThis(HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && obj instanceof User) {
-			User user = (User)obj;
+		if (accountManager.isLogged() && obj instanceof User) {
+			User user = (User) obj;
 			AccountDTO accountDto = accountManager.getAccount(user.getAccountId());
-			UserInfoDTO userInfo = new UserInfoDTO(
-					user.getId(),
-					accountDto.getUsername(),
-					accountDto.getName(),
-					accountDto.getSurname(),
-					accountDto.getEmail(),
-					user.getRating(),
-					user.getVideogames()
-					);
+			UserInfoDTO userInfo = new UserInfoDTO(user.getId(), accountDto.getUsername(), accountDto.getName(),
+					accountDto.getSurname(), accountDto.getEmail(), user.getRating(), user.getVideogames());
 			return userInfo;
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/user/{id}")
-	public UserInfoDTO readOne(
-			@PathVariable("id")
-			int id){
+	public UserInfoDTO readOne(@PathVariable("id") int id) {
 		Optional<User> opt = userRepo.findById(id);
-		if(opt.isPresent()) {
+		if (opt.isPresent()) {
 			User user = opt.get();
 			AccountDTO account = accountManager.getAccount(user.getAccountId());
-			UserInfoDTO userInfo = new UserInfoDTO(
-					user.getId(),
-					account.getUsername(),
-					account.getName(),
-					account.getSurname(),
-					account.getEmail(),
-					user.getRating(),
-					user.getVideogames()
-					);
+			UserInfoDTO userInfo = new UserInfoDTO(user.getId(), account.getUsername(), account.getName(),
+					account.getSurname(), account.getEmail(), user.getRating(), user.getVideogames());
 			return userInfo;
 		}
 		return null;
 	}
-	
+
 	@PutMapping("/user/games")
-	public boolean updateUserGames(
-			@RequestBody
-			AddGameDTO dto,
-			HttpSession session) {
+	public boolean updateUserGames(@RequestBody AddGameDTO dto, HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && ((obj instanceof User  && ((User)obj).getId() == dto.getIdUser() ))) {
+		if (accountManager.isLogged() && ((obj instanceof User && ((User) obj).getId() == dto.getIdUser()))) {
 			Optional<User> opt = userRepo.findById(dto.getIdUser());
-			if(opt.isPresent()) {
+			if (opt.isPresent()) {
 				User user = opt.get();
 				List<VideoGame> list = user.getVideogames();
-				for(VideoGame videoGame : vgRepo.findAllById(dto.getVideogamesToPush())) {
+				for (VideoGame videoGame : vgRepo.findAllById(dto.getVideogamesToPush())) {
 					list.add(videoGame);
 					userRepo.save(user);
 					return true;
@@ -133,71 +106,80 @@ public class UserRestController {
 		}
 		return false;
 	}
-	
+
 	@GetMapping("/user/game/{gameId}")
-	public boolean updateUserGame(
-			@PathVariable
-			int gameId,
-			HttpSession session) {
+	public boolean updateUserGame(@PathVariable int gameId, HttpSession session) {
 		Optional<VideoGame> optGame = vgRepo.findById(gameId);
-		if(optGame.isEmpty()) {
+		if (optGame.isEmpty()) {
 			return false;
 		}
 		VideoGame game = optGame.get();
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof User)) {
+		if (accountManager.isLogged() && (obj instanceof User)) {
 			User user = (User) obj;
-				List<VideoGame> list = user.getVideogames();
-				
-				if(list.contains(game)){
-					return false;
-				}else {
+			List<VideoGame> list = user.getVideogames();
+
+			if (list.contains(game)) {
+				return false;
+			} else {
 				list.add(game);
 				userRepo.save(user);
 				return true;
-				}
 			}
-		return false;
-	}
-	
-	
-	@PutMapping("/user/psw")
-	public boolean updateUserPassword(
-			@RequestBody
-			UpdatePasswordDTO dto,
-			HttpSession session) {
-		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof User)) {
-			User user = (User)obj;
-			return accountManager.changePassword(dto, user.getAccountId());			 
 		}
 		return false;
 	}
-	
-	@PutMapping("/user/info")
-	public boolean updateUserAccount(
-			@RequestBody
-			UpdateAccountDTO dto,
-			HttpSession session) {
+
+	@PutMapping("/user/psw")
+	public boolean updateUserPassword(@RequestBody UpdatePasswordDTO dto, HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof User)) {
-				User user = (User)obj;
-				return accountManager.changeInfo(dto, user.getAccountId());			 
-				}
+		if (accountManager.isLogged() && (obj instanceof User)) {
+			User user = (User) obj;
+			return accountManager.changePassword(dto, user.getAccountId());
+		}
 		return false;
 	}
-	
-	@DeleteMapping("/user")
-	public boolean deleteUser(
-			@RequestBody
-			int id,
-			HttpSession session) {
-		//TODO: cancellare gli annunci dell'utente  oppure disabilitarli (esito = chiuso)
+
+	@PutMapping("/user/info")
+	public boolean updateUserAccount(@RequestBody UpdateAccountDTO dto, HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		
-		if(accountManager.isLogged() && ((obj instanceof Admin )||(obj instanceof User && ((User)obj).getId() == id ))) {
+		if (accountManager.isLogged() && (obj instanceof User)) {
+			User user = (User) obj;
+			boolean test = accountManager.changeInfo(dto, user.getAccountId());
+			if (test) {
+				Object obj2 = session.getAttribute("info");
+				if (obj2 instanceof InfoDTO) {
+					InfoDTO info = (InfoDTO) obj2;
+					if(dto.getUsername()!="") {
+						info.setUsername(dto.getUsername());
+					}
+					if(dto.getEmail()!="") {
+						info.setEmail(dto.getEmail());
+					}
+					session.setAttribute("info", info);
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+
+	}
+
+	@DeleteMapping("/user")
+	public boolean deleteUser(@RequestBody int id, HttpSession session) {
+		// TODO: cancellare gli annunci dell'utente oppure disabilitarli (esito =
+		// chiuso)
+		Object obj = session.getAttribute("logged");
+
+		if (accountManager.isLogged()
+				&& ((obj instanceof Admin) || (obj instanceof User && ((User) obj).getId() == id))) {
 			Optional<User> opt = userRepo.findById(id);
-			if(opt.isEmpty()) {
+			if (opt.isEmpty()) {
 				return false;
 			}
 			User user = opt.get();

@@ -15,6 +15,7 @@ import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.IdDTO;
+import com.projectwork.videogamelover.view.InfoDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 
@@ -22,24 +23,21 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class AdminRestController {
-	
+
 	@Autowired
 	IAccountManager accountManager;
 	@Autowired
 	AdminRepository adminRepo;
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@PostMapping("/admin")
-	public boolean createAdmin(
-			@RequestBody
-			int id,
-			HttpSession session) {
-		
+	public boolean createAdmin(@RequestBody int id, HttpSession session) {
+
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof Admin )) {
+		if (accountManager.isLogged() && (obj instanceof Admin)) {
 			Optional<User> opt = userRepo.findById(id);
-			if(opt.isEmpty()) {
+			if (opt.isEmpty()) {
 				return false;
 			}
 			User user = opt.get();
@@ -49,35 +47,48 @@ public class AdminRestController {
 			return true;
 		}
 		return false;
-	}	
-	
+	}
+
 	@PutMapping("/admin/psw")
 	public boolean updateUserPassword(
-			@RequestBody
-			UpdatePasswordDTO dto,
+			@RequestBody UpdatePasswordDTO dto, 
 			HttpSession session) {
+		System.out.println("ciao da Admin");
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof Admin)) {
-			Admin admin = (Admin)obj;
-			return accountManager.changePassword(dto, admin.getAccountId());			 
+		if (accountManager.isLogged() && (obj instanceof Admin)) {
+			Admin admin = (Admin) obj;		
+			return accountManager.changePassword(dto, admin.getAccountId());
 		}
 		return false;
 	}
-	
+
 	@PutMapping("/admin/info")
-	public boolean updateUserAccount(
-			@RequestBody
-			UpdateAccountDTO dto,
-			HttpSession session) {
+	public boolean updateUserAccount(@RequestBody UpdateAccountDTO dto, HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof Admin)) {
-				Admin admin = (Admin)obj;
-				return accountManager.changeInfo(dto, admin.getAccountId());			 
+		if (accountManager.isLogged() && (obj instanceof Admin)) {
+			Admin admin = (Admin) obj;
+			boolean test = accountManager.changeInfo(dto, admin.getAccountId());
+			if (test) {
+				Object obj2 = session.getAttribute("info");
+				if (obj2 instanceof InfoDTO) {
+					InfoDTO info = (InfoDTO) obj2;
+					if(dto.getUsername()!="") {
+						info.setUsername(dto.getUsername());
+					}
+					if(dto.getEmail()!="") {
+						info.setEmail(dto.getEmail());
+					}
+					session.setAttribute("info", info);
+					return true;
+				} else {
+					return false;
 				}
-		return false;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
-	
-	
-	
-	
+
 }
