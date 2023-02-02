@@ -22,7 +22,6 @@ import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
-import com.projectwork.videogamelover.view.IdDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;

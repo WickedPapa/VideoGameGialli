@@ -21,7 +21,7 @@ import com.projectwork.videogamelover.view.UserInfoDTO;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-public class LoginController {
+public class LoginRestController {
 
 	@Autowired
 	IAccountManager accountManager;

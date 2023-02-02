@@ -43,7 +43,7 @@ nav ul {
 
 #createVGContainer label:hover{
   color:rgb(40, 51, 6);
-  
+  transform: scale(1.1, 0.8);
 }
 
 nav ul button {
