@@ -9,6 +9,8 @@ import * as nav from "../navbar/navbar";
 import logged from '../interfaces/logged'
 import createHome from '../home/home'
 
+
+
 export function createModal(){
     let divModal = document.createElement("div");
     divModal.innerHTML = modal;
@@ -93,6 +95,7 @@ function tryToLogIn() {
     .then((response)=>response.json())
     .then((data)=>{
         if(data.logged){
+            console.log(data);
             document.getElementById("loginResult").innerHTML="Loggato con successo!";
             nav.setNav(data.accountType);
             document.getElementById("tryToLog").setAttribute("disabled", "true");
@@ -143,5 +146,7 @@ function validateForm(){
     }
     
 }
+
+
 
 export default createModal;
