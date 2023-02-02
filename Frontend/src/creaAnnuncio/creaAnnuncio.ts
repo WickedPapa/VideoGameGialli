@@ -21,7 +21,18 @@ function getAllGames() {
             wishGames.innerHTML = "";
             for (let game of fullList) {
                 let li = document.createElement("li");
-                let liBtn = document.createElement("button");
+                let liBtn = document.createElement("button");   
+                let row = document.createElement("div");
+                let col = document.createElement("div");
+                let colPic = document.createElement("div");
+                let pic = document.createElement("img");
+                row.setAttribute("class", "mx-auto pb-4 row border-bottom border-2 border-primary");
+                col.setAttribute("class", "col-2 mx-auto ms-0 my-auto");
+                colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
+                pic.setAttribute('src', game.cover.link);
+                pic.setAttribute('alt', game.name);
+                pic.setAttribute('class', 'border border-2 border-info rounded')
+                pic.setAttribute('style', 'width:300%');    
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
@@ -46,7 +57,11 @@ function getAllGames() {
                     }
                     showSelectedGames();
                 }
-                li.append(liBtn);
+
+                row.append(col, colPic);
+                col.append(liBtn);
+                colPic.append(pic);
+                li.append(row);
                 wishGames.append(li);
             }
         })
@@ -64,13 +79,26 @@ function getUserGames() {
             tradeGame.innerHTML = "";
             for (let game of userList) {
                 let li = document.createElement("li");
+                let pic = document.createElement("img");
+                let row = document.createElement("div");
+                let col = document.createElement("div");
+                let colPic = document.createElement("img");
+                row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+                col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
+                colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
                 li.setAttribute("class", "dropdown-item");
                 li.innerHTML = game.name;
+                pic.src = game.cover.link;
+                pic.setAttribute('class','border border-2 border-info rounded');
+                pic.setAttribute('style', 'width:300%');  
                 console.log(game.name);
                 li.onclick = () => {
                     giocoDaScambiare = li.innerHTML;
                 }
-                tradeGame.append(li);
+                row.append(col, colPic);
+                col.append(li);
+                colPic.append(pic);
+                tradeGame.append(row);
             }
         })
 }
@@ -82,6 +110,9 @@ function showSelectedGames() {
     selectedGames.innerHTML = "";
     for (let i = 0; i < wishList.length; i++) {
         let li = document.createElement("li");
+        let pic = document.createElement("img");
+        pic.src = wishList[i];
+
         li.innerHTML = wishList[i];
         selectedGames.append(li);
     }
