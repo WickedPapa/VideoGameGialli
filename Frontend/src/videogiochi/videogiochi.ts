@@ -34,10 +34,9 @@ function getAllGames() {
     fetch("/videogames")
         .then((response) => (response.json()))
         .then((data) => {
+            gameList=[];
             for (let game of data) {
-                gameList=[];
-                gameList.push(game)
-                console.log(gameList)
+                gameList.push(game);
                 createGamePagination();
                 showGames(1);
             }
@@ -65,17 +64,18 @@ function showGames(i: number) {
             col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
         }
 
-        col.onclick = () => {
-            createGameVisualization(gameList[start])
-        }
+        
         
         let gameTitle = document.createElement("h3");
         gameTitle.setAttribute("class","my-4")
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
         image.width = 200;
+        image.onclick = () => {
+            createGameVisualization(gameList[start])
+        }
         gameTitle.innerHTML = gameList[start].name;
-
+        
         col.append(gameTitle, image);
         let addButton = document.createElement("button");
         
