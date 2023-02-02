@@ -1,4 +1,4 @@
-<div class="container my-5 back-semi-transparent" style="border-radius: 10px;
+<div id="createVGContainer" class="container my-5 back-semi-transparent" style="border-radius: 10px;
     border-top: 5px solid rgb(171, 209, 57);
     border-bottom: 5px solid rgb(171, 209, 57);
     border-right: 5px solid rgb(171, 209, 57);
@@ -18,12 +18,12 @@
                 <label for="newGenre" class="form-label"><b>Nuovo Genere</b></label>
                 <input type="text" class="form-control" id="newGenre" placeholder="Inserisci nuovo genere">
             </div>
-            <button id="newGenreBtn" class="btn mb-5 button-hover"><b>Crea</b></button>
+            <button id="newGenreBtn" class="btn mb-4 button-hover"><b>Crea</b></button>
             <div class="mb-3">
                 <label for="newConsole" class="form-label"><b>Nuova Console</b></label>
                 <input type="text" class="form-control" id="newConsole" placeholder="Inserisci nuova console">
             </div>
-            <button id="newConsoleBtn" class="btn mb-5 button-hover"><b>Crea</b></button>
+            <button id="newConsoleBtn" class="btn mb-4 button-hover"><b>Crea</b></button>
 
         </div>
         <div class="col-8">
@@ -32,138 +32,29 @@
             </div>
             <div class="mb-5">
                 <label for="name" class="form-label"><b>Titolo</b></label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="VGname" placeholder="Inserisci il titolo del gioco">
             </div>
             <div class="mb-5">
                 <label for="year" class="form-label"><b>Anno di Uscita</b></label>
-                <input type="number" class="form-control" id="year" min="1970" maxlength="2023">
+                <input type="number" class="form-control" id="VGyear" min="1970" maxlength="2023" placeholder="Inserisci l'anno di uscita">
             </div>
             <div class="mb-5">
                 <label class="form-label" for="cover"><b>Link immagine</b></label>
-                <input type="text" class="form-control" id="cover">
+                <input type="text" class="form-control" id="VGcover" placeholder="Inserisci il link della copertina">
             </div>
         </div>
 
     </div>
     <div class="row align-items-start">
+        
         <div class="col-4">
-            <br>
+            
             <h4 class="text-end"><b>Seleziona categorie:</b></h4>
         </div>
-        <div class="col-8">
-            <br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>ACTION</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>GDR</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1"><b>PLATFORM</b></label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2"><b>STEALTH</b></label>
-            </div>
+        
+        <div id="genreList" class="col-8">
+            
+            
 
         </div>
     </div>
@@ -173,276 +64,11 @@
             <br><br>
             <h4 class="text-end"><b>Seleziona console:</b></h4>
         </div>
-        <div class="col-8">
-            <br><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS4</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS5</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>GAMEBOYCOLOR</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>SUPERNINTENDO</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>NES</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS4</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS5</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>GAMEBOYCOLOR</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>SUPERNINTENDO</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>NES</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS1</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS2</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>PS3</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-                    checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <b>PS4</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <b>PS5</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>GAMEBOYCOLOR</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>SUPERNINTENDO</b>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                <label class="form-check-label" for="exampleRadios3">
-                    <b>NES</b>
-                </label>
-            </div>
-            <div>
-                <button id="newVideoGameBtn" class="btn my-4 button-hover"><b>Aggiungi</b></button>
-            </div>
+        <div id="consoleList" class="col-8">
+            
+            
         </div>
+        <button id="newVideoGameBtn" class="btn mb-4 button-hover"><b>Crea</b></button>
     </div>
 
 </div>

@@ -1,6 +1,6 @@
 import gestioneUtenti from './gestioneUtenti.html'
 import userInt from '../interfaces/user';
-import showUserProfile from '../profiloUtente/showProfile';
+import showProfile from '../profiloUtente/profile';
 
 let users: userInt[] = [];
 let view = 5;
@@ -16,7 +16,7 @@ function showUsers(num: number) {
         let li = document.createElement("li");
         let btn_profile = document.createElement("button");
         btn_profile.setAttribute("class", "btn");
-        btn_profile.onclick = showUserProfile;
+        btn_profile.onclick = showProfile;
         li.setAttribute('class', 'list-group-item');
         li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
         li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");

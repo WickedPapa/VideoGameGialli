@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projectwork.videogamelover.model.entities.Admin;
 import com.projectwork.videogamelover.model.entities.Console;
 import com.projectwork.videogamelover.model.entities.Genre;
 import com.projectwork.videogamelover.model.entities.Image;

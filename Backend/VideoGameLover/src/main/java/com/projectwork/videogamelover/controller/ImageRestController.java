@@ -20,11 +20,12 @@ public class ImageRestController {
 	public boolean createImage(
 			@RequestBody
 			String imageStr){
-		Optional<Image> opt = imageRepo.findByLink(imageStr.toUpperCase());
+		String imageStrfix = imageStr.substring(1, imageStr.length()-1);
+		Optional<Image> opt = imageRepo.findByLink(imageStrfix.toUpperCase());
 		if(opt.isPresent()) {
 			return false;
 		}
-		imageRepo.save(new Image(imageStr.toUpperCase()));
+		imageRepo.save(new Image(imageStrfix.toUpperCase()));
 		return true;
 	}
 	
