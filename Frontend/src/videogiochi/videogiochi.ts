@@ -23,44 +23,26 @@ export function createGamePage() {
                 type = "GUEST"
             }
             getAllGames(); 
-            createGamePagination();
-            showGames(1);
+           
         })
 }
 
 
 
 function getAllGames() {
-    gameList=[];
-   /* fetch("/videogames")
+    
+    fetch("/videogames")
         .then((response) => (response.json()))
         .then((data) => {
             for (let game of data) {
+                gameList=[];
                 gameList.push(game)
+                console.log(gameList)
+                createGamePagination();
+                showGames(1);
             }
         })
-    */
-
-        const imageGioco1 = {
-            link: "https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
-        }
-
-        const gioco1 = {
-            id: 1,
-            name: "SuperMario",
-            genre: [{genre: "PLATFORM"}],
-            year: 1985,
-            console: {console: "NES"},
-            cover: imageGioco1
-        }
-        
-        for (let i = 0; i < 27; i++) {
-            if (i != 17) {
-                gameList.push(gioco1)
-            } else {
-                gameList.push(gioco1)
-            }
-        }
+   
         
 }
 
