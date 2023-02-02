@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,22 @@ public class Console {
 	public void setConsole(String console) {
 		this.console = console;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(console, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Console other = (Console) obj;
+		return Objects.equals(console, other.console) && id == other.id;
+	}
 	
 }

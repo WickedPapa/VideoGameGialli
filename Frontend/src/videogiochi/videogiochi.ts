@@ -71,24 +71,29 @@ function showGames(i: number) {
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
         image.width = 200;
+        image.height = 200;
         let game = gameList[start]
         image.onclick = () => {
             createGameVisualization(game)
         }
-        gameTitle.innerHTML = gameList[start].name;
+        gameTitle.innerHTML = "<b>"+gameList[start].name+"</b>";
         
         col.append(gameTitle, image);
         let addButton = document.createElement("button");
         let id =gameList[start].id
         if (type == "USER") {
             addButton.innerHTML = "Aggiungi alla tua Lista!"
-            
+            addButton.setAttribute("class","my-3")
             addButton.onclick = () => {
                 
                 fetch("/user/game/"+id)
                 .then((response)=>(response.json()))
                 .then((data)=>{
-                    console.log(data);
+                    if(data){
+                        alert("Videogioco aggiunto!");
+                    }else{
+                        alert("Ops, si è verificato un errore!");
+                    }
                 });
             }
             col.append(addButton);

@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,8 +39,22 @@ public class Image {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, link);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Image other = (Image) obj;
+		return id == other.id && Objects.equals(link, other.link);
+	}
 }
 

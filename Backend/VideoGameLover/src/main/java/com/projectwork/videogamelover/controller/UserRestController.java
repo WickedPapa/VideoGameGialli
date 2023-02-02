@@ -112,19 +112,18 @@ public class UserRestController {
 		if (optGame.isEmpty()) {
 			return false;
 		}
-		VideoGame game = optGame.get();
 		Object obj = session.getAttribute("logged");
 		if (accountManager.isLogged() && (obj instanceof User)) {
 			User user = (User) obj;
 			List<VideoGame> list = user.getVideogames();
-
-			if (list.contains(game)) {
-				return false;
-			} else {
-				list.add(game);
-				userRepo.save(user);
-				return true;
+			for(VideoGame vg : list) {
+				if(vg.getId()==gameId) {
+					return false;
+				}
 			}
+			list.add(optGame.get());
+			userRepo.save(user);
+			return true;
 		}
 		return false;
 	}
