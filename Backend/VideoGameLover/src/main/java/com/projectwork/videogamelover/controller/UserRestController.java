@@ -23,6 +23,7 @@ import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
 import com.projectwork.videogamelover.view.AccountDTO;
 import com.projectwork.videogamelover.view.AddGameDTO;
 import com.projectwork.videogamelover.view.IdDTO;
+import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 import com.projectwork.videogamelover.view.UserInfoDTO;
 
@@ -168,29 +169,21 @@ public class UserRestController {
 		Object obj = session.getAttribute("logged");
 		if(accountManager.isLogged() && (obj instanceof User)) {
 			User user = (User)obj;
-			accountManager.changePassword(dto, user.getAccountId());
+			return accountManager.changePassword(dto, user.getAccountId());			 
 		}
 		return false;
 	}
 	
-	@PutMapping("/user/account")
+	@PutMapping("/user/info")
 	public boolean updateUserAccount(
 			@RequestBody
-			AddGameDTO dto,
+			UpdateAccountDTO dto,
 			HttpSession session) {
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && ((obj instanceof User  && ((User)obj).getId() == dto.getIdUser() ))) {
-			Optional<User> opt = userRepo.findById(dto.getIdUser());
-			if(opt.isPresent()) {
-				User user = opt.get();
-				List<VideoGame> list = user.getVideogames();
-				for(VideoGame videoGame : vgRepo.findAllById(dto.getVideogamesToPush())) {
-					list.add(videoGame);
-					userRepo.save(user);
-					return true;
+		if(accountManager.isLogged() && (obj instanceof User)) {
+				User user = (User)obj;
+				return accountManager.changeInfo(dto, user.getAccountId());			 
 				}
-			}
-		}
 		return false;
 	}
 	

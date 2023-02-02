@@ -67,4 +67,27 @@ public class LoginController {
 		}
 		return AccountType.GUEST;
 	}
+	
+	@GetMapping("/userInfo")
+	public UserInfoDTO getUserInfo(HttpSession session) {
+		InfoDTO info = (InfoDTO) session.getAttribute("info");
+		User user = (User) session.getAttribute("logged");
+		return new UserInfoDTO(user.getId(), info.getUsername(), info.getName(),
+				info.getSurname(), info.getEmail(), user.getRating(), user.getVideogames());
+		
+	}
+	
+	@GetMapping("/adminInfo")
+	public AdminInfoDTO getAdminInfo(HttpSession session) {
+		InfoDTO info = (InfoDTO) session.getAttribute("info");
+		Admin admin = (Admin) session.getAttribute("logged");
+		return new AdminInfoDTO(admin.getId(), info.getUsername(), info.getName(),
+				info.getSurname(), info.getEmail());
+		
+	}
+	
+	
+	
+	
+	
 }

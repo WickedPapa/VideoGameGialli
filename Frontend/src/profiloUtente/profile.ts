@@ -1,7 +1,208 @@
 import profile from './profile.html'
 
-export function showProfile(){
-    let main = document.getElementById("main");
-    main.innerHTML = profile;
+
+let type;
+let userInfo;
+let adminInfo;
+
+export function showProfile(){   
+    fetch("/whoIsLogged")
+    .then((response) => response.json())
+    .then((data) => {
+        if (data == "ADMIN") {
+            type = "ADMIN";
+        } else if (data == "USER") {
+            type = "USER"
+        } else {
+            type = "GUEST"
+        }
+
+        let main = document.getElementById("main");
+        main.innerHTML = profile;
+        createProfile(type);
+        console.log("ciao da show")
+    })
+
 }
-export default showProfile();
+
+function createProfile(type:string){
+
+    if (type == "ADMIN") {
+        showAdminProfile();
+
+    } else if(type == "USER") {
+        showUserProfile();
+    }else{
+
+    }
+
+}
+
+function showAdminProfile(){
+
+    fetch("/adminInfo")
+    .then((response) => response.json())
+    .then((data) => {
+        adminInfo=data;
+        let h1 = document.createElement("h1");
+        let title = document.getElementById("titleprofile");
+        h1.innerHTML="BENTORNATO AMMINISTRATORE "+adminInfo.username;
+        title.append(h1);
+        
+        let body = document.getElementById("bodyprofile");
+        let h2 = document.createElement("h2");
+        h2.innerHTML="Ecco un riepilogo dei tuoi dati: "
+        + " <br><br><br> <b>Username</b>: "+adminInfo.username 
+        + " <br><br> <b>Email</b>: "+adminInfo.email 
+        + " <br><br> <b>Nome</b>: "+adminInfo.name
+        + " <br><br> <b>Cognome</b>: "+adminInfo.surname
+        body.append(h2)
+
+        let buttons = document.getElementById("buttons-profile");
+        let btn1 = document.createElement("button");
+        btn1.setAttribute("class","btn btn-primary my-1");
+        btn1.onclick=()=>{
+            let obj = {
+                'username' : (document.getElementById("username") as HTMLInputElement).value,
+                'email' : ""
+            }
+            
+            let request = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }
+
+            fetch("/admin/info", request)
+            .then((response)=>response.json())
+            .then((data)=> 
+            {
+                console.log(data);
+                (document.getElementById("username") as HTMLInputElement).value="";
+            })           
+
+        }
+        btn1.innerHTML="Cambia Username"
+        buttons.append(btn1)
+
+        let buttonEmail = document.getElementById("buttons-profile");
+        let btn2 = document.createElement("button");
+        btn2.setAttribute("class","btn btn-primary   my-4");
+        btn2.onclick=()=>{
+            let obj = {
+                'username' : "",
+                'email' : (document.getElementById("email") as HTMLInputElement).value
+            }
+            
+            let request = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }
+
+            fetch("/admin/info", request)
+            .then((response)=>response.json())
+            .then((data)=> 
+            {
+                console.log(data);
+                (document.getElementById("email") as HTMLInputElement).value="";
+            })
+        }
+        btn2.innerHTML="Cambia Email"
+        buttons.append(btn2);
+
+
+
+
+    })
+   
+}
+
+function showUserProfile(){
+    fetch("/userInfo")
+    .then((response) => response.json())
+    .then((data) => {
+        userInfo=data;
+        let h1 = document.createElement("h1");
+        let title = document.getElementById("titleprofile");
+        h1.innerHTML="BENTORNATO UTENTE "+ userInfo.username;
+        title.append(h1);
+        let body = document.getElementById("bodyprofile");
+        let h2 = document.createElement("h2");
+        h2.innerHTML="Ecco un riepilogo dei tuoi dati: "
+        + " <br><br><br> <b>Username</b>: "+userInfo.username 
+        + " <br><br> <b>Email</b>: "+userInfo.email 
+        + " <br><br><b>Nome</b>: "+userInfo.name
+        + " <br><br> <b>Cognome</b>: "+userInfo.surname
+        body.append(h2)
+
+        let buttons = document.getElementById("buttons-profile");
+        let btn1 = document.createElement("button");
+        btn1.setAttribute("class","btn btn-primary my-1");
+        btn1.onclick=()=>{
+            
+            let obj = {
+                'username' : (document.getElementById("username") as HTMLInputElement).value,
+                'email' : ""
+            }
+            
+            let request = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }
+
+            fetch("/user/info", request)
+            .then((response)=>response.json())
+            .then((data)=> 
+            {
+                console.log(data);
+                (document.getElementById("username") as HTMLInputElement).value="";
+            })           
+        }
+
+        btn1.innerHTML="Cambia Username"
+        buttons.append(btn1)
+
+        let buttonEmail = document.getElementById("buttons-profile");
+        let btn2 = document.createElement("button");
+        btn2.setAttribute("class","btn btn-primary   my-4");
+        btn2.onclick=()=>{
+            
+            let obj = {
+                'username' : "",
+                'email' : (document.getElementById("email") as HTMLInputElement).value
+            }
+            
+            let request = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }
+
+            fetch("/user/info", request)
+            .then((response)=>response.json())
+            .then((data)=> 
+            {
+                console.log(data)
+
+            })
+        }
+        btn2.innerHTML="Cambia Email"
+        buttons.append(btn2);
+        (document.getElementById("email") as HTMLInputElement).value=""
+    })
+   
+}
+
+
+
+export default showProfile;
