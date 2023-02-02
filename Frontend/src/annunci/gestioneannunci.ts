@@ -209,15 +209,6 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
         publicationDate: "29-01-2023"
     }
 
-
-    for (let i = 0; i < 27; i++) {
-        if (i != 2) {
-            list.push(insertion1)
-        } else {
-            list.push(insertion2)
-        }
-    }
-
     /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! */
 
     /*Fetch a backend con tutti gli annunci, aggiorna la lista list*/
@@ -229,6 +220,24 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
     //         list.push(d);
     //     }
     // });
+
+    //Prende la lista dal db
+    fetch('/insertion')
+    .then((response) => response.json())
+    .then((data) => {
+        for(let d of data){
+            list.push(d);
+        }
+    });
+
+    //Da modificare a i<3
+    for (let i = 0; i < 3; i++) {
+        if (i != 2) {
+            list.push(insertion1)
+        } else {
+            list.push(insertion2)
+        }
+    }
 }
 
 /*da qui in poi le funzioni servono a 
@@ -359,8 +368,20 @@ export function addInsertionToList(ins: string){
 
 export function createCategory(){
 
-    //TODO: inserisci gli elementi di checkedList in una categoria nel DB
+    /* Sta cosa da errore ma funziona, unico problema non pulisce la casella di testo
+    
+    //Prende il valore della casella di testo e lo mette come nome della categoria
+    let CatName = document.getElementById("categoryName").value;
+    console.log(CatName);
+    console.log(document.getElementById("categoryName").value);
 
+    //Svuota il valore della casella di testo
+    document.getElementById("categoryName").value="";
+    console.log(document.getElementById("categoryName").value);
+
+    */
+
+    //TODO: inserisci gli elementi di checkedList in una categoria nel DB
     //TODO: Metodo da fare per inserire gli elementi nel database haha
     console.log("Categoria creata più o meno");
 
