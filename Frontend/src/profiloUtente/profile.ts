@@ -81,6 +81,7 @@ function showAdminProfile(){
             {
                 console.log(data);
                 (document.getElementById("username") as HTMLInputElement).value="";
+                showProfile()
             })           
 
         }
@@ -110,13 +111,42 @@ function showAdminProfile(){
             {
                 console.log(data);
                 (document.getElementById("email") as HTMLInputElement).value="";
+                showProfile()
+                
             })
         }
         btn2.innerHTML="Cambia Email"
         buttons.append(btn2);
+        
+        let cp = document.getElementById("cp");
+        let btn3 = document.createElement("button");
+        btn3.setAttribute("class", "btn btn-primary")
+        btn3.innerHTML="Cambia Password"
+        btn3.onclick= ()=>{
+            let obj = {
+                'oldPassword' : (document.getElementById("oldPassword") as HTMLInputElement).value,
+                'newPassword' : (document.getElementById("newPassword") as HTMLInputElement).value
+            }
+            
+            let request = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(obj)
+            }
 
-
-
+            fetch("/admin/psw", request)
+            .then((response)=>response.json())
+            .then((data)=> 
+            {
+                console.log(data);
+                (document.getElementById("oldPassword") as HTMLInputElement).value="";      
+                (document.getElementById("newPassword") as HTMLInputElement).value="";      
+                
+            })
+        }
+        cp.append(btn3);
 
     })
    
@@ -164,6 +194,7 @@ function showUserProfile(){
             {
                 console.log(data);
                 (document.getElementById("username") as HTMLInputElement).value="";
+                showProfile()
             })           
         }
 
@@ -198,9 +229,40 @@ function showUserProfile(){
         }
         btn2.innerHTML="Cambia Email"
         buttons.append(btn2);
-        (document.getElementById("email") as HTMLInputElement).value=""
+        (document.getElementById("email") as HTMLInputElement).value="";
+        showProfile();
     })
    
+    let cp = document.getElementById("cp");
+    let btn3 = document.createElement("button");
+    btn3.setAttribute("class", "btn btn-primary")
+    btn3.innerHTML="Cambia Password"
+    btn3.onclick= ()=>{
+        let obj = {
+            'oldPassword' : (document.getElementById("oldPassword") as HTMLInputElement).value,
+            'newPassword' : (document.getElementById("newPassword") as HTMLInputElement).value
+        }
+        
+        let request = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(obj)
+        }
+
+        fetch("/user/psw", request)
+        .then((response)=>response.json())
+        .then((data)=> 
+        {
+            console.log(data);
+            (document.getElementById("oldPassword") as HTMLInputElement).value="";      
+            (document.getElementById("newPassword") as HTMLInputElement).value="";      
+            
+        })
+    }
+    cp.append(btn3);
+
 }
 
 
