@@ -1,6 +1,6 @@
 import { data } from "jquery";
 import videogame from "../interfaces/videogame";
-import createVideoGame from "./creaVideogiochi";
+import createVideoGamePage from "./creaVideogiochi";
 import createGameVisualization from "./visualizzaVideogioco"
 
 let gameList: videogame[] = [];
@@ -13,7 +13,7 @@ export function createGamePage() {
         .then((data) => {
             if (data == "ADMIN") {
                 document.getElementById("addVideogame").removeAttribute("hidden");
-                document.getElementById("addVideogame").onclick = createVideoGame;
+                document.getElementById("addVideogame").onclick = createVideoGamePage;
                 type = "ADMIN";
             } else if (data == "USER") {
                 document.getElementById("addVideogame").setAttribute("hidden", "true");

@@ -22,11 +22,12 @@ public class ConsoleRestController {
 	public boolean createGenre(
 			@RequestBody
 			String consoleStr) {
-		Optional<Console> opt = consoleRepo.findByConsole(consoleStr.toUpperCase());
+		String consoleStrfix = consoleStr.substring(1, consoleStr.length()-1);
+		Optional<Console> opt = consoleRepo.findByConsole(consoleStrfix.toUpperCase());
 		if(opt.isPresent()) {
 			return false;
 		}
-		consoleRepo.save(new Console(consoleStr.toUpperCase()));
+		consoleRepo.save(new Console(consoleStrfix.toUpperCase()));
 		return true;
 	}
 	

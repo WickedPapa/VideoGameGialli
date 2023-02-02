@@ -24,11 +24,12 @@ public class GenreRestController {
 	public boolean createGenre(
 			@RequestBody
 			String genreStr) {
-		Optional<Genre> opt = genreRepo.findByGenre(genreStr.toUpperCase());
+		String genreStrfix = genreStr.substring(1, genreStr.length()-1);
+		Optional<Genre> opt = genreRepo.findByGenre(genreStrfix.toUpperCase());
 		if(opt.isPresent()) {
 			return false;
 		}
-		genreRepo.save(new Genre(genreStr.toUpperCase()));
+		genreRepo.save(new Genre(genreStrfix.toUpperCase()));
 		return true;
 	}
 	
