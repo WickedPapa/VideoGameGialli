@@ -16,7 +16,6 @@ export function createPage() {       /*Inizializza tutto ciò che serve alla pag
         document.getElementById("main").innerHTML=creaAnnuncio;
         createInsertionPage();
     }
-    //createInsertion();
     getAllInsertions();
     createPagination();
     showResults(1);

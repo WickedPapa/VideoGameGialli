@@ -4,6 +4,7 @@ package com.projectwork.videogamelover.model.entities;
 
 
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -99,10 +100,23 @@ public class VideoGame {
 	public void setCover(Image cover) {
 		this.cover = cover;
 	}
-	
-	
-	
-	
-	
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(console, cover, genre, id, name, year);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VideoGame other = (VideoGame) obj;
+		return Objects.equals(console, other.console) && Objects.equals(cover, other.cover)
+				&& Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
+				&& year == other.year;
+	}
 }

@@ -23,44 +23,25 @@ export function createGamePage() {
                 type = "GUEST"
             }
             getAllGames(); 
-            createGamePagination();
-            showGames(1);
+           
         })
 }
 
 
 
 function getAllGames() {
-    gameList=[];
-   /* fetch("/videogames")
+    
+    fetch("/videogames")
         .then((response) => (response.json()))
         .then((data) => {
+            gameList=[];
             for (let game of data) {
-                gameList.push(game)
+                gameList.push(game);
             }
+             createGamePagination();
+             showGames(1);
         })
-    */
-
-        const imageGioco1 = {
-            link: "https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
-        }
-
-        const gioco1 = {
-            id: 1,
-            name: "SuperMario",
-            genre: [{genre: "PLATFORM"}],
-            year: 1985,
-            console: {console: "NES"},
-            cover: imageGioco1
-        }
-        
-        for (let i = 0; i < 27; i++) {
-            if (i != 17) {
-                gameList.push(gioco1)
-            } else {
-                gameList.push(gioco1)
-            }
-        }
+   
         
 }
 
@@ -83,29 +64,36 @@ function showGames(i: number) {
             col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
         }
 
-        col.onclick = () => {
-            createGameVisualization(gameList[start])
-        }
+        
         
         let gameTitle = document.createElement("h3");
         gameTitle.setAttribute("class","my-4")
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
         image.width = 200;
-        gameTitle.innerHTML = gameList[start].name;
-
+        image.height = 200;
+        let game = gameList[start]
+        image.onclick = () => {
+            createGameVisualization(game)
+        }
+        gameTitle.innerHTML = "<b>"+gameList[start].name+"</b>";
+        
         col.append(gameTitle, image);
         let addButton = document.createElement("button");
-        
+        let id =gameList[start].id
         if (type == "USER") {
             addButton.innerHTML = "Aggiungi alla tua Lista!"
-            
+            addButton.setAttribute("class","my-3")
             addButton.onclick = () => {
                 
-                fetch("/user/game/"+gameList[start].id)
+                fetch("/user/game/"+id)
                 .then((response)=>(response.json()))
                 .then((data)=>{
-                    console.log(data);
+                    if(data){
+                        alert("Videogioco aggiunto!");
+                    }else{
+                        alert("Possiedi già questo giuoco!");
+                    }
                 });
             }
             col.append(addButton);
