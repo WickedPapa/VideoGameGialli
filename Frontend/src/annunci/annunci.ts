@@ -51,14 +51,11 @@ function assignFilters() {             /*Assegna le funzioni ai pulsanti nelle d
             searchByTitle(searchTitle.value)
         }
     }
-    let searchButton = document.getElementById("searchButton");
-    searchButton.onclick = () => {
-        searchByTitle(searchTitle.value)
-    }
 }
 
 
 export function searchByTitle(title: string) {
+    getAllInsertions();
     let filteredList = []
     for (let element of list) {
         let titolo = element.title;
@@ -293,20 +290,37 @@ function showResults(i: number) {
         let trades = document.createElement("h5");
         let date = document.createElement("h5");
         image.src = list[start].tradeGame.cover.link;
+        image.setAttribute('class', 'mb-2 border border-3 border-info')
         image.width = 200;
-        title.innerHTML = list[start].title;
+        title.innerHTML = list[start].title
+        title.setAttribute('class', 'mx-auto mt-2 rounded-top bg-light border-bottom border-3 border-primary');
+
         description.innerHTML = list[start].description;
+        description.setAttribute('class', 'mb-0 border-top border-3 border-primary bg-light');
+
         game.innerHTML = list[start].tradeGame.name;
+        game.setAttribute('class', 'mb-0 bg-light');
+
         
         for(let i= 0; i<list[start].tradeGame.genre.length; i++){
             genre.innerHTML += list[start].tradeGame.genre[i].genre + " ";
+            genre.setAttribute('class', 'mb-0 bg-light');
+            
         }
         year.innerHTML = "" + list[start].tradeGame.year;
+        year.setAttribute('class', 'mb-0 bg-light');
+        
 
         console.innerHTML = list[start].tradeGame.console.console;
+        console.setAttribute('class', 'mb-0 bg-light');
+
 
         trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
+        trades.setAttribute('class', 'mb-0 bg-light');
+
         date.innerHTML= list[start].publicationDate;
+        date.setAttribute('class', 'rounded-bottom border-bottom border-3 border-primary bg-light');
+
         col.append(title,image,description,game,genre,year,console,trades,date)
         content.append(col);
 
