@@ -223,14 +223,14 @@ function showUserProfile(){
             .then((response)=>response.json())
             .then((data)=> 
             {
-                console.log(data)
-
+                console.log(data);
+                (document.getElementById("email") as HTMLInputElement).value="";
+                 showProfile();
             })
         }
         btn2.innerHTML="Cambia Email"
         buttons.append(btn2);
-        (document.getElementById("email") as HTMLInputElement).value="";
-        showProfile();
+        
     })
    
     let cp = document.getElementById("cp");
