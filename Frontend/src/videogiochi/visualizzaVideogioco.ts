@@ -5,6 +5,7 @@ import videogiochi from "./videogiochi.html"
 
 
 export function createGameVisualization(game:videogame){
+    console.log(game);
     document.getElementById("main").innerHTML=visualizzaVideogioco;
     setback();
     setPage(game)

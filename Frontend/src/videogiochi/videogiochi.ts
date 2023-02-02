@@ -37,9 +37,9 @@ function getAllGames() {
             gameList=[];
             for (let game of data) {
                 gameList.push(game);
-                createGamePagination();
-                showGames(1);
             }
+             createGamePagination();
+             showGames(1);
         })
    
         
@@ -71,20 +71,21 @@ function showGames(i: number) {
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
         image.width = 200;
+        let game = gameList[start]
         image.onclick = () => {
-            createGameVisualization(gameList[start])
+            createGameVisualization(game)
         }
         gameTitle.innerHTML = gameList[start].name;
         
         col.append(gameTitle, image);
         let addButton = document.createElement("button");
-        
+        let id =gameList[start].id
         if (type == "USER") {
             addButton.innerHTML = "Aggiungi alla tua Lista!"
             
             addButton.onclick = () => {
                 
-                fetch("/user/game/"+gameList[start].id)
+                fetch("/user/game/"+id)
                 .then((response)=>(response.json()))
                 .then((data)=>{
                     console.log(data);
