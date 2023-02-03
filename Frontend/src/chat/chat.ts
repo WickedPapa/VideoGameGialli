@@ -6,7 +6,6 @@ import message from "../interfaces/message";
 import userInfo from "../interfaces/userInfo";
 
 let chatID : number;
-let userID : number;
 
 export function addClickChat(){
     document.getElementById("showChatUsers").onclick = showUsersChat;
@@ -14,35 +13,33 @@ export function addClickChat(){
 
 
 function showUsersChat() {
-    let users: user[] = [];
     fetch("/user")
         .then((response) => response.json())
-        .then((data) => {
-            for (let user of data) {
-                users.push(user);
-            }
+        .then((data : user[]) => {
             let chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
-            for (let user of users) {
-                let div = document.createElement("div");
-                div.setAttribute("class", "list-group")
+            let div = document.createElement("div");
+            div.setAttribute("class", "list-group");
+            for (let user of data) {
                 let btn = document.createElement("button");
                 btn.setAttribute("type", "button");
                 btn.setAttribute("class", "list-group-item list-group-item-action");
                 btn.id = "" + user.userId;
-                btn.innerHTML = user.username;
+                btn.innerHTML = user.username +" " +user.rating;
                 btn.onclick = () => { findChat(Number(btn.id)) };
+                div.append(btn);
+                chatBox.append(div);
             }
         })
 }
 
 function findChat(idReceiver: number) {
-    fetch("/findChat/" + idReceiver)
+    fetch("/chat/" + idReceiver)
         .then((response) => response.json())
         .then((data) => {
             if (data != -1) {
-                openChat(Number(data));
                 chatID = data;
+                openChat(Number(data));
             }
         });
 }
@@ -50,10 +47,10 @@ function findChat(idReceiver: number) {
 function openChat(chatId: number) {
     let chatBox = document.getElementById("chatBox");
     chatBox.innerHTML = "";
-    chatBox.append(chatHeaderTemplate, chatBodyTemplate, chatFooterTemplate);
+    chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
     let chatTitle = document.getElementById("chatTitle");
     let chatConversation = document.getElementById("chatBody");
-    document.getElementById("button-addon2").onclick = createMessage;
+    
 
     fetch("/chat/conversation/" + chatId)
         .then((serializedConversation) => serializedConversation.json())
@@ -62,7 +59,7 @@ function openChat(chatId: number) {
             fetch("/user")
             .then((serializedThisUserInfo)=>serializedThisUserInfo.json())
             .then((thisUserInfo:userInfo)=>{
-                userID = thisUserInfo.userId;
+                document.getElementById("button-addon2").onclick = ()=>{createMessage(thisUserInfo.userId)};
                 for (let message of conversation) {
 
                     fetch("/user/"+message.userId)
@@ -137,7 +134,7 @@ function openChat(chatId: number) {
         chatBody.append(divInfo, divText);
     }
 
-    function createMessage(){
+    function createMessage(userID : number){
         let text = document.getElementById("messageText") as HTMLInputElement;
 
         const newMessage = {
@@ -154,9 +151,13 @@ function openChat(chatId: number) {
             body: JSON.stringify(newMessage)
         }
 
+        console.log(newMessage);
+        
+
         fetch("/chat/", request)
         .then((response)=>response.json())
         .then((data)=>{
+            console.log(data);
             if(data){
                 openChat(chatID);
             }
