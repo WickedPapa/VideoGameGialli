@@ -5,7 +5,6 @@ import videogame from '../interfaces/videogame';
 let fullList: videogame[] = []
 let userList: videogame[] = []
 let wishList: string[] = []
-let userGameList: string[] = []
 let listId:number[]=[]
 let giocoDaScambiare: number;
 let index = 0;
@@ -33,7 +32,9 @@ function getAllGames() {
             wishGames.innerHTML = "";
             for (let game of fullList) {
                 let li = document.createElement("li");
-                let liBtn = document.createElement("button");   
+                let liBtn = document.createElement("button");
+                let title = document.createElement("p");
+
                 let row = document.createElement("div");
                 let col = document.createElement("div");
                 let colPic = document.createElement("div");
@@ -48,7 +49,8 @@ function getAllGames() {
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
-                liBtn.innerHTML = game.name;
+                title.innerHTML = game.name;
+                title.setAttribute("class", "my-auto");
                 liBtn.onclick = () => {
 
                     let test: boolean = true;
@@ -71,10 +73,11 @@ function getAllGames() {
                     showSelectedGames();
                 }
 
+                li.append(liBtn);
+                liBtn.append(row);
+                col.append(title);
+                colPic.append(pic)
                 row.append(col, colPic);
-                col.append(liBtn);
-                colPic.append(pic);
-                li.append(row);
                 wishGames.append(li);
             }
         })
@@ -92,53 +95,38 @@ function getUserGames() {
             tradeGame.innerHTML = "";
             for (let game of userList) {
                 let li = document.createElement("li");
-                let liBtn = document.createElement("button");   
+                let title = document.createElement("p");
+                let liBtn = document.createElement("button");
+                let pic = document.createElement("img");
                 let row = document.createElement("div");
                 let col = document.createElement("div");
                 let colPic = document.createElement("div");
-                let pic = document.createElement("img");
-                row.setAttribute("class", "mx-auto pb-4 row border-bottom border-2 border-primary");
-                col.setAttribute("class", "col-2 mx-auto ms-0 my-auto");
+                row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+                col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
-                pic.setAttribute('src', game.cover.link);
-                pic.setAttribute('alt', game.name);
-                pic.setAttribute('class', 'border border-2 border-info rounded')
-                pic.setAttribute('style', 'width:300%');    
+                li.setAttribute("class", "dropdown-item");
+                li.setAttribute("id", "itemSelected");
+                title.innerHTML = game.name;
+                title.setAttribute("class", "my-auto");
+                pic.src = game.cover.link;
+                pic.setAttribute('class','border border-2 border-info rounded');
+                pic.setAttribute('style', 'width:700%');  
+                console.log(game.name);
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
-                liBtn.setAttribute("class", "dropdown-item");
-                liBtn.innerHTML = game.name;
-                
+                liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
                 liBtn.onclick = () => {
-
-                    let test: boolean = true;
-
-                    if (userGameList.length == 1) {
-                        userGameList = [];
-                        index = 0;
-                    }
-
-                    for (let element of userGameList) {
-                        if (element == li.innerHTML) {
-                            test = false;
-                        }
-                    }
-                    if (test) {
-                        userGameList[index] = li.innerHTML;
-                        listId[index] = game.id
-                        index++;
-                    }
                     giocoDaScambiare = game.id;
-                    console.log("Giochi scambio: "+giocoDaScambiare);
-                    tradeSelectedGames();
-
-                    
+                    console.log("gioco da Scambiare: "+ giocoDaScambiare);
+                    let btn = document.getElementById("selectedTradeGame");
+                    btn.append(li);
                 }
                 
                 row.append(col, colPic);
-                col.append(liBtn);
+                col.append(title);
                 colPic.append(pic);
-                li.append(row);
+                liBtn.append(row);
+                li.append(liBtn);
                 tradeGame.append(li);
             }
         })
@@ -154,37 +142,8 @@ function showSelectedGames() {
         let pic = document.createElement("img");
         pic.src = wishList[i];
 
-        
-        selectedGames.append(wishList[i]);
-    }
-}
-
-function tradeSelectedGames() {
-    let selectedGames = document.getElementById("selectedTradeGame");
-    selectedGames.innerHTML = "";
-    //if(document.getElementById('selected')==null) {
-        for (let i = 0; i < userGameList.length; i++) {
-            let li = document.createElement("li");
-            let pic = document.createElement("img");
-            li.setAttribute("id", "selected")
-    
-            pic.src = userGameList[i];
-    
-            li.innerHTML = userGameList[i];
-            selectedGames.append(li);
-            
-       // }
-    /*}else{
-        document.getElementById("selected").remove();
-        for (let i = 0; i < userGameList.length; i++) {
-            let li = document.createElement("li");
-            let pic = document.createElement("img");
-    
-            pic.src = userGameList[i];
-    
-            li.innerHTML = userGameList[i];
-            selectedGames.append(li);
-        }*/
+        li.innerHTML = wishList[i];
+        selectedGames.append(li);
     }
 }
 
