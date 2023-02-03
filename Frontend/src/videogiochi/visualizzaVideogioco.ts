@@ -24,7 +24,7 @@ function setback(){
 function setPage(game:videogame){
     let head = document.getElementById("gameTitle");
     let title=document.createElement("h1");
-    title.innerHTML=game.name;
+    title.innerHTML="<b>"+game.name+"</b>";
     head.append(title);
     head.setAttribute("class","text-center mb-5")
     let view = document.getElementById("gameImage");
@@ -34,16 +34,15 @@ function setPage(game:videogame){
     view.append(img);
     let info = document.getElementById("gameInfo");
     let genere = document.createElement("h2")
-    genere.innerHTML= " GENERE/I: ";
+    genere.innerHTML= "<b>GENERE/I: </b>";
     for(let i=0; i<game.genre.length; i++){
         genere.innerHTML += game.genre[i].genre +" ";
     } 
     let console=document.createElement("h2");
-    console.innerHTML= " CONSOLE: "+game.console.console;
+    console.innerHTML= "<b>CONSOLE: </b>"+game.console.console;
     let year=document.createElement("h2");
-    year.innerHTML=" ANNO: "+game.year
+    year.innerHTML="<b>ANNO: </b>"+game.year
     info.append(genere,console,year);
-
 }
 
 export default createGameVisualization
