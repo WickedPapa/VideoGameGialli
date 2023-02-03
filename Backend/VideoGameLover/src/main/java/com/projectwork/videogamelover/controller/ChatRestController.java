@@ -71,6 +71,7 @@ public class ChatRestController {
 		message = messageRepo.save(message);
 		return true;
 	}
+	
 	@GetMapping("/chat/version/{chatId}")
 	public int chatVersion(@PathVariable("chatId") int chatId) {
 		Optional<Chat> optChat = chatRepo.findById(chatId);
