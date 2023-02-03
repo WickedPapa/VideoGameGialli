@@ -102,7 +102,7 @@ function getAllInsertions(){
         let date = document.createElement("h5");
         image.src = list[start].tradeGame.cover.link;
         image.setAttribute('class', 'mb-2 border border-3 border-info')
-        image.width = 200;
+        image.height = 200;
         title.innerHTML = list[start].title
         title.setAttribute('class', 'mx-auto mt-2 rounded-top bg-light border-bottom border-3 border-primary');
 
