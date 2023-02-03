@@ -10,7 +10,6 @@ export function createPage2() {       /*Inizializza tutto ciò che serve alla pa
     document.getElementById("selectAll2").onclick = searchByAll2;
     assignFilters2();
     document.getElementById("createCategory").onclick = createCategory;
-    document.getElementById("deleteElements").onclick = deleteElements;
     let btn = document.getElementById("addInsertion");
     btn.onclick=()=>{
         document.getElementById("main").innerHTML=creaAnnuncio;
@@ -44,6 +43,18 @@ function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle 
             searchByYear2(Number((a as HTMLButtonElement).id));
         }
     }
+    
+    let searchTitle = document.getElementById("searchTitle2") as HTMLInputElement;
+    searchTitle.onkeydown = (e) => {
+        if (e.key == 'Enter') {
+            searchByTitle2(searchTitle.value)
+        }
+    }
+
+    let searchButton = document.getElementById("searchButton2");
+    searchButton.onclick = () => {
+        searchByTitle2(searchTitle.value)
+    }
 
     /*let searchTitle = document.getElementById("searchTitle2") as HTMLInputElement;
     searchTitle.onkeydown = (e) => {
@@ -59,6 +70,7 @@ function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle 
 
 
 function searchByTitle2(title: string) {
+    getAllInsertions2();
     let filteredList = []
     for (let element of list) {
         let titolo = element.title;
@@ -369,39 +381,17 @@ export function addInsertionToList(ins: string){
 
 export function createCategory(){
 
-    /* Sta cosa da errore ma funziona, unico problema non pulisce la casella di testo
-    
     //Prende il valore della casella di testo e lo mette come nome della categoria
-    let CatName = document.getElementById("categoryName").value;
-    console.log(CatName);
-    console.log(document.getElementById("categoryName").value);
-
-    //Svuota il valore della casella di testo
-    document.getElementById("categoryName").value="";
-    console.log(document.getElementById("categoryName").value);
-
-    */
-
+    let CatName = document.getElementById("categoryName") as HTMLInputElement;
+    console.log(CatName.value);
+    
+    //TODO: LA FEEEEEEEEEEEEETCH!!!
     //TODO: inserisci gli elementi di checkedList in una categoria nel DB
     //TODO: Metodo da fare per inserire gli elementi nel database haha
     console.log("Categoria creata più o meno");
 
-    checkedList = [];
-
-    //Reimposta la pagina a come stava prima
-    getAllInsertions2();
-    createPagination2();
-    showResults2(1);
-
-}
-
-export function deleteElements(){
-
-    //TODO: cancella gli elementi di checkedList dal DB
-
-    //TODO: Metodo da fare per cancellare gli elementi dal database
-    console.log("Elementi cancellati più o meno");
-
+    //Svuota il valore della casella di testo e la lista
+    CatName.value = "";
     checkedList = [];
 
     //Reimposta la pagina a come stava prima
