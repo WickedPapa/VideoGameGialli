@@ -154,8 +154,8 @@ function showSelectedGames() {
         let pic = document.createElement("img");
         pic.src = wishList[i];
 
-        li.innerHTML = wishList[i];
-        selectedGames.append(li);
+        
+        selectedGames.append(wishList[i]);
     }
 }
 
