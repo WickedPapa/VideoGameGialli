@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +21,8 @@ import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.CreateMessageDTO;
 import com.projectwork.videogamelover.view.MessageDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class ChatRestController {
 	
@@ -28,23 +33,27 @@ public class ChatRestController {
 	@Autowired
 	MessageRepository messageRepo;
 
-	public int findChat(int userId1, int userId2){
-		Optional<User> optUser1 = userRepo.findById(userId1);
-		Optional<User> optUser2 = userRepo.findById(userId2);
-		if(optUser1.isEmpty() || optUser2.isEmpty()) {
+	@GetMapping("/chat/{friendId}")
+	public int findChat(HttpSession session, @PathVariable("friendId") int friendId){
+		Optional<User> optfriend = userRepo.findById(friendId);
+		Object obj = session.getAttribute("logged");
+		if(optfriend.isEmpty() || obj == null || !(obj instanceof User)) {
 			return -1;
 		}
-		User user1 = optUser1.get();
-		User user2 = optUser2.get();
-		//List<Chat> chats = chatRepo.findByUser(user1);
-		Optional<Chat> optChat = chatRepo.findByUser1AndUser2(user1, user2);
+		User user = (User)obj;
+		User friend = optfriend.get();
+		Optional<Chat> optChat = chatRepo.findByUser1AndUser2(user, friend);
 		if(optChat.isEmpty()) {
-			Chat chat = chatRepo.save(new Chat(user1, user2));
-			return chat.getId();
+			optChat = chatRepo.findByUser1AndUser2(friend, user);
+			if(optChat.isEmpty()) {
+				Chat chat = chatRepo.save(new Chat(user, friend));
+				return chat.getId();
+			}
 		}
 		return optChat.get().getId();
 	}
 	
+	@PostMapping("/chat")
 	public boolean createMessage(@RequestBody CreateMessageDTO dto) {
 		Optional<User> optUser = userRepo.findById(dto.getUserId());
 		if(optUser.isEmpty()) {
@@ -62,8 +71,8 @@ public class ChatRestController {
 		message = messageRepo.save(message);
 		return true;
 	}
-	
-	public int chatVersion(int chatId) {
+	@GetMapping("/chat/version/{chatId}")
+	public int chatVersion(@PathVariable("chatId") int chatId) {
 		Optional<Chat> optChat = chatRepo.findById(chatId);
 		if(optChat.isEmpty()) {
 			return -1;
@@ -71,7 +80,8 @@ public class ChatRestController {
 		return messageRepo.findByConversation(optChat.get()).size();
 	}
 	
-	public List<MessageDTO> getConversation(int chatId){
+	@GetMapping("/chat/conversation/{chatId}")
+	public List<MessageDTO> getConversation(@PathVariable("chatId") int chatId){
 		Optional<Chat> optChat = chatRepo.findById(chatId);
 		if(optChat.isEmpty()) {
 			return new LinkedList<>();
