@@ -77,7 +77,7 @@ export function expandInsertion(insertion: insertion) {
     let insDesc = document.createElement("h3");
     insDesc.setAttribute("style","color:white")
     insDesc.innerHTML = insertion.description;
-    document.getElementById("insertion-creator").innerHTML = insertion.publisher.username;
+    document.getElementById("insertion-creator").innerHTML = "L'utente"//insertion.publisher.username;
     document.getElementById("insertion-description").append(desc, insDesc);
     for (let i = 0; i < 3; i++) {
         document.getElementById("btn-item-" + (i + 1)).innerHTML = insertion.wishList[i].name;
