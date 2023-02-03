@@ -37,7 +37,6 @@ export function createPage2() {       /*Inizializza tutto ciò che serve alla pa
 
 
 function searchByAll2() {             /*La funziona del bottone che cerca tutti gli annunci senza filtri*/
-    getAllInsertions2();
     createPagination2();
     showResults2(1);
 }
@@ -133,6 +132,7 @@ function searchByYear2(year: number) {
 
 
 function getAllInsertions2(){
+    list = [];
     fetch('/insertion')
     .then((response) => response.json())
     .then((data) => {
