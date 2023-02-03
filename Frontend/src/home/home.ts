@@ -8,15 +8,15 @@ import createInsertionPage from "../creaAnnuncio/creaAnnuncio";
 import expandInsertion from '../annunci/annuncio';
 import annuncio from '../annunci/annuncio.html';
 
-
+let list: insertion[] = [];
 
 
 
 //import createInsertion from '../creaAnnuncio/creaAnnuncio';
 
-let list: insertion[] = [];
+/*let list: insertion[] = [];
 
-function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch più giù */
+function getAllInsertions() { Questa è solo una prova, scommentare la fetch più giù 
     list = [];
 
     const imageGioco1 = {
@@ -148,9 +148,9 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
     list.push(insertion4);
 
     
-    /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! */
+    /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! 
 
-    /*Fetch a backend con tutti gli annunci, aggiorna la lista list*/
+    /*Fetch a backend con tutti gli annunci, aggiorna la lista list
     // list=[];
     // fetch('/TipoAnnunciCheneso')
     // .then((response) => response.json())
@@ -159,7 +159,7 @@ function getAllInsertions() { /* Questa è solo una prova, scommentare la fetch 
     //         list.push(d);
     //     }
     // });
-}
+}*/
 
 
 export function createHome(){
@@ -196,66 +196,72 @@ export function createHome(){
 
     }
 
-    getAllInsertions();
-    createItemCarousel();
-
-    
-
-} 
-    
-
-
-    function createItemCarousel(){
-        
-        let carInner = document.getElementById('innerCarouselHome');
-        
-        for(let i = 0; i < 4 && i < list.length; i++){
-            let clCarouselIt = document.createElement('div');
-            if(i == 0){
-                clCarouselIt.setAttribute('class', 'carousel-item active');
-            }else{
-                clCarouselIt.setAttribute('class', 'carousel-item');
-                }
-    
-            let img = document.createElement('img');
-            img.setAttribute('src', list[i].tradeGame.cover.link);
-            img.setAttribute('id', 'imgCard');
-            let clCard = document.createElement('div');
-            clCard.setAttribute('class', 'card text-bg-secondary');
-            clCard.setAttribute('id', 'annCard');
-            let carBody = document.createElement('div');
-            carBody.setAttribute('class', 'card-body');
-            let title = document.createElement('h5');
-            title.setAttribute('class', 'card-title');
-            title.innerHTML = list[i].tradeGame.name;
-            let desc = document.createElement('p');
-            desc.setAttribute('class', 'card-text');
-            for (let i = 0; i < list[i].tradeGame.genre.length; i++) {
-                desc.innerHTML += list[i].tradeGame.genre[i].genre + " "
-            }
-            desc.innerHTML += "<br>"
-            + "Anno: " + list[i].tradeGame.year + " "
-            + "Console: " + list[i].tradeGame.console.console + "<br>"
-            +"Descrizione:";
-            let goAnn = document.createElement('a');
-            goAnn.setAttribute('href', "#");
-            goAnn.setAttribute('class', 'btn btn-primary');
-            goAnn.onclick = () => {
-                document.getElementById('main').innerHTML = annuncio;
-                expandInsertion(list[i]);
-            }
-            goAnn.innerHTML = 'Vai all annuncio';
-    
-    
-            carInner.appendChild(clCarouselIt);
-                    clCarouselIt.appendChild(clCard);
-                        clCard.append(img);
-                        clCard.append(carBody);
-                            carBody.append(title);
-                            carBody.append(desc);
-                            carBody.append(goAnn);
-            }
+    list=[];
+    fetch('/insertion')
+    .then((response) => response.json())
+    .then((data) => {
+        for(let d of data){
+            list.push(d);
         }
+        createItemCarousel();  
+    })
+    }
+
+
+function createItemCarousel(){
+
+for(let i = list.length-1; i > list.length-4 && i < list.length; i--){
+    let carInner = document.getElementById('innerCarouselHome');
+    let clCarouselIt = document.createElement('div');
+    
+    if(i == 0){
+        clCarouselIt.setAttribute('class', 'carousel-item active');
+    }else{
+        clCarouselIt.setAttribute('class', 'carousel-item');
+        }
+
+    let img = document.createElement('img');
+    img.setAttribute('src', list[i].tradeGame.cover.link);
+    img.setAttribute('id', 'imgCard');
+    let clCard = document.createElement('div');
+    clCard.setAttribute('class', 'card text-bg-secondary');
+    clCard.setAttribute('id', 'annCard');
+    let carBody = document.createElement('div');
+    carBody.setAttribute('class', 'card-body');
+    let title = document.createElement('h5');
+    title.setAttribute('class', 'card-title');
+    title.innerHTML = list[i].tradeGame.name;
+    let desc = document.createElement('p');
+    desc.setAttribute('class', 'card-text');
+    for (let i = 0; i < list[i].tradeGame.genre.length; i++) {
+        desc.innerHTML += list[i].tradeGame.genre[i].genre + " "
+    }
+    desc.innerHTML += "<br>"
+    + "Anno: " + list[i].tradeGame.year + " "
+    + "Console: " + list[i].tradeGame.console.console + "<br>"
+    +"Descrizione:";
+    let goAnn = document.createElement('a');
+    let imgGoAnn = document.createElement('img');
+    goAnn.setAttribute('href', "#");
+    imgGoAnn.setAttribute('class', 'p-0 btn dropdown-toggle" type="button');
+    imgGoAnn.src = "./img/button/goBtn.png";
+    goAnn.appendChild(imgGoAnn);
+    imgGoAnn.setAttribute('style', 'border:none;float:center;image-rendering: pixelated;width: 10%;height:auto;');
+    goAnn.append(imgGoAnn);
+    goAnn.onclick = () => {
+        document.getElementById('main').innerHTML = annuncio;
+        expandInsertion(list[i]);
+    }
+
+    carInner.appendChild(clCarouselIt);
+            clCarouselIt.appendChild(clCard);
+                clCard.append(img);
+                clCard.append(carBody);
+                    carBody.append(title);
+                    carBody.append(desc);
+                    carBody.append(goAnn);
+    }
+}
 export default createHome;
 
 /*
