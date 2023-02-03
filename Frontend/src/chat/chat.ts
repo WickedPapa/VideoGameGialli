@@ -43,5 +43,5 @@ function showUsersChat(){
 }
 
 function findChat(idReceiver : string){
-    fetch("/findChat", request)
+    fetch("/findChat")
 }

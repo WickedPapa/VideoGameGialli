@@ -7,18 +7,31 @@ let list: insertion[] = [];
 let view: number = 6
 
 export function createPage2() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
-    document.getElementById("selectAll2").onclick = searchByAll2;
-    assignFilters2();
-    document.getElementById("createCategory").onclick = createCategory;
-    let btn = document.getElementById("addInsertion");
-    btn.onclick=()=>{
-        document.getElementById("main").innerHTML=creaAnnuncio;
-        createInsertionPage();
-    }
-    //createInsertion();
-    getAllInsertions2();
-    createPagination2();
-    showResults2(1);
+
+    fetch('/insertion')
+    .then((response) => response.json())
+    .then((data) => {
+        for(let d of data){
+            list.push(d);
+        }
+
+        document.getElementById("selectAll2").onclick = searchByAll2;
+        assignFilters2();
+        document.getElementById("createCategory").onclick = createCategory;
+        let btn = document.getElementById("addInsertion");
+        btn.onclick=()=>{
+            document.getElementById("main").innerHTML=creaAnnuncio;
+            createInsertionPage();
+        }
+        //createInsertion();
+        //getAllInsertions2();
+        createPagination2();
+        showResults2(1);
+
+
+    });
+
+   
 
 }
 
@@ -119,121 +132,7 @@ function searchByYear2(year: number) {
 }
 
 
-
-function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch più giù */
-    list = [];
-
-    const imageGioco1 = {
-        link: "https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
-    }
-
-    const imageGioco2 = {
-        link: "https://www.mobygames.com/images/covers/l/14445-the-legend-of-zelda-nes-front-cover.jpg"
-    }
-
-    const imageGioco3 = {
-        link: "https://upload.wikimedia.org/wikipedia/it/b/b3/Pok%C3%A9mon_Giallo.png"
-    }
-
-    const imageGioco4 = {
-        link: "https://metalgear.fandom.com/it/wiki/Metal_Gear?file=Metal_Gear.jpg"
-    }
-
-    const imageGallery1 = {
-        link: "https://upload.wikimedia.org/wikipedia/it/thumb/7/77/Pikachu.png/1024px-Pikachu.png"
-    }
-
-    const imageGallery2 = {
-        link: "https://www.pngmart.com/files/11/Frog-Meme-PNG-HD.png"
-    }
-
-    const imageGallery3 = {
-        link: "https://media.licdn.com/dms/image/D5635AQHw3E5yYyXTLw/profile-framedphoto-shrink_800_800/0/1644518918606?e=1675620000&v=beta&t=x1RnXqWsDWAOVQUXGFujModXZhiGUQJu0a6FAsZN3Lo"
-    }
-
-    const gioco1 = {
-        id: 1,
-        name: "SuperMario",
-        genre: [{genre: "PLATFORM"}],
-        year: 1985,
-        console: {console: "NES"},
-        cover: imageGioco1
-    }
-
-    const gioco2 = {
-        id: 2,
-        name: "The Legend of Zelda",
-        genre: [{genre: "AVVENTURA"}],
-        year: 1986,
-        console: {console: "NES"},
-        cover: imageGioco2
-    }
-
-    const gioco3 = {
-        id: 3,
-        name: "Pokemon Giallo",
-        genre: [{genre: "GDR"}],
-        year: 1998,
-        console: {console: "GAME_BOY_COLOR"},
-        cover: imageGioco3
-    }
-
-    const gioco4 = {
-        id: 4,
-        name: "Metal Gear",
-        genre: [{genre: "STEALTH"}],
-        year: 1987,
-        console: {console: "NES"},
-        cover: imageGioco4
-    }
-
-    const publisherGioco1 = {
-        userId: 1,
-        username: "Pieroaffondo",
-        name: "Pierino",
-        surname: "Ciccino",
-        email: "pierinocuoricino@amorino.com",
-        rating: 666,
-        videogames: [gioco1]
-    }
-
-    const insertion1: insertion = {
-        approved: true,
-        title: "Scambio SuperMario",
-        description: "Scambio supermario xkè mi sono sekkato a giocarci",
-        publisher: publisherGioco1,
-        gallery: [imageGallery1, imageGallery2, imageGallery3],
-        tradeGame: gioco1,
-        wishList: [gioco2, gioco3, gioco4],
-        outcome: "WIP",
-        publicationDate: "29-01-2023"
-    }
-
-    const insertion2: insertion = {
-        approved: true,
-        title: "Scambio SuperLuigi",
-        description: "Scambio superluigi pecché sono pro",
-        publisher: publisherGioco1,
-        gallery: [imageGallery1, imageGallery2, imageGallery3],
-        tradeGame: gioco2,
-        wishList: [gioco1, gioco3, gioco4],
-        outcome: "WIP",
-        publicationDate: "29-01-2023"
-    }
-
-    /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! */
-
-    /*Fetch a backend con tutti gli annunci, aggiorna la lista list*/
-    // list=[];
-    // fetch('/TipoAnnunciCheneso')
-    // .then((response) => response.json())
-    // .then((data) => {
-    //     for(let d of data){
-    //         list.push(d);
-    //     }
-    // });
-
-    //Prende la lista dal db
+function getAllInsertions2(){
     fetch('/insertion')
     .then((response) => response.json())
     .then((data) => {
@@ -241,20 +140,9 @@ function getAllInsertions2() { /* Questa è solo una prova, scommentare la fetch
             list.push(d);
         }
     });
-
-    //Da modificare a i<3
-    for (let i = 0; i < 9; i++) {
-        if (i != 2) {
-            list.push(insertion1)
-        } else {
-            list.push(insertion2)
-        }
-    }
 }
 
-/*da qui in poi le funzioni servono a 
-creare la pagina una volta cliccato  
-sul bottone annunci e a ricaricarle*/
+
 
 function createPagination2() {
     let size: number = list.length
@@ -303,7 +191,7 @@ function showResults2(i: number) {
 
 
         let col = document.createElement("div")
-        let juan = "" + start;
+        let juan = list[start].title  //"" + start;
         //Juan è l'id dei bottoni, sarà l'id delle inserzioni quando si implementeranno gli annunci dal db
         let isOnCheckedListResult: boolean = false;
 
@@ -353,6 +241,8 @@ function showResults2(i: number) {
 export default createPage2
 
 
+
+
 let checkedList: string[] = [];
 
 export function addInsertionToList(ins: string){
@@ -380,10 +270,34 @@ export function addInsertionToList(ins: string){
 }
 
 export function createCategory(){
+    console.log(checkedList)
+    
+    const obj={
+        description: (document.getElementById("categoryName") as HTMLInputElement).value,
+        insertionsTitle: checkedList,
+    }
+    
+
+    const request = {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(obj)
+    }
+
+    fetch("/category", request)
+    .then((response)=>response.json())
+    .then((data)=>{
+        if(data>0){
+            alert("Categoria Creata")
+        }else{
+            alert("E' FINIIIITAA!!")
+        }
+    })
 
     //Prende il valore della casella di testo e lo mette come nome della categoria
-    let CatName = document.getElementById("categoryName") as HTMLInputElement;
-    console.log(CatName.value);
+   
     
     //TODO: LA FEEEEEEEEEEEEETCH!!!
     //TODO: inserisci gli elementi di checkedList in una categoria nel DB
@@ -391,7 +305,7 @@ export function createCategory(){
     console.log("Categoria creata più o meno");
 
     //Svuota il valore della casella di testo e la lista
-    CatName.value = "";
+
     checkedList = [];
 
     //Reimposta la pagina a come stava prima
