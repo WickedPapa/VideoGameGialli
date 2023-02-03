@@ -6,6 +6,7 @@ let fullList: videogame[] = []
 let userList: videogame[] = []
 let wishList: string[] = []
 let listId:number[]=[]
+let gameToTrade:videogame;
 let giocoDaScambiare: number;
 let index = 0;
 
@@ -118,8 +119,9 @@ function getUserGames() {
                 liBtn.onclick = () => {
                     giocoDaScambiare = game.id;
                     console.log("gioco da Scambiare: "+ giocoDaScambiare);
-                    let btn = document.getElementById("selectedTradeGame");
-                    btn.append(li);
+                    gameToTrade=game;
+                   // let btn = document.getElementById("selectedTradeGame");
+                    //btn.append(li);
                 }
                 
                 row.append(col, colPic);
@@ -130,6 +132,11 @@ function getUserGames() {
                 tradeGame.append(li);
             }
         })
+}
+
+
+function showSelectedTradeGame(){
+    gameToTrade;
 }
 
 
