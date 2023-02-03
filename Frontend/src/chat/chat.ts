@@ -12,6 +12,7 @@ export function addClickChat(){
     document.getElementById("showChatUsers").onclick = showUsersChat;
 }
 
+
 function showUsersChat() {
     let users: user[] = [];
     fetch("/user")
