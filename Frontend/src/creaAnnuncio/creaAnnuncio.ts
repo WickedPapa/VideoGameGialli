@@ -5,6 +5,7 @@ import videogame from '../interfaces/videogame';
 let fullList: videogame[] = []
 let userList: videogame[] = []
 let wishList: string[] = []
+let userGameList: string[] = []
 let listId:number[]=[]
 let giocoDaScambiare: number;
 let index = 0;
@@ -109,8 +110,29 @@ function getUserGames() {
                 liBtn.innerHTML = game.name;
                 
                 liBtn.onclick = () => {
+
+                    let test: boolean = true;
+
+                    if (userGameList.length == 1) {
+                        userGameList = [];
+                        index = 0;
+                    }
+
+                    for (let element of userGameList) {
+                        if (element == li.innerHTML) {
+                            test = false;
+                        }
+                    }
+                    if (test) {
+                        userGameList[index] = li.innerHTML;
+                        listId[index] = game.id
+                        index++;
+                    }
                     giocoDaScambiare = game.id;
-                    console.log("gioco da Scambiare: "+ giocoDaScambiare)
+                    console.log("Giochi scambio: "+giocoDaScambiare);
+                    tradeSelectedGames();
+
+                    
                 }
                 
                 row.append(col, colPic);
@@ -134,6 +156,35 @@ function showSelectedGames() {
 
         li.innerHTML = wishList[i];
         selectedGames.append(li);
+    }
+}
+
+function tradeSelectedGames() {
+    let selectedGames = document.getElementById("selectedTradeGame");
+    selectedGames.innerHTML = "";
+    //if(document.getElementById('selected')==null) {
+        for (let i = 0; i < userGameList.length; i++) {
+            let li = document.createElement("li");
+            let pic = document.createElement("img");
+            li.setAttribute("id", "selected")
+    
+            pic.src = userGameList[i];
+    
+            li.innerHTML = userGameList[i];
+            selectedGames.append(li);
+            
+       // }
+    /*}else{
+        document.getElementById("selected").remove();
+        for (let i = 0; i < userGameList.length; i++) {
+            let li = document.createElement("li");
+            let pic = document.createElement("img");
+    
+            pic.src = userGameList[i];
+    
+            li.innerHTML = userGameList[i];
+            selectedGames.append(li);
+        }*/
     }
 }
 
