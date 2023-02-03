@@ -15,9 +15,39 @@ let index = 0;
 export function createInsertionPage() {
     getUserGames();
     getAllGames();
+    buttonTemplate();
     document.getElementById("sendInsertion").onclick=()=>{
         sendAll();
     }
+}
+
+function buttonTemplate(){
+    let selected = document.getElementById("selectedTradeGame");
+    let row = document.createElement("div");
+    let liBtn = document.createElement("button");
+    let col = document.createElement("div");
+    let col2 = document.createElement("div");
+    let title = document.createElement("div");
+    let pic = document.createElement("img");
+    
+    title.innerHTML = "Seleziona il gioco da scambiare";
+
+    row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+    col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
+    col2.setAttribute("class", "col-2 mx-auto me-1 my-auto");
+    title.setAttribute("class", "my-auto");
+    col2.setAttribute('style', 'width:300%');  
+    liBtn.setAttribute("type", "button");
+    liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
+
+
+    row.append(col, col2);
+    col.append(title);
+    col2.append(pic);
+    liBtn.append(row);
+
+    selected.append(liBtn);
+
 }
 
 
@@ -111,7 +141,7 @@ function getUserGames() {
                 title.setAttribute("class", "my-auto");
                 pic.src = game.cover.link;
                 pic.setAttribute('class','border border-2 border-info rounded');
-                pic.setAttribute('style', 'width:700%');  
+                pic.setAttribute('style', 'width:128px;height:auto');  
                 console.log(game.name);
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
@@ -120,6 +150,7 @@ function getUserGames() {
                     giocoDaScambiare = game.id;
                     console.log("gioco da Scambiare: "+ giocoDaScambiare);
                     gameToTrade=game;
+                    showSelectedTradeGame()
                    // let btn = document.getElementById("selectedTradeGame");
                     //btn.append(li);
                 }
@@ -137,6 +168,35 @@ function getUserGames() {
 
 function showSelectedTradeGame(){
     gameToTrade;
+    let selected = document.getElementById
+    ("selectedTradeGame");
+    selected.innerHTML = "";
+    let row = document.createElement("div");
+    let liBtn = document.createElement("button");
+    let col = document.createElement("div");
+    let colPic = document.createElement("div");
+    let title = document.createElement("div");
+    let pic = document.createElement("img");
+    
+    title.innerHTML = gameToTrade.name;
+    pic.src = gameToTrade.cover.link;
+
+    row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+    col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
+    colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
+    title.setAttribute("class", "my-auto");
+    pic.setAttribute('class','border border-2 border-info rounded');
+    pic.setAttribute('style', 'width:300%');  
+    liBtn.setAttribute("type", "button");
+    liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
+
+
+    row.append(col, colPic);
+    col.append(title);
+    colPic.append(pic);
+    liBtn.append(row);
+
+    selected.append(liBtn);
 }
 
 
