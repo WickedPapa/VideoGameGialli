@@ -209,27 +209,30 @@ export function createHome(){
 
 
 function createItemCarousel(){
+console.log(list);
 
-for(let i = list.length-1; i > list.length-4 && i < list.length; i--){
+for(let i = list.length-1; i > list.length-4 && i >= 0; i--){
     let carInner = document.getElementById('innerCarouselHome');
     let clCarouselIt = document.createElement('div');
     
+console.log("i: " + i);
+
     if(i == 0){
         clCarouselIt.setAttribute('class', 'carousel-item active');
     }else{
         clCarouselIt.setAttribute('class', 'carousel-item');
         }
-
     let img = document.createElement('img');
     img.setAttribute('src', list[i].tradeGame.cover.link);
     img.setAttribute('id', 'imgCard');
+    img.setAttribute('class', 'mt-2');
     let clCard = document.createElement('div');
-    clCard.setAttribute('class', 'card text-bg-secondary');
+    clCard.setAttribute('class', 'card bg-secondary');
     clCard.setAttribute('id', 'annCard');
     let carBody = document.createElement('div');
     carBody.setAttribute('class', 'card-body');
     let title = document.createElement('h5');
-    title.setAttribute('class', 'card-title');
+    title.setAttribute('class', 'card-title border-top border-2 border-info');
     title.innerHTML = list[i].tradeGame.name;
     let desc = document.createElement('p');
     desc.setAttribute('class', 'card-text');
