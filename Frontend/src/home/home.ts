@@ -209,13 +209,10 @@ export function createHome(){
 
 
 function createItemCarousel(){
-console.log(list);
 
 for(let i = list.length-1; i > list.length-4 && i >= 0; i--){
     let carInner = document.getElementById('innerCarouselHome');
     let clCarouselIt = document.createElement('div');
-    
-console.log("i: " + i);
 
     if(i == 0){
         clCarouselIt.setAttribute('class', 'carousel-item active');

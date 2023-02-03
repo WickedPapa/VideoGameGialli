@@ -1,6 +1,7 @@
 package com.projectwork.videogamelover.controller;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -67,10 +68,12 @@ public class ChatRestController {
 			return false;
 		}
 		Chat chat = optChat.get();
-		Message message = new Message(optUser.get(), new Timestamp(new java.util.Date().getTime()), dto.getText(), chat);
+		Timestamp time = Timestamp.valueOf(LocalDateTime.now());
+		Message message = new Message(optUser.get(), time, dto.getText(), chat);
 		message = messageRepo.save(message);
 		return true;
 	}
+	
 	@GetMapping("/chat/version/{chatId}")
 	public int chatVersion(@PathVariable("chatId") int chatId) {
 		Optional<Chat> optChat = chatRepo.findById(chatId);
@@ -86,8 +89,9 @@ public class ChatRestController {
 		if(optChat.isEmpty()) {
 			return new LinkedList<>();
 		}
+		System.out.println("ciao");
 		List<MessageDTO> conversation = new LinkedList<>();
-		for(Message m : messageRepo.findByConversation(optChat.get())) {
+		for(Message m : messageRepo.findByConversationOrderByTimestamp(optChat.get())) {
 			conversation.add(new MessageDTO(m.getUser().getId(), m.getTimestamp(), m.getText()));
 		}
 		return conversation;
