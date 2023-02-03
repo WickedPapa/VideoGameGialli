@@ -12,6 +12,8 @@ import com.projectwork.videogamelover.controller.ChatRestController;
 import com.projectwork.videogamelover.view.CreateMessageDTO;
 import com.projectwork.videogamelover.view.MessageDTO;
 
+import jakarta.servlet.http.HttpSession;
+
 @SpringBootTest
 public class ChatTest {
 	
@@ -19,7 +21,7 @@ public class ChatTest {
 	ChatRestController chatController;
 	
 	@Test
-	public void test() {
+	public void test(HttpSession session) {
 		//creare o trovare chat (id dei 2 utenti) restituisce id
 		//creare un messaggio (id chat, id utente, testo)
 		//creare un messaggio (id chat, id utente diverso, testo)
@@ -29,7 +31,8 @@ public class ChatTest {
 		//chiedere versione chat assert 4
 		//richiedere tutti i messaggi (id chat) restituisce MessageDTO(id utente, timestamp, text)
 		
-		int idChat = chatController.findChat(252, 253);
+		
+		int idChat = chatController.findChat(session, 253);
 		chatController.createMessage(new CreateMessageDTO(idChat, 252, "Ciao Mondo!"));
 		chatController.createMessage(new CreateMessageDTO(idChat, 253, "Ciao Stronzo!"));
 		assertEquals(2, chatController.chatVersion(idChat));
