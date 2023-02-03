@@ -1,33 +1,54 @@
+<style>
+    .btn:hover {
+        outline-color: transparent ;
+        outline-style: solid;
+        box-shadow: 0 0 0 4px #5a01a7;
+        transition: 0.7s;
+    }
+
+    #searchTitle:hover {
+        outline-color: transparent ;
+        outline-style: solid;
+        box-shadow: 0 0 0 4px #5a01a7;
+        transition: 0.7s;
+    }
+
+    #searchTitle {
+        box-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+        height:20px;
+        width:20%;
+        float: bottom;
+        align-self: right;
+    }
+</style>
+
+
 <div style="display: flex;" class="my-5">
 
-    <span style="margin-right: 40px">
-        <button class="btn btn-primary" id="selectAllGames">Visualizza tutti i Videogame</button>
-            </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
-                <span style="margin-right: 40px" class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Visualizza per Genere
-                    </button>
+    <span class="row mx-auto" style="margin-right: 40px">
+        <button class="mx-auto col-2 btn btn-primary" id="selectAllGames">Videogame</button>
+        
+               <span class="col-2 mx-auto my-auto dropdown">
+                    <img class="mx-auto p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/bygenreBtn.png" alt="">
                     <ul id="gameGenres" class="dropdown-menu">
                       
                     </ul>
                 </span>
-            <span style="margin-right: 40px" class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Visualizza per Anno
+            <span class="col-2 mx-auto my-auto dropdown">
+                <img class=" p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/byyearBtn.png" alt="">
                 </button>
                 <ul id="gameYears" class="dropdown-menu">
               
                 </ul>
             </span>
-    <div style="vertical-align: middle;" class="col-md-3 mx-auto">
-        <div class="input-group">
-            <input class="form-control border-end-1 border rounded-pill" type="search" placeholder="cerca" style="margin-right:20px" id="searchTitleGame">
+        <div class="col-4 my-1 mx-auto">
+            <div class="input-group">
+                <input class="mx-5 form-control border-end-1 rounded" type="search" placeholder="cerca" id="searchTitleGame">
+            </diV>
         </div>
-    </div>
-        <button  id="addVideogame" style="color:white" class="btn btn-warning" hidden>
-            <img src="./img/plus.png" alt="plus" style="width:25px">
-            Inserisci Videogame
-        </button>
+            <span class="col-2 mx-auto">
+                <img id="addVideogame" class="mx-auto p-0 btn dropdown-toggle" type="button" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/plusBtn.png" hidden alt="">
+              </span>  
       </span>      
              
 
