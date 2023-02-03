@@ -5,9 +5,7 @@ import chatFooterTemplate from "./chatFooter.html"
 import message from "../interfaces/message";
 import userInfo from "../interfaces/userInfo";
 
-let chatID : number;
-
-export function addClickChat(){
+export function addClickChat() {
     document.getElementById("showChatUsers").onclick = showUsersChat;
 }
 
@@ -15,7 +13,7 @@ export function addClickChat(){
 function showUsersChat() {
     fetch("/user")
         .then((response) => response.json())
-        .then((data : user[]) => {
+        .then((data: user[]) => {
             let chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
             let div = document.createElement("div");
@@ -25,7 +23,7 @@ function showUsersChat() {
                 btn.setAttribute("type", "button");
                 btn.setAttribute("class", "list-group-item list-group-item-action");
                 btn.id = "" + user.userId;
-                btn.innerHTML = user.username +" " +user.rating;
+                btn.innerHTML = user.username + " " + user.rating;
                 btn.onclick = () => { findChat(Number(btn.id)) };
                 div.append(btn);
                 chatBox.append(div);
@@ -35,68 +33,75 @@ function showUsersChat() {
 
 function findChat(idReceiver: number) {
     fetch("/chat/" + idReceiver)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data != -1) {
-                chatID = data;
-                openChat(Number(data));
+        .then((serializedIdChat) => serializedIdChat.json())
+        .then((idChat) => {
+            if (idChat != -1) {
+                fetch("/user/" + idReceiver)
+                    .then((serializedUserInfo) => serializedUserInfo.json())
+                    .then((userInfo) => {
+                        let chatBox = document.getElementById("chatBox");
+                        chatBox.innerHTML = "";
+                        chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
+                        let chatTitle = document.getElementById("chatTitle");
+                        chatTitle.innerHTML = userInfo.username;
+                        openChat(Number(idChat));
+                    })
             }
         });
 }
 
-function openChat(chatId: number) {
-    let chatBox = document.getElementById("chatBox");
-    chatBox.innerHTML = "";
-    chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
-    let chatTitle = document.getElementById("chatTitle");
-    let chatConversation = document.getElementById("chatBody");
-    
-
-    fetch("/chat/conversation/" + chatId)
+async function openChat(chatId: number) {
+    document.getElementById("chatBody").innerHTML = "";
+    await fetch("/chat/conversation/" + chatId)
         .then((serializedConversation) => serializedConversation.json())
-        .then((conversation:message[]) => {
+        .then((conversation: message[]) => {
 
-            fetch("/user")
-            .then((serializedThisUserInfo)=>serializedThisUserInfo.json())
-            .then((thisUserInfo:userInfo)=>{
-                document.getElementById("button-addon2").onclick = ()=>{createMessage(thisUserInfo.userId)};
-                for (let message of conversation) {
-
-                    fetch("/user/"+message.userId)
-                    .then((serializedUserInfo)=>serializedUserInfo.json())
-                    .then((userInfo:userInfo)=>{
-                        if(userInfo.username==thisUserInfo.username){
-                            buildMessageSended();
-                        }else{
-                            buildMessageRecived();
-                        }
-                    })
-                }
-            })
+            fetch("/user/this")
+                .then((serializedThisUserInfo) => serializedThisUserInfo.json())
+                .then((thisUserInfo: userInfo) => {
+                    document.getElementById("button-addon2").onclick = () => { createMessage(thisUserInfo.userId, chatId) };
+                    for (let message of conversation) {
+                        buildMessage(message, thisUserInfo.username);
+                    }
+                })
         })
 
-    function buildMessageRecived() {
+    async function buildMessage(message: message, thisUserUsername: string) {
+        //INIZIO PROBLEMA
+        fetch("/user/" + message.userId)
+            .then((serializedUserInfo) => serializedUserInfo.json())
+            .then((userInfo: userInfo) => {
+        //FINE PROBLEMA
+                if (userInfo.username == thisUserUsername) {
+                    buildMessageSended(thisUserUsername, message.timestamp, message.text);
+                } else {
+                    buildMessageRecived(userInfo.username, message.timestamp, message.text);
+                }
+            })
+    }
+
+    function buildMessageRecived(username: string, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");
         let divInfo = document.createElement("div");
         divInfo.setAttribute("class", "d-flex justify-content-between");
         let pDate = document.createElement("p");
-        pDate.setAttribute("class", "small mb-1 text-muted");        
-        pDate.innerHTML="data prova received 03/02/2023 12:43";
+        pDate.setAttribute("class", "small mb-1 text-muted");
+        pDate.innerHTML = timestamp;
         let pUsername = document.createElement("p");
         pUsername.setAttribute("class", "small mb-1");
-        pUsername.innerHTML="username prova received";
+        pUsername.innerHTML = username;
 
         let divText = document.createElement("div");
         divText.setAttribute("class", "d-flex flex-row justify-content-start");
         let divInner = document.createElement("div");
         let pText = document.createElement("p");
         pText.setAttribute("class", "small p-2 ms-3 mb-3 rounded-3");
-        pText.innerHTML = "messaggio di provaaaaaa ricevutoooo";
+        pText.innerHTML = text;
 
         let imgAvatar = document.createElement("img");
         imgAvatar.setAttribute("src", "./img/profile.png");
         imgAvatar.setAttribute("alt", "avatar");
-        imgAvatar.setAttribute("style", "style = 'width: 45px; height: 100%;'");
+        imgAvatar.setAttribute("style", "width: 45px; height: 100%;");
 
         divInfo.append(pUsername, pDate);
         divInner.append(pText);
@@ -104,29 +109,29 @@ function openChat(chatId: number) {
         chatBody.append(divInfo, divText);
     }
 
-    function buildMessageSended() {
+    function buildMessageSended(username: string, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");
 
         let divInfo = document.createElement("div");
         divInfo.setAttribute("class", "d-flex justify-content-between");
         let pDate = document.createElement("p");
         pDate.setAttribute("class", "small mb-1 text-muted");
-        pDate.innerHTML="data prova sender 03/02/2023 12:43";
+        pDate.innerHTML = timestamp;
         let pUsername = document.createElement("p");
         pUsername.setAttribute("class", "small mb-1");
-        pUsername.innerHTML="username prova sender";
+        pUsername.innerHTML = username;
 
         let divText = document.createElement("div");
         divText.setAttribute("class", "d-flex flex-row justify-content-end mb-4 pt-1");
         let divInner = document.createElement("div");
         let pText = document.createElement("p");
         pText.setAttribute("class", "small p-2 me-3 mb-3 text-white rounded-3 bg-warning");
-        pText.innerHTML = "messaggio di provaaaaaa inviatooooo weeewewewee scrivo cose a caso per vedere che succede se va a capooooooooooooooooooooooooooooooooooooooooooooooooooooooooo";
-       
+        pText.innerHTML = text;
+
         let imgAvatar = document.createElement("img");
         imgAvatar.setAttribute("src", "./img/profile.png");
         imgAvatar.setAttribute("alt", "avatar");
-        imgAvatar.setAttribute("style", "style = 'width: 45px; height: 100%;'");
+        imgAvatar.setAttribute("style", "width: 45px; height: 100%;");
 
         divInfo.append(pDate, pUsername);
         divInner.append(pText);
@@ -134,7 +139,7 @@ function openChat(chatId: number) {
         chatBody.append(divInfo, divText);
     }
 
-    function createMessage(userID : number){
+    function createMessage(userID: number, chatID: number) {
         let text = document.getElementById("messageText") as HTMLInputElement;
 
         const newMessage = {
@@ -145,23 +150,19 @@ function openChat(chatId: number) {
 
         const request = {
             method: 'POST',
-            headers : {
+            headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newMessage)
         }
 
-        console.log(newMessage);
-        
-
-        fetch("/chat/", request)
-        .then((response)=>response.json())
-        .then((data)=>{
-            console.log(data);
-            if(data){
-                openChat(chatID);
-            }
-        })
+        fetch("/chat", request)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data) {
+                    openChat(chatID);
+                }
+            })
     }
 }
 

@@ -9,4 +9,6 @@ import com.projectwork.videogamelover.model.entities.Message;
 
 public interface MessageRepository extends CrudRepository<Message, Integer> {
 	List<Message> findByConversation(Chat conversation);
+
+	List<Message> findByConversationOrderByTimestamp(Chat chat);
 }
