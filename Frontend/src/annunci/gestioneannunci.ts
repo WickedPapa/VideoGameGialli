@@ -309,7 +309,6 @@ export function createCategory(){
     checkedList = [];
 
     //Reimposta la pagina a come stava prima
-    getAllInsertions2();
     createPagination2();
     showResults2(1);
 
