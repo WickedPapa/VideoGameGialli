@@ -51,11 +51,11 @@ function showAdminProfile(){
         
         let body = document.getElementById("bodyprofile");
         let h2 = document.createElement("h2");
-        h2.innerHTML="Ecco un riepilogo dei tuoi dati: "
-        + " <br><br><br> <b>Username</b>: "+adminInfo.username 
-        + " <br><br> <b>Email</b>: "+adminInfo.email 
-        + " <br><br> <b>Nome</b>: "+adminInfo.name
-        + " <br><br> <b>Cognome</b>: "+adminInfo.surname
+        h2.innerHTML=
+         " <br><br><br> <b></b>"+adminInfo.username 
+        + " <br><br> <b></b>"+adminInfo.email 
+        + " <br><br> <b></b>"+adminInfo.name
+        + " <br><br> <b></b>"+adminInfo.surname
         body.append(h2)
 
         let buttons = document.getElementById("buttons-profile");
@@ -163,11 +163,11 @@ function showUserProfile(){
         title.append(h1);
         let body = document.getElementById("bodyprofile");
         let h2 = document.createElement("h2");
-        h2.innerHTML="Ecco un riepilogo dei tuoi dati: "
-        + " <br><br><br> <b>Username</b>: "+userInfo.username 
-        + " <br><br> <b>Email</b>: "+userInfo.email 
-        + " <br><br><b>Nome</b>: "+userInfo.name
-        + " <br><br> <b>Cognome</b>: "+userInfo.surname
+        h2.innerHTML=
+        " <br><br><br> <b></b>"+userInfo.username 
+        + " <br><br> <b></b>"+userInfo.email 
+        + " <br><br><b></b>"+userInfo.name
+        + " <br><br> <b></b>"+userInfo.surname
         body.append(h2)
 
         let buttons = document.getElementById("buttons-profile");

@@ -23,6 +23,15 @@ header {
   padding: 10px 5px;
 }
 
+#chat{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 100px;
+  height: 200px;
+  border: 5px solid red;
+}
+
 /*icon sizing*/
 header button img {
   width: 52px;
