@@ -79,6 +79,7 @@ async function openChat(chatId: number) {
                 }
             })
     }
+    console.log("cuai");
 
     function buildMessageRecived(username: string, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");

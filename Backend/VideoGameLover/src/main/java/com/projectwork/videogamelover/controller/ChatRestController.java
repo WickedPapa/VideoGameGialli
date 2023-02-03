@@ -89,6 +89,7 @@ public class ChatRestController {
 		if(optChat.isEmpty()) {
 			return new LinkedList<>();
 		}
+		System.out.println("ciao");
 		List<MessageDTO> conversation = new LinkedList<>();
 		for(Message m : messageRepo.findByConversationOrderByTimestamp(optChat.get())) {
 			conversation.add(new MessageDTO(m.getUser().getId(), m.getTimestamp(), m.getText()));
