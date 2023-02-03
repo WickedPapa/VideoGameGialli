@@ -5,27 +5,137 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="fontawesome-free-6.2.0-web\fontawesome-free-6.2.0-web\css\all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="./index.css" rel="stylesheet">
     <title>Video Game Lover</title>
 </head>
 
 <body>
     <header id="header">
-        
+
     </header>
     <div id="container" class="container">
- 		<main id="main">
-            
-    	</main>
+        <main id="main">
+
+        </main>
         <div id="chat">
-            ciao
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight">Live Chat</button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header" style="background-color: #ffa900;">
+                    <h5 id="offcanvasRightLabel">Live Chat</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body p-0" style="background-color: #E1BC29; overflow: visible;">
+                    <section style="background-color: #E1BC29;">
+                        <div class="container p-0" style="background-color: #E1BC29;">
+                
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-12">
+                
+                                    <div class="card" style="border-radius: 0px;">
+                                        <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                            <h5 class="mb-0">Nome utente</h5>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <span class="badge bg-warning me-3">20</span>
+                                                <i class="fas fa-minus me-3 text-muted fa-xs"></i>
+                                                <i class="fas fa-comments me-3 text-muted fa-xs"></i>
+                                                <i class="fas fa-times text-muted fa-xs"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body overflow-auto" data-mdb-perfect-scrollbar="true"
+                                            style="position: relative; height: 670px; ">
+                
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small mb-1">Pieroaffondo</p>
+                                                <p class="small mb-1 text-muted">01/02/2023 9:05</p>
+                                            </div>
+                                            <div class="d-flex flex-row justify-content-start">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
+                                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                                <div>
+                                                    <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">
+                                                        Ma...quindi...hai già implementato una chat perfettamente funzionante e l'hai messa in produzione, è corretto?
+                                                    </p>
+                                                </div>
+                                            </div>
+                
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small mb-1 text-muted">01/02/2023 9:07</p>
+                                                <p class="small mb-1">WickedPapa</p>
+                                            </div>
+                                            <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                <div>
+                                                    <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
+                                                        Ma no Piero....è solo un template!
+                                                    </p>
+                                                </div>
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                            </div>
+                
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small mb-1">Pieroaffondo</p>
+                                                <p class="small mb-1 text-muted">01/02/2023 9:08</p>
+                                            </div>
+                                            <div class="d-flex flex-row justify-content-start">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp"
+                                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                                <div>
+                                                    <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;">
+                                                        Oh, certo certo...è un bridge
+                                                    </p>
+                                                </div>
+                                            </div>
+                
+                                            <div class="d-flex justify-content-between">
+                                                <p class="small mb-1 text-muted">01/02/2023 9:10</p>
+                                                <p class="small mb-1">WickedPapa</p>
+                                            </div>
+                                            <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                <div>
+                                                    <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">
+                                                        Ma adesso che cazzo c'entra il bridge???
+                                                    </p>
+                                                </div>
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
+                                                    alt="avatar 1" style="width: 45px; height: 100%;">
+                                            </div>
+                                            
+                                            ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>ciao <br>
+                
+                                        </div>
+                                        <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+                                            <div class="input-group mb-0">
+                                                <input type="text" class="form-control" placeholder="Scrivi il messaggio"
+                                                    aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                                <button class="btn btn-warning" type="button" id="button-addon2"
+                                                    style="padding-top: .55rem;">
+                                                    Invia
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-	</div>
+    </div>
     <footer id="footer">
-        
+
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
     <script src="bundle.js"></script>
 </body>
 
