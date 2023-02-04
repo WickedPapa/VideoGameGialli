@@ -109,7 +109,7 @@ public class UserRestController {
 	@GetMapping("/user/game/{gameId}")
 	public boolean updateUserGame(@PathVariable int gameId, HttpSession session) {
 		Optional<VideoGame> optGame = vgRepo.findById(gameId);
-		if (optGame.isEmpty()) {
+		if (!optGame.isPresent()) {
 			return false;
 		}
 		Object obj = session.getAttribute("logged");

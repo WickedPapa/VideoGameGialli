@@ -12,7 +12,7 @@ let type: string;
 let genres: string[];
 let years: number[];
 
-export function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
+export async function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
 
     fetch("/whoIsLogged")
     .then((response) => response.json())
@@ -46,11 +46,12 @@ export function createPage() {       /*Inizializza tutto ciò che serve alla pag
 
 
 
-function getAllInsertions(){
-    list=[];
-    fetch('/insertion')
+async function getAllInsertions(){
+    
+  await  fetch('/insertion')
     .then((response) => response.json())
     .then((data) => {
+        list=[];
         for(let d of data){
             list.push(d);
         }
@@ -61,7 +62,7 @@ function getAllInsertions(){
 
 
 
-   function showResults(i: number) {
+  async function showResults(i: number) {
 
     let content = document.getElementById("insertionContent");
     content.innerHTML = "";
@@ -141,7 +142,6 @@ function getAllInsertions(){
 export function createPagination() {
     let size: number = list.length
     let tabs: number = Math.ceil(size / view);
-    console.log(size, tabs)
     let pages = document.getElementById("pages");
     pages.innerHTML = "";
     for (let i = 1; i <= tabs; i++) {
@@ -177,7 +177,6 @@ export function createPagination() {
 
 
 function setAllGenres() {
-
     genres = []
     for (let i = 0; i < list.length; i++) {
         for (let j = 0; j < list[i].tradeGame.genre.length; j++) {
@@ -222,15 +221,15 @@ function setAllYears() {
 }
 
 
-function searchByAll() {             /*La funziona del bottone che cerca tutti gli annunci senza filtri*/
+async function searchByAll() {             /*La funziona del bottone che cerca tutti gli annunci senza filtri*/
 list=[];
-fetch('/insertion')
+ fetch('/insertion')
 .then((response) => response.json())
 .then((data) => {
     for(let d of data){
         list.push(d);
     }
-
+    setAllGenres();
     createPagination();
     showResults(1);
 });
@@ -238,7 +237,7 @@ fetch('/insertion')
 }
 
 
-export function searchByTitle(title: string) {
+export  function searchByTitle(title: string) {
     filteredList = []
     for (let element of list) {
         let gameName = element.tradeGame.name
@@ -251,8 +250,11 @@ export function searchByTitle(title: string) {
     list = [];
     list = filteredList
     createPagination();
-    showResults(1);
-    getAllInsertions();
+    showResults(1).then(()=>{
+        getAllInsertions();
+    })
+    
+    
 }
 
 
@@ -291,7 +293,7 @@ function searchByYear(year: number) {
 
 
 
-function assignFilters() {             /*Assegna le funzioni ai pulsanti nelle dropDownList da provare*/
+export function assignFilters() {             
     
 let allGames = document.getElementById("selectAll")
     allGames.onclick = () => {
@@ -302,7 +304,7 @@ let allGames = document.getElementById("selectAll")
 
     setAllYears();
 
-    let searchTitle = document.getElementById("searchTitle") as HTMLInputElement;
+    let searchTitle = document.getElementById("searchTitleInsertions") as HTMLInputElement;
     searchTitle.onkeydown = (e) => {
         if (e.key == 'Enter') {
             searchByTitle(searchTitle.value)
@@ -313,126 +315,6 @@ let allGames = document.getElementById("selectAll")
 
 
 
-
-
-
-
-
-
-
-
-
-
-/*
-function getAllInsertions() {  
-    list = [];
-
-    const imageGioco1 = {
-        link: "https://i.etsystatic.com/6277804/r/il/7df00e/697546340/il_1140xN.697546340_fivs.jpg"
-    }
-
-    const imageGioco2 = {
-        link: "https://www.mobygames.com/images/covers/l/14445-the-legend-of-zelda-nes-front-cover.jpg"
-    }
-
-    const imageGioco3 = {
-        link: "https://upload.wikimedia.org/wikipedia/it/b/b3/Pok%C3%A9mon_Giallo.png"
-    }
-
-    const imageGioco4 = {
-        link: "https://metalgear.fandom.com/it/wiki/Metal_Gear?file=Metal_Gear.jpg"
-    }
-
-    const imageGallery1 = {
-        link: "https://upload.wikimedia.org/wikipedia/it/thumb/7/77/Pikachu.png/1024px-Pikachu.png"
-    }
-
-    const imageGallery2 = {
-        link: "https://www.pngmart.com/files/11/Frog-Meme-PNG-HD.png"
-    }
-
-    const imageGallery3 = {
-        link: "https://media.licdn.com/dms/image/D5635AQHw3E5yYyXTLw/profile-framedphoto-shrink_800_800/0/1644518918606?e=1675620000&v=beta&t=x1RnXqWsDWAOVQUXGFujModXZhiGUQJu0a6FAsZN3Lo"
-    }
-
-    const gioco1 = {
-        id: 1,
-        name: "SuperMario",
-        genre: [{genre: "PLATFORM"}],
-        year: 1985,
-        console: {console: "NES"},
-        cover: imageGioco1
-    }
-
-    const gioco2 = {
-        id: 2,
-        name: "The Legend of Zelda",
-        genre: [{genre: "AVVENTURA"}],
-        year: 1986,
-        console: {console: "NES"},
-        cover: imageGioco2
-    }
-
-    const gioco3 = {
-        id: 3,
-        name: "Pokemon Giallo",
-        genre: [{genre: "GDR"}],
-        year: 1998,
-        console: {console: "GAME_BOY_COLOR"},
-        cover: imageGioco3
-    }
-
-    const gioco4 = {
-        id: 4,
-        name: "Metal Gear",
-        genre: [{genre: "STEALTH"}],
-        year: 1987,
-        console: {console: "NES"},
-        cover: imageGioco4
-    }
-
-    const publisherGioco1 = {
-        userId: 1,
-        username: "Pieroaffondo",
-        name: "Pierino",
-        surname: "Ciccino",
-        email: "pierinocuoricino@amorino.com",
-        rating: 666,
-        videogames: [gioco1]
-    }
-
-    const insertion1: insertion = {
-        approved: true,
-        title: "Scambio SuperMario",
-        description: "Scambio supermario xkè mi sono sekkato a giocarci",
-        publisher: publisherGioco1,
-        gallery: [imageGallery1, imageGallery2, imageGallery3],
-        tradeGame: gioco1,
-        wishList: [gioco2, gioco3, gioco4],
-        outcome: "WIP",
-        publicationDate: "29-01-2023"
-    }
-
-
-    for (let i = 0; i < 27; i++) {
-        if (i != 17) {
-            list.push(insertion1)
-        } else {
-            list.push(insertion1)
-        }
-    }
-}
-    /*QUESTO E' LA FUNZIONE GIUSTA NON FAMO CHE SBAGLIATE! */
-
-    /*Fetch a backend con tutti gli annunci, aggiorna la lista list*/
-
-   
-    
-
-
-/*da qui in poi le funzioni servono a 
-creare la pagina una volta cliccato  
-sul bottone annunci e a ricaricarle*/
 
 
 

@@ -22,7 +22,9 @@ import com.projectwork.videogamelover.model.repositories.ImageRepository;
 import com.projectwork.videogamelover.model.repositories.InsertionRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
+import com.projectwork.videogamelover.view.ConfirmDTO;
 import com.projectwork.videogamelover.view.InsertionDTO;
+import com.projectwork.videogamelover.view.ProposalDTO;
 import com.projectwork.videogamelover.view.UpdateInsertionDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -109,6 +111,33 @@ public class InsertionRestController {
 		}
 		return false;
 	}
+	
+	
+	@PostMapping("/insertion/confirm")
+	public ConfirmDTO createOne(
+			@RequestBody ProposalDTO dto, HttpSession session) {
+			
+		ConfirmDTO confirmDto =new ConfirmDTO();
+		
+		if(!(accountManager.isLogged()) || !(session.getAttribute("logged") instanceof User)) {
+			
+			confirmDto.setLogged(false);
+			return confirmDto;
+		}
+		 confirmDto.setLogged(true);	
+		User user=(User)session.getAttribute("logged");
+		
+		for(VideoGame game : user.getVideogames()) {
+			if(game.getName().equals(dto.getWishGame().getName())) {
+				 confirmDto.setHasGame(true);
+				 return confirmDto;
+			}
+		}
+		confirmDto.setHasGame(false);
+		return confirmDto;
+	}
+	
+	
 	
 //	@DeleteMapping("")
 	
