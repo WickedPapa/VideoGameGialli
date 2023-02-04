@@ -6,11 +6,11 @@ import message from "../interfaces/message";
 import userInfo from "../interfaces/userInfo";
 
 
-let chatVersions : Map<number, Map<number, number>> ; 
+let chatVersions: Map<number, Map<number, number>> = new Map();
 
 export function addClickChat() {
-    document.getElementById("showChatUsers").onclick = ()=>{
-        showUsersChat(), document.getElementById("alert").removeAttribute("hidden");
+    document.getElementById("showChatUsers").onclick = () => {
+        showUsersChat(), document.getElementById("alert").setAttribute("hidden", "true");
     };
 }
 
@@ -22,7 +22,7 @@ function showUsersChat() {
             fetch("/user/this")
                 .then((thisUserSerialyzed) => thisUserSerialyzed.json())
                 .catch((error) => {
-                        return;
+                    return;
                 })
                 .then((thisUser) => {
                     let chatBox = document.getElementById("chatBox");
@@ -59,7 +59,8 @@ function findChat(idReceiver: number) {
                         chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
                         let chatTitle = document.getElementById("chatTitle");
                         chatTitle.innerHTML = userInfo.username + " " + userInfo.rating + " <i class='fa-regular fa-star'></i>";
-                        openChat(Number(idChat));
+                        //let idRefresh = setInterval(()=>{openChat(Number(idChat));}, 1000);
+                        
                     })
             }
         });
@@ -198,7 +199,7 @@ export function searchNotification() {
                     .then((response) => response.json())
                     .then((data) => {
                         if (data) {
-                            
+
                         }
                     })
             }
@@ -216,25 +217,32 @@ export function stopSearchNotification() {
 export function searchUserChats() {
     console.log("Lois");
     fetch("/chat/allUserChat")
-    .then((response)=>response.json())
-    .then((data)=>{
-        if(chatVersions.get(data.id)==undefined){
-            chatVersions.set(data.id, new Map<number, number>());
-        }
-        for(let id of data.chatIds){
-            if(chatVersions.get(data.id).get(id)==undefined){
-                chatVersions.get(data.id).set(id, 0);
+        .then((response) => response.json())
+        .then((data) => {
+            if (chatVersions.get(data.id) == undefined) {
+                chatVersions.set(data.id, new Map<number, number>());
             }
-            fetch("/chat/version/"+id)
-            .then((serializedVersion)=>serializedVersion.json())
-            .then((version)=>{
-                if((version > chatVersions.get(data.id).get(id))){
-                    document.getElementById("alert").setAttribute("hidden", "true");
-                    chatVersions.get(data.id).set(id, version);
+            for (let id of data.chatIds) {
+                if (chatVersions.get(data.id).get(id) == undefined) {
+                    chatVersions.get(data.id).set(id, 0);
                 }
-            })
-        }
-    })    
+                fetch("/chat/version/" + id)
+                    .then((serializedVersion) => serializedVersion.json())
+                    .then((version) => {
+                        if ((version > chatVersions.get(data.id).get(id))) {
+                            fetch("/chat/one/"+id)
+                                .then((serializedChat) => serializedChat.json())
+                                .then((chat) => {
+                                    if (chat.user1.id != data.id) {
+                                        document.getElementById("alert").removeAttribute("hidden");
+                                        chatVersions.get(data.id).set(id, version);
+                                        
+                                    }
+                                })
+                        }
+                    })
+            }
+        })
 }
 
 export default addClickChat;

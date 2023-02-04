@@ -58,6 +58,16 @@ public class ChatRestController {
 		return optChat.get().getId();
 	}
 	
+	//Da controllare da lucidi
+	@GetMapping("/chat/one/{idChat}")
+	public Chat findOneChat(HttpSession session, @PathVariable("idChat") int idChat){
+		Optional<Chat> optChat = chatRepo.findById(idChat);
+		if(optChat.isEmpty()) {
+			return null;
+		}
+		return optChat.get();
+	}
+	
 	@PostMapping("/chat")
 	public boolean createMessage(@RequestBody CreateMessageDTO dto) {
 		Optional<User> optUser = userRepo.findById(dto.getUserId());
