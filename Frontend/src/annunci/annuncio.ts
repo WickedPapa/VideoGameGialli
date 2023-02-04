@@ -2,6 +2,9 @@ import insertion from '../interfaces/insertion';
 import annuncio from './annuncio.html'
 import createPage from './annunci';
 import annunci from './annunci.html'
+import videogame from '../interfaces/videogame';
+import userInfo from '../interfaces/userInfo';
+import user from '../interfaces/user';
 
 export function expandInsertion(insertion: insertion) {
 
@@ -84,6 +87,7 @@ export function expandInsertion(insertion: insertion) {
         let img = document.createElement("img");
         img.src = insertion.wishList[i].cover.link;
         img.setAttribute("class", "card-img-top")
+        img.onclick = ()=>{ createProposal(insertion.wishList[i], insertion.tradeGame, insertion.publisher)}
         document.getElementById("img-item-" + (i + 1)).append(img);
         let p = document.createElement("p");
         p.setAttribute("class", "card-text");
@@ -97,6 +101,29 @@ export function expandInsertion(insertion: insertion) {
             + "Console: " + insertion.tradeGame.console.console;
         document.getElementById("body-item-" + (i + 1)).append(p);
     }
+} 
+
+function createProposal(wishGame:videogame, tradeGame:videogame, publisher : user){
+    let proposalDiv = document.getElementById("insertion-confirm");
+    let h3 = document.createElement("h3");
+    h3.innerHTML = "Sei sicuro di voler scambiare "+ wishGame.name + " per "+ tradeGame.name +"?";
+    let btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("class", "btn btn-outline-success");
+    btn.innerHTML = "Conferma";
+    const proposal = {
+        tradeGame: tradeGame,
+        wishGame: wishGame,
+        publisher:publisher
+    }
+    btn.onclick = ()=>{confirmProposal(proposal) };
 }
+
+function confirmProposal(proposal : any){
+
+    request
+
+    fetch("/insertion/confirm")
+}   
 
 export default expandInsertion

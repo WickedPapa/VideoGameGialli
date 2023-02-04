@@ -60,7 +60,7 @@ function findChat(idReceiver: number) {
                         let chatTitle = document.getElementById("chatTitle");
                         chatTitle.innerHTML = userInfo.username + " " + userInfo.rating + " <i class='fa-regular fa-star'></i>";
                         //let idRefresh = setInterval(()=>{openChat(Number(idChat));}, 1000);
-                        
+                        openChat(Number(idChat));
                     })
             }
         });
