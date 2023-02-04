@@ -159,7 +159,7 @@ function showUserProfile(){
         userInfo=data;
         let h1 = document.createElement("h1");
         let title = document.getElementById("titleprofile");
-        h1.innerHTML="BENTORNATO UTENTE "+ userInfo.username;
+        h1.innerHTML="BENTORNATO UTENTE "+ userInfo.username + " "+ userInfo.rating +" <i class='fa-regular fa-star'></i>";
         title.append(h1);
         let body = document.getElementById("bodyprofile");
         let h2 = document.createElement("h2");
