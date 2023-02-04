@@ -4,6 +4,7 @@ import creaAnnuncio from '../creaAnnuncio/creaAnnuncio.html'
 import insertion from '../interfaces/insertion';
 import expandInsertion from './annuncio'
 import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
+import showProfile from '../profiloUtente/profile';
 
 let list: insertion[] = [];
 let filteredList: insertion[]=[]
@@ -11,7 +12,7 @@ let view: number = 6
 let type: string;
 let genres: string[];
 let years: number[];
-
+let consolles: string[];
 export async function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
 
     fetch("/whoIsLogged")
@@ -173,7 +174,25 @@ export function createPagination() {
 
 
 
-
+function setAllConsolles() {
+    consolles = []
+    for (let i = 0; i < list.length; i++) {
+        if (!(consolles.includes(list[i].tradeGame.console.console))) {
+            consolles.push(list[i].tradeGame.console.console)
+            let ul = document.getElementById("consolles");
+            let li = document.createElement("li");
+            li.id = list[i].tradeGame.console.console;
+            let btn = document.createElement("button");
+            btn.setAttribute("class", "dropdown-item");
+            btn.innerHTML = list[i].tradeGame.console.console;
+            btn.onclick = () => {
+                searchByGameConsolle(li.id); 
+            }
+            ul.append(li);
+            li.append(btn);
+        }
+    }
+}
 
 
 function setAllGenres() {
@@ -258,6 +277,23 @@ export  function searchByTitle(title: string) {
 }
 
 
+function searchByGameConsolle(console: string) {
+    filteredList = []
+    for (let element of list) {
+
+        if (element.tradeGame.console.console == console) {
+            filteredList.push(element);
+        }
+    
+    }
+    list = [];
+    list = filteredList
+    createPagination();
+    showResults(1);
+    getAllInsertions();
+}
+
+
 function searchByGenre(genre: String) {
     filteredList = []
     for (let element of list) {
@@ -299,6 +335,8 @@ let allGames = document.getElementById("selectAll")
     allGames.onclick = () => {
         searchByAll();
     }
+
+    setAllConsolles();
 
     setAllGenres();
 

@@ -10,6 +10,7 @@ let genres: string[] = []
 let years: number[] = []
 let gameView: number = 6;
 let type: string;
+let consolles: string[];
 
 export function createGamePage() {
     fetch("/whoIsLogged")
@@ -31,7 +32,7 @@ export function createGamePage() {
                 .then((data) => {
                     gameList = [];
                     for (let game of data) {
-                        gameList.push(game);                      
+                        gameList.push(game);
                     }
                     createGamePagination();
                     showGames(1);
@@ -147,10 +148,30 @@ function createGamePagination() {
 
 
 
+function setAllConsolles() {
+    consolles = []
+    for (let i = 0; i < gameList.length; i++) {
+        if (!(consolles.includes(gameList[i].console.console))) {
+            consolles.push(gameList[i].console.console)
+            let ul = document.getElementById("gameConsolles");
+            let li = document.createElement("li");
+            li.id = gameList[i].console.console;
+            let btn = document.createElement("button");
+            btn.setAttribute("class", "dropdown-item");
+            btn.innerHTML = gameList[i].console.console;
+            btn.onclick = () => {
+                searchByGameConsolle(li.id); 
+            }
+            ul.append(li);
+            li.append(btn);
+        }
+    }
+}
+
 
 
 function setAllGenres() {
-    ;
+
     genres = []
     for (let i = 0; i < gameList.length; i++) {
         for (let j = 0; j < gameList[i].genre.length; j++) {
@@ -218,7 +239,25 @@ function searchByGameTitle(title: string) {
 }
 
 
-function searchByGameGenre(genre: String) {
+
+function searchByGameConsolle(console: string) {
+    gameFilteredList = []
+    for (let element of gameList) {
+
+        if (element.console.console == console) {
+            gameFilteredList.push(element);
+        }
+    
+    }
+    gameList = [];
+    gameList = gameFilteredList
+    createGamePagination();
+    showGames(1);
+    getAllGames();
+}
+
+
+function searchByGameGenre(genre: string) {
     gameFilteredList = []
     for (let element of gameList) {
         for (let i = 0; i < element.genre.length; i++) {
@@ -257,6 +296,8 @@ function assignGameFilters() {             /*Assegna le funzioni ai pulsanti nel
     allGames.onclick = () => {
         searchByAllGames();
     }
+
+    setAllConsolles();
 
     setAllGenres();
 

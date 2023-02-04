@@ -1,14 +1,13 @@
-
 <style>
     .btn:hover {
-        outline-color: transparent ;
+        outline-color: transparent;
         outline-style: solid;
         box-shadow: 0 0 0 4px #5a01a7;
         transition: 0.7s;
     }
 
     #searchTitle:hover {
-        outline-color: transparent ;
+        outline-color: transparent;
         outline-style: solid;
         box-shadow: 0 0 0 4px #5a01a7;
         transition: 0.7s;
@@ -16,8 +15,8 @@
 
     #searchTitle {
         box-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-        height:20px;
-        width:20%;
+        height: 20px;
+        width: 20%;
         float: bottom;
         align-self: right;
     }
@@ -25,46 +24,63 @@
 
 <div style="display: flex;" class="my-5">
     <span style="margin-right: 40px">
-        <img id="selectAll" class="p-0 btn dropdown-toggle" type="button" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/showallBtn.png" alt="">
-            </span> <!--funzione che prende tutti gli annunci e li schiaffa nel contenuto annunci-->
-                <span  class="mx-auto dropdown">
-                    <img class="p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/bygenreBtn.png" alt="">
-                    <ul id="genres" class="dropdown-menu">
-                    </ul>
-                </span>
-            <span class="mx-auto dropdown">
-                <img class="p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/byyearBtn.png" alt="">
-                <ul id="years" class="dropdown-menu">
-                </ul>
-            </span>
+        <img id="selectAll" class="p-0 btn dropdown-toggle" type="button"
+            style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;"
+            src="./img/button/showallBtn.png" alt="">
+    </span>
+
+    <span class="mx-auto dropdown">
+        <img class="p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;"
+            src="./img/button/bygenreBtn.png" alt="">
+        <ul id="genres" class="dropdown-menu">
+        </ul>
+    </span>
+
+    <span class="mx-auto dropdown">
+        <!--Questo è in realtà il filtro per le consolles bisogna cambiare il bottone-->
+        <img class="p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;"
+            src="./img/button/bygenreBtn.png" alt="">
+        <ul id="consolles" class="dropdown-menu">
+        </ul>
+    </span>
+
+    <span class="mx-auto dropdown">
+        <img class="p-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;"
+            src="./img/button/byyearBtn.png" alt="">
+        <ul id="years" class="dropdown-menu">
+        </ul>
+    </span>
     <div class="col-5 my-1 mx-auto">
         <div class="input-group">
-            <input class="mx-5 form-control border-end-1 rounded" type="search" placeholder="cerca" id="searchTitleInsertions">
+            <input class="mx-5 form-control border-end-1 rounded" type="search" placeholder="cerca"
+                id="searchTitleInsertions">
             </span>
         </div>
     </div>
 
-      <span class="mx-auto">
-        <img id="addInsertion2" class="p-0 btn dropdown-toggle" type="button" style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;" src="./img/button/plusBtn.png" hidden alt="">
-      </span>      
-             
+    <span class="mx-auto">
+        <img id="addInsertion2" class="p-0 btn dropdown-toggle" type="button"
+            style="border:none;float:left;image-rendering: pixelated;width: 300%;height:auto;"
+            src="./img/button/plusBtn.png" hidden alt="">
+    </span>
+
 
 </div>
 
 <div id="remains">
-    <div  id="insertionContent" class="row">
+    <div id="insertionContent" class="row">
 
     </div>
-    <ul class="list-group" >
-        
-    </ul>    
+    <ul class="list-group">
+
+    </ul>
 </div>
 
 <div>
     <ul id="pages" class="pagination pagination-sm my-2">
-        
+
     </ul>
 </div>
-
-
-
