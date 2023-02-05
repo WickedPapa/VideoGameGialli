@@ -78,7 +78,7 @@ function showGames(i: number) {
 
 
         let gameTitle = document.createElement("h3");
-        gameTitle.setAttribute("class", "my-4")
+        gameTitle.setAttribute("class", "bg-light border-top border-rounded border-2 border-primary my-4")
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
         image.width = 200;
@@ -90,11 +90,20 @@ function showGames(i: number) {
         gameTitle.innerHTML = "<b>" + gameList[start].name + "</b>";
 
         col.append(gameTitle, image);
-        let addButton = document.createElement("button");
+        let divButton = document.createElement("div");
+
+        let addButton = document.createElement("a");
+        let imgButton = document.createElement("img");
+
         let id = gameList[start].id
         if (type == "USER") {
-            addButton.innerHTML = "Aggiungi alla tua Lista!"
-            addButton.setAttribute("class", "my-3")
+            imgButton.setAttribute("src", "./img/button/addBtn.png");
+            imgButton.height = 35;
+            imgButton.setAttribute("style", "image-rendering: pixelated;");
+            imgButton.setAttribute('class', 'p-0 my-3 mx-auto')
+            addButton.setAttribute("class", "p-0 my-3")
+            divButton.setAttribute('class', 'p-0 mx-auto')
+
             addButton.onclick = () => {
 
                 fetch("/user/game/" + id)
@@ -107,7 +116,10 @@ function showGames(i: number) {
                         }
                     });
             }
-            col.append(addButton);
+            addButton.appendChild(imgButton);
+            
+            divButton.append(addButton);
+            col.append(divButton);
         }
         content.append(col);
     }
