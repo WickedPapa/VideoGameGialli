@@ -33,10 +33,11 @@ function buttonTemplate(){
     title.innerHTML = "Seleziona il gioco da scambiare";
 
     row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+    row.setAttribute('style', 'height:110px;width:330px;')
     col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
     col2.setAttribute("class", "col-2 mx-auto me-1 my-auto");
     title.setAttribute("class", "my-auto");
-    col2.setAttribute('style', 'width:300%');  
+    col2.setAttribute('style', 'height:64px;width:auto;');  
     liBtn.setAttribute("type", "button");
     liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
 
@@ -81,12 +82,13 @@ function getAllGames() {
                 let colPic = document.createElement("div");
                 let pic = document.createElement("img");
                 row.setAttribute("class", "mx-auto pb-4 row border-bottom border-2 border-primary");
+                row.setAttribute('style', 'height:80px;width:330px;')
                 col.setAttribute("class", "col-2 mx-auto ms-0 my-auto");
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
                 pic.setAttribute('src', fullList[i].cover.link);
                 pic.setAttribute('alt', fullList[i].name);
                 pic.setAttribute('class', 'border border-2 border-info rounded')
-                pic.setAttribute('style', 'width:300%');    
+                pic.setAttribute('style', 'height:64px;width:auto;');    
                 liBtn.id = fullList[i].name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
@@ -143,6 +145,7 @@ function getUserGames() {
                 let col = document.createElement("div");
                 let colPic = document.createElement("div");
                 row.setAttribute("class", "mx-auto row border-bottom border-2 border-primary");
+                row.setAttribute('style', 'height:110px;width:330px;')
                 col.setAttribute("class", "col-2 mx-auto ms-0 my-auto ms-1");
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
                 li.setAttribute("class", "dropdown-item");
@@ -151,7 +154,7 @@ function getUserGames() {
                 title.setAttribute("class", "my-auto");
                 pic.src = game.cover.link;
                 pic.setAttribute('class','border border-2 border-info rounded');
-                pic.setAttribute('style', 'width:128px;height:auto');  
+                pic.setAttribute('style', 'height:64px;width:auto;');  
                 console.log(game.name);
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
@@ -182,6 +185,7 @@ function showSelectedTradeGame(){
     ("selectedTradeGame");
     selected.innerHTML = "";
     let row = document.createElement("div");
+    row.setAttribute('style', 'height:110px;width:330px;')
     let liBtn = document.createElement("button");
     let col = document.createElement("div");
     let colPic = document.createElement("div");
@@ -196,7 +200,7 @@ function showSelectedTradeGame(){
     colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
     title.setAttribute("class", "my-auto");
     pic.setAttribute('class','border border-2 border-info rounded');
-    pic.setAttribute('style', 'width:300%');  
+    pic.setAttribute('style', 'height:64px;width:auto;');  
     liBtn.setAttribute("type", "button");
     liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
 

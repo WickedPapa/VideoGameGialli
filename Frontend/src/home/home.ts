@@ -67,24 +67,28 @@ for(let i = homeList.length-1; i > homeList.length-5 && i >= 0; i--){
     let carInner = document.getElementById('innerCarouselHome');
     let clCarouselIt = document.createElement('div');
 
-    if(i == 0){
+     
+    if(i == homeList.length-1){
         clCarouselIt.setAttribute('class', 'carousel-item active');
     }else{
         clCarouselIt.setAttribute('class', 'carousel-item');
         }
+
     let img = document.createElement('img');
     img.setAttribute('src', homeList[i].tradeGame.cover.link);
     img.setAttribute('id', 'imgCard');
     img.setAttribute('class', 'mt-2');
-    img.setAttribute('style', 'height:400;width:auto');
-
+    img.setAttribute('style', 'height:250px;width:auto');
+    let annTitle = document.createElement('h1');
+    annTitle.setAttribute('class', 'card-title border-top border-2 border-info');
+    annTitle.innerHTML = homeList[i].title;
     let clCard = document.createElement('div');
     clCard.setAttribute('class', 'card bg-secondary');
     clCard.setAttribute('id', 'annCard');
     let carBody = document.createElement('div');
     carBody.setAttribute('class', 'card-body');
     let title = document.createElement('h5');
-    title.setAttribute('class', 'card-title border-top border-2 border-info');
+    title.setAttribute('class', 'card-subtitle');
     title.innerHTML = homeList[i].tradeGame.name;
     let desc = document.createElement('p');
     desc.setAttribute('class', 'card-text');
@@ -110,11 +114,8 @@ for(let i = homeList.length-1; i > homeList.length-5 && i >= 0; i--){
 
     carInner.appendChild(clCarouselIt);
             clCarouselIt.appendChild(clCard);
-                clCard.append(img);
-                clCard.append(carBody);
-                    carBody.append(title);
-                    carBody.append(desc);
-                    carBody.append(goAnn);
+                clCard.append(img,carBody);
+                    carBody.append(annTitle,title,desc,goAnn);
     }
 }
 export default createHome;
