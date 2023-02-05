@@ -63,7 +63,7 @@ export  function createHome(){
 
 function createItemCarousel(){
 
-for(let i = homeList.length-1; i > homeList.length-4 && i >= 0; i--){
+for(let i = homeList.length-1; i > homeList.length-5 && i >= 0; i--){
     let carInner = document.getElementById('innerCarouselHome');
     let clCarouselIt = document.createElement('div');
 
@@ -76,6 +76,8 @@ for(let i = homeList.length-1; i > homeList.length-4 && i >= 0; i--){
     img.setAttribute('src', homeList[i].tradeGame.cover.link);
     img.setAttribute('id', 'imgCard');
     img.setAttribute('class', 'mt-2');
+    img.setAttribute('style', 'height:400;width:auto');
+
     let clCard = document.createElement('div');
     clCard.setAttribute('class', 'card bg-secondary');
     clCard.setAttribute('id', 'annCard');

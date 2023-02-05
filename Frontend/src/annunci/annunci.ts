@@ -104,8 +104,9 @@ async function getAllInsertions(){
         let date = document.createElement("h5");
         image.src = list[start].tradeGame.cover.link;
         image.setAttribute('class', 'mb-2 border border-3 border-info')
-        image.height = 200;
-        title.innerHTML = list[start].title
+        image.setAttribute('style', 'height:200px;width:auto;')
+        title.innerHTML = '<b>'+list[start].title+'</b>';
+
         title.setAttribute('class', 'mx-auto mt-2 rounded-top bg-light border-bottom border-3 border-primary');
 
         description.innerHTML = list[start].description;

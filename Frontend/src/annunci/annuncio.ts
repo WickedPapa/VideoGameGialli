@@ -23,7 +23,8 @@ export function expandInsertion(insertion:any) {
     //back.append(button);
 
     let title = document.createElement("h1");
-    title.innerHTML = insertion.title;
+    title.innerHTML = '<b>'+insertion.title+'</b>';
+
     back.append(title);
 
 
@@ -52,7 +53,7 @@ export function expandInsertion(insertion:any) {
         }
         let img = document.createElement("img");
         img.src = insertion.gallery[i].link;
-        img.width = 400;
+        img.setAttribute('style', 'height:350px;width:auto;')
         img.setAttribute("class", "d-block w-100");
         img.alt = "Gallery Image" + (i + 1)
         div.append(img);
@@ -61,10 +62,13 @@ export function expandInsertion(insertion:any) {
     let img = document.createElement("img");
     img.src = insertion.tradeGame.cover.link;
     img.setAttribute("class", "img-fluid rounded-start")
+    img.setAttribute('style', 'height:200x;width:auto;')
+    
     document.getElementById("card-image").append(img);
     let h4 = document.createElement("h4");
     h4.setAttribute("class", "card-title");
-    h4.innerHTML = insertion.tradeGame.name;
+    h4.innerHTML = '<b>'+insertion.tradeGame.name+'</b>';
+
     let p = document.createElement("p");
     p.setAttribute("class", "card-text");
     p.setAttribute("style", "font-size: 1.5em;")

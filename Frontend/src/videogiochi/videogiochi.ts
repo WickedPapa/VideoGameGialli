@@ -67,7 +67,7 @@ function showGames(i: number) {
             return;
         }
         let col = document.createElement("div")
-        col.setAttribute("class", "col-4 text-center");
+        col.setAttribute("class", "pb-5 col-4 text-center");
         col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
         col.onmouseover = () => {
             col.setAttribute("style", "background-color: rgba(0,0,0,0.6)");
@@ -82,8 +82,8 @@ function showGames(i: number) {
         gameTitle.setAttribute("class", "bg-light border-top border-rounded border-2 border-primary my-4")
         let image = document.createElement("img");
         image.src = gameList[start].cover.link;
-        image.width = 200;
-        image.height = 200;
+        image.setAttribute('style', 'height:200px;width:auto;');
+
         let game = gameList[start]
         image.onclick = () => {
             createGameVisualization(game)
@@ -99,9 +99,9 @@ function showGames(i: number) {
         let id = gameList[start].id
         if (type == "USER") {
             imgButton.setAttribute("src", "./img/button/addBtn.png");
-            imgButton.height = 35;
-            imgButton.setAttribute("style", "image-rendering: pixelated;");
+            imgButton.setAttribute("style", "border:none;image-rendering: pixelated;");
             imgButton.setAttribute('class', 'p-0 my-3 mx-auto')
+            imgButton.height = 35;
             addButton.setAttribute("class", "p-0 my-3")
             divButton.setAttribute('class', 'p-0 mx-auto')
 

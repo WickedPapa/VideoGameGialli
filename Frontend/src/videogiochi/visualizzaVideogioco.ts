@@ -30,7 +30,7 @@ function setPage(game:videogame){
     let view = document.getElementById("gameImage");
     let img = document.createElement("img");
     img.src=game.cover.link;
-    img.width=400;
+    img.setAttribute('style', 'height:400px;width:auto;')
     view.append(img);
     let info = document.getElementById("gameInfo");
     let genere = document.createElement("h2")
