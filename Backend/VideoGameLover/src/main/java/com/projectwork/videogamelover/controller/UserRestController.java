@@ -122,7 +122,9 @@ public class UserRestController {
 				}
 			}
 			list.add(optGame.get());
+			System.out.println(user);
 			user = userRepo.save(user);
+			System.out.println(user);
 			session.setAttribute("logged", user);
 			return true;
 		}

@@ -1,6 +1,7 @@
 package com.projectwork.videogamelover.model.entities;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -81,6 +82,28 @@ public class Message {
 	public void setConversation(Chat conversation) {
 		this.conversation = conversation;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(conversation, id, text, timestamp, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		return Objects.equals(conversation, other.conversation) && id == other.id && Objects.equals(text, other.text)
+				&& Objects.equals(timestamp, other.timestamp) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", user=" + user + ", timestamp=" + timestamp + ", text=" + text
+				+ ", conversation=" + conversation + "]";
+	}
 }

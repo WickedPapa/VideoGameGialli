@@ -147,12 +147,12 @@ function getUserGames() {
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
                 li.setAttribute("class", "dropdown-item");
                 li.setAttribute("id", "itemSelected");
+                li.setAttribute("style", "width: 300px");
                 title.innerHTML = game.name;
                 title.setAttribute("class", "my-auto");
                 pic.src = game.cover.link;
                 pic.setAttribute('class','border border-2 border-info rounded');
                 pic.setAttribute('style', 'width:128px;height:auto');  
-                console.log(game.name);
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
@@ -161,8 +161,6 @@ function getUserGames() {
                     console.log("gioco da Scambiare: "+ giocoDaScambiare);
                     gameToTrade=game;
                     showSelectedTradeGame()
-                   // let btn = document.getElementById("selectedTradeGame");
-                    //btn.append(li);
                 }
                 
                 row.append(col, colPic);

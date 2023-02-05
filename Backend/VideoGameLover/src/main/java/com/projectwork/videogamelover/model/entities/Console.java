@@ -63,5 +63,12 @@ public class Console {
 		Console other = (Console) obj;
 		return Objects.equals(console, other.console) && id == other.id;
 	}
+
+	@Override
+	public String toString() {
+		return "Console [id=" + id + ", console=" + console + "]";
+	}
+	
+	
 	
 }

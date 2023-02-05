@@ -64,4 +64,11 @@ public class Genre {
 		Genre other = (Genre) obj;
 		return Objects.equals(genre, other.genre) && id == other.id;
 	}
+
+	@Override
+	public String toString() {
+		return "Genre [id=" + id + ", genre=" + genre + "]";
+	}
+	
+	
 }
