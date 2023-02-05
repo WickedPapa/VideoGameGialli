@@ -2,14 +2,18 @@ import insertion from '../interfaces/insertion';
 import annuncio from './annuncio.html'
 import createPage from './annunci';
 import annunci from './annunci.html'
+import videogame from '../interfaces/videogame';
+import userInfo from '../interfaces/userInfo';
+import user from '../interfaces/user';
 
-export function expandInsertion(insertion: insertion) {
+export function expandInsertion(insertion:any) {
+    console.log(insertion)
 
     /*Imposto la pagina principale con il template del singolo annuncio */
     let main = document.getElementById("main");
     main.innerHTML = annuncio;
 
-    
+
     document.getElementById("backgames").onclick = () => {
         document.getElementById("main").innerHTML = annunci;
         createPage();
@@ -71,32 +75,93 @@ export function expandInsertion(insertion: insertion) {
         + "Anno: " + insertion.tradeGame.year + "<br>"
         + "Console: " + insertion.tradeGame.console.console;
     document.getElementById("card-body").append(h4, p);
-    let desc = document.createElement("h2");
-    desc.setAttribute("style","color:white")
-    desc.innerHTML = "Descrizione:"
-    let insDesc = document.createElement("h3");
-    insDesc.setAttribute("style","color:white")
-    insDesc.innerHTML = insertion.description;
-    document.getElementById("insertion-creator").innerHTML = "L'utente"//insertion.publisher.username;
-    document.getElementById("insertion-description").append(desc, insDesc);
-    for (let i = 0; i < 3; i++) {
-        document.getElementById("btn-item-" + (i + 1)).innerHTML = insertion.wishList[i].name;
-        let img = document.createElement("img");
-        img.src = insertion.wishList[i].cover.link;
-        img.setAttribute("class", "card-img-top")
-        document.getElementById("img-item-" + (i + 1)).append(img);
-        let p = document.createElement("p");
-        p.setAttribute("class", "card-text");
-        p.setAttribute("style", "font-size: 1.5em;");
-        p.innerHTML = "Genere: ";
-        for (let i = 0; i < insertion.tradeGame.genre.length; i++) {
-            p.innerHTML += insertion.tradeGame.genre[i].genre + " "
-        }
-        p.innerHTML += "<br>"
-            + "Anno: " + insertion.tradeGame.year + "<br>"
-            + "Console: " + insertion.tradeGame.console.console;
-        document.getElementById("body-item-" + (i + 1)).append(p);
+    let publisher = document.createElement("h3");
+
+    fetch("/user/" + insertion.publisher.id)
+        .then((response) => response.json())
+        .then((data) => {
+            publisher.innerHTML = "Utente: " + data.username + " Punteggio: " + insertion.publisher.rating;
+            publisher.setAttribute("style", "color:white")
+            let desc = document.createElement("h2");
+            desc.setAttribute("style", "color:white")
+            desc.innerHTML = "Descrizione:"
+            let insDesc = document.createElement("h3");
+            insDesc.setAttribute("style", "color:white")
+            insDesc.innerHTML = insertion.description;
+            document.getElementById("insertion-creator").innerHTML = "L'utente"//insertion.publisher.username;
+            document.getElementById("insertion-description").append(publisher, desc, insDesc);
+            for (let i = 0; i < 3; i++) {
+                document.getElementById("btn-item-" + (i + 1)).innerHTML = insertion.wishList[i].name;
+                let img = document.createElement("img");
+                img.src = insertion.wishList[i].cover.link;
+                img.setAttribute("class", "card-img-top")
+                img.onclick = () => { createProposal(insertion.wishList[i], insertion.tradeGame, insertion.publisher) }
+                document.getElementById("img-item-" + (i + 1)).append(img);
+                let p = document.createElement("p");
+                p.setAttribute("class", "card-text");
+                p.setAttribute("style", "font-size: 1.5em;");
+                p.innerHTML = "Genere: ";
+                for (let j = 0; j < insertion.wishList[i].genre.length; j++) {
+                    p.innerHTML += insertion.wishList[i].genre[j].genre + " "
+                }
+                p.innerHTML += "<br>"
+                    + "Anno: " + insertion.wishList[i].year + "<br>"
+                    + "Console: " + insertion.wishList[i].console.console;
+                document.getElementById("body-item-" + (i + 1)).append(p);
+            }
+        })
+
+
+
+
+}
+
+function createProposal(wishGame: videogame, tradeGame: videogame, publisher: user) {
+    let proposalDiv = document.getElementById("insertion-confirm");
+    proposalDiv.innerHTML = "";
+    let h3 = document.createElement("h3");
+    h3.innerHTML = "Sei sicuro di voler scambiare " + wishGame.name + " per " + tradeGame.name + "?";
+    let btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.setAttribute("class", "btn btn-outline-success");
+    btn.innerHTML = "Conferma";
+    h3.setAttribute("style", "font-size:20px; color:white")
+    proposalDiv.append(h3, btn)
+    const proposal = {
+        tradeGame: tradeGame,
+        wishGame: wishGame,
+        publisher: publisher
     }
+    btn.onclick = () => { confirmProposal(proposal) };
+}
+
+function confirmProposal(proposal: any) {
+
+    const request = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(proposal)
+    }
+
+
+    fetch("/insertion/confirm", request)
+        .then((response) => response.json())
+        .then((data) => {
+            if (!data.logged) {
+                alert("non sei loggato");
+            }
+            else if(!data.thisIsYou) {
+                alert("che fai clicchi sul tuo stesso annuncio?!?")
+            }
+            else if (!data.hasGame) {
+                alert("non possiedi il gioco");
+            }
+            else if(!data.alreadyHave) {
+                alert("ma hai già questo gioco!");
+            }
+        })
 }
 
 export default expandInsertion

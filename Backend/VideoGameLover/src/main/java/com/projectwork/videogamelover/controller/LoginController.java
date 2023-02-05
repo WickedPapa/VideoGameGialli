@@ -2,6 +2,7 @@ package com.projectwork.videogamelover.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,38 @@ public class LoginController {
 			return (AccountType)session.getAttribute("type");
 		}
 		return AccountType.GUEST;
+	}
+	
+	@GetMapping("/isAnUserLogged")
+	public boolean isAnUserLogged(HttpSession session) {
+		if(accountManager.isLogged()) {
+			if((AccountType)session.getAttribute("type")==AccountType.USER) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@GetMapping("/createInterval/{intervalId}")
+	public boolean createInterval(HttpSession session, @PathVariable("intervalId") int intervalId) {
+		if(accountManager.isLogged()) {
+			if((AccountType)session.getAttribute("type")==AccountType.USER) {
+				session.setAttribute("intevalId", intervalId);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@GetMapping("/deleteInterval")
+	public int deleteInterval(HttpSession session) {
+		if(accountManager.isLogged()) {
+			if((AccountType)session.getAttribute("type")==AccountType.USER) {
+				session.getAttribute("intevalId");
+				return (int)session.getAttribute("intevalId");
+			}
+		}
+		return -1;
 	}
 	
 	@GetMapping("/userInfo")

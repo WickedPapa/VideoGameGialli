@@ -22,14 +22,16 @@ import com.projectwork.videogamelover.model.repositories.ImageRepository;
 import com.projectwork.videogamelover.model.repositories.InsertionRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.model.repositories.VideoGameRepository;
+import com.projectwork.videogamelover.view.ConfirmDTO;
 import com.projectwork.videogamelover.view.InsertionDTO;
+import com.projectwork.videogamelover.view.ProposalDTO;
 import com.projectwork.videogamelover.view.UpdateInsertionDTO;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class InsertionRestController {
-	
+
 	@Autowired
 	InsertionRepository insertionRepo;
 	@Autowired
@@ -40,66 +42,57 @@ public class InsertionRestController {
 	VideoGameRepository vgRepo;
 	@Autowired
 	ImageRepository imgRepo;
-	
+
 	@GetMapping("/insertion")
-	public List<Insertion> readAllInsertions(){
+	public List<Insertion> readAllInsertions() {
 		List<Insertion> insertionList = new LinkedList<>();
-		for(Insertion insertion : insertionRepo.findAll()) {
+		for (Insertion insertion : insertionRepo.findAll()) {
 			insertionList.add(insertion);
 		}
 		return insertionList;
 	}
-	
+
 	@PostMapping("/insertion")
-	public boolean createOne(
-			@RequestBody
-			InsertionDTO dto,
-			HttpSession session){
-		if(dto.getTitle().equals("")||dto.getTitle()==null
-				||dto.getDescription().equals("")||dto.getDescription()==null
-				||dto.getGallery()==null||dto.getWishListIds()==null||dto.getTradeGameId()==0) {
+	public boolean createOne(@RequestBody InsertionDTO dto, HttpSession session) {
+		if (dto.getTitle().equals("") || dto.getTitle() == null || dto.getDescription().equals("")
+				|| dto.getDescription() == null || dto.getGallery() == null || dto.getWishListIds() == null
+				|| dto.getTradeGameId() == 0) {
 			return false;
 		}
 		Object obj = session.getAttribute("logged");
-		if(accountManager.isLogged() && (obj instanceof User)) {
+		if (accountManager.isLogged() && (obj instanceof User)) {
 			User user = (User) obj;
 			Optional<VideoGame> optTradeGame = vgRepo.findById(dto.getTradeGameId());
 			List<VideoGame> wishList = new LinkedList<>();
-			for(int i = 0; i<3; i++) {
+			for (int i = 0; i < 3; i++) {
 				Optional<VideoGame> optWishGame = vgRepo.findById(dto.getWishListIds().get(i));
-				if(optWishGame.isPresent()) {
+				if (optWishGame.isPresent()) {
 					wishList.add(optWishGame.get());
-				}else {
+				} else {
 					return false;
 				}
 			}
-			if(optTradeGame.isPresent()) {
+			if (optTradeGame.isPresent()) {
 				List<Image> gallery = new LinkedList<>();
-				for(String imageLink : dto.getGallery()) {
+				for (String imageLink : dto.getGallery()) {
 					Image img = new Image(imageLink);
 					imgRepo.save(img);
 					gallery.add(img);
 				}
-				Insertion insertion = new Insertion(
-						dto.getTitle(), 
-						dto.getDescription(), 
-						user, 
-						gallery,
-						optTradeGame.get(),
-						wishList
-						);
+				Insertion insertion = new Insertion(dto.getTitle(), dto.getDescription(), user, gallery,
+						optTradeGame.get(), wishList);
 				insertionRepo.save(insertion);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@PutMapping("/insertion")
-	public boolean updateInsertion(@RequestBody UpdateInsertionDTO dto,HttpSession session) {
-		if(accountManager.isLogged() && session.getAttribute("logged") instanceof Admin) {
+	public boolean updateInsertion(@RequestBody UpdateInsertionDTO dto, HttpSession session) {
+		if (accountManager.isLogged() && session.getAttribute("logged") instanceof Admin) {
 			Optional<Insertion> opt = insertionRepo.findById(dto.getInsertionId());
-			if(opt.isPresent()) {
+			if (opt.isPresent()) {
 				Insertion insertion = opt.get();
 				insertion.setApproved(dto.isApproved());
 				insertion.setOutcome(dto.getOutcome());
@@ -109,8 +102,46 @@ public class InsertionRestController {
 		}
 		return false;
 	}
-	
+
+	@PostMapping("/insertion/confirm")
+	public ConfirmDTO createOne(@RequestBody ProposalDTO dto, HttpSession session) {
+
+		ConfirmDTO confirmDto = new ConfirmDTO();
+
+		if (!(accountManager.isLogged()) || !(session.getAttribute("logged") instanceof User)) {
+			confirmDto.setLogged(false);
+			return confirmDto;
+		}
+		confirmDto.setLogged(true);
+
+		User user = (User) session.getAttribute("logged");
+
+		if (user.getId() == dto.getPublisher().getId()) {
+			confirmDto.setThisIsYou(false);
+			return confirmDto;
+		}
+		confirmDto.setThisIsYou(true);
+
+		confirmDto.setHasGame(false);
+		for (VideoGame game : user.getVideogames()) {
+			if (game.getName().equals(dto.getWishGame().getName())) {
+				confirmDto.setHasGame(true);
+
+			}
+		}
+
+		confirmDto.setAlreadyHave(false);
+		for (VideoGame game : user.getVideogames()) {
+			if (game.getName().equals(dto.getTradeGame().getName())) {
+				confirmDto.setAlreadyHave(true);
+
+			}
+		}
+
+		return confirmDto;
+	}
+
 //	@DeleteMapping("")
-	
-	//TODO: delete, readOne(forse)
+
+	// TODO: delete, readOne(forse)
 }

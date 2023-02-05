@@ -5,8 +5,13 @@ import chatFooterTemplate from "./chatFooter.html"
 import message from "../interfaces/message";
 import userInfo from "../interfaces/userInfo";
 
+
+let chatVersions: Map<number, Map<number, number>> = new Map();
+
 export function addClickChat() {
-    document.getElementById("showChatUsers").onclick = showUsersChat;
+    document.getElementById("showChatUsers").onclick = () => {
+        showUsersChat(), document.getElementById("alert").setAttribute("hidden", "true");
+    };
 }
 
 
@@ -14,20 +19,30 @@ function showUsersChat() {
     fetch("/user")
         .then((response) => response.json())
         .then((data: user[]) => {
-            let chatBox = document.getElementById("chatBox");
-            chatBox.innerHTML = "";
-            let div = document.createElement("div");
-            div.setAttribute("class", "list-group");
-            for (let user of data) {
-                let btn = document.createElement("button");
-                btn.setAttribute("type", "button");
-                btn.setAttribute("class", "list-group-item list-group-item-action");
-                btn.id = "" + user.userId;
-                btn.innerHTML = user.username + " " + user.rating;
-                btn.onclick = () => { findChat(Number(btn.id)) };
-                div.append(btn);
-                chatBox.append(div);
-            }
+            fetch("/user/this")
+                .then((thisUserSerialyzed) => thisUserSerialyzed.json())
+                .catch((error) => {
+                    return;
+                })
+                .then((thisUser) => {
+                    let chatBox = document.getElementById("chatBox");
+                    chatBox.innerHTML = "";
+                    let div = document.createElement("div");
+                    div.setAttribute("class", "list-group");
+                    for (let user of data) {
+                        if (user.userId != thisUser.userId) {
+                            let btn = document.createElement("button");
+                            btn.setAttribute("type", "button");
+                            btn.setAttribute("class", "list-group-item list-group-item-action");
+                            btn.id = "" + user.userId;
+                            btn.innerHTML = user.username + " " + user.rating + " <i class='fa-regular fa-star'></i>";
+                            btn.onclick = () => { findChat(Number(btn.id)) };
+                            div.append(btn);
+                            chatBox.append(div);
+                        }
+                    }
+                })
+
         })
 }
 
@@ -43,7 +58,8 @@ function findChat(idReceiver: number) {
                         chatBox.innerHTML = "";
                         chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
                         let chatTitle = document.getElementById("chatTitle");
-                        chatTitle.innerHTML = userInfo.username;
+                        chatTitle.innerHTML = userInfo.username + " " + userInfo.rating + " <i class='fa-regular fa-star'></i>";
+                        //let idRefresh = setInterval(()=>{openChat(Number(idChat));}, 1000);
                         openChat(Number(idChat));
                     })
             }
@@ -52,6 +68,7 @@ function findChat(idReceiver: number) {
 
 async function openChat(chatId: number) {
     document.getElementById("chatBody").innerHTML = "";
+    document.getElementById("backToList").onclick = showUsersChat;
     await fetch("/chat/conversation/" + chatId)
         .then((serializedConversation) => serializedConversation.json())
         .then((conversation: message[]) => {
@@ -59,38 +76,38 @@ async function openChat(chatId: number) {
             fetch("/user/this")
                 .then((serializedThisUserInfo) => serializedThisUserInfo.json())
                 .then((thisUserInfo: userInfo) => {
-                    document.getElementById("button-addon2").onclick = () => { createMessage(thisUserInfo.userId, chatId) };
+
+                    let textBox = document.getElementById("messageText") as HTMLInputElement;
+                    document.getElementById("button-addon2").onclick = () => {
+                        createMessage(thisUserInfo.userId, chatId);
+                        textBox.value = "";
+                    };
+                    textBox.onkeydown = (e) => {
+                        if (e.key == 'Enter') {
+                            createMessage(thisUserInfo.userId, chatId);
+                            textBox.value = "";
+                        }
+                    }
                     for (let message of conversation) {
-                        buildMessage(message, thisUserInfo.username);
+                        if (message.username == thisUserInfo.username) {
+                            buildMessageSended(thisUserInfo.username, thisUserInfo.rating, message.timestamp, message.text);
+                        } else {
+                            buildMessageRecived(message.username, message.rating, message.timestamp, message.text);
+                        }
                     }
                 })
         })
 
-    async function buildMessage(message: message, thisUserUsername: string) {
-        //INIZIO PROBLEMA
-        fetch("/user/" + message.userId)
-            .then((serializedUserInfo) => serializedUserInfo.json())
-            .then((userInfo: userInfo) => {
-        //FINE PROBLEMA
-                if (userInfo.username == thisUserUsername) {
-                    buildMessageSended(thisUserUsername, message.timestamp, message.text);
-                } else {
-                    buildMessageRecived(userInfo.username, message.timestamp, message.text);
-                }
-            })
-    }
-    console.log("cuai");
-
-    function buildMessageRecived(username: string, timestamp: string, text: string) {
+    function buildMessageRecived(username: string, rating: number, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");
         let divInfo = document.createElement("div");
         divInfo.setAttribute("class", "d-flex justify-content-between");
         let pDate = document.createElement("p");
         pDate.setAttribute("class", "small mb-1 text-muted");
-        pDate.innerHTML = timestamp;
+        pDate.innerHTML = normalPersonDateTransform(timestamp);
         let pUsername = document.createElement("p");
         pUsername.setAttribute("class", "small mb-1");
-        pUsername.innerHTML = username;
+        pUsername.innerHTML = username + " " + rating + "<i class='fa-regular fa-star'></i>";
 
         let divText = document.createElement("div");
         divText.setAttribute("class", "d-flex flex-row justify-content-start");
@@ -110,17 +127,17 @@ async function openChat(chatId: number) {
         chatBody.append(divInfo, divText);
     }
 
-    function buildMessageSended(username: string, timestamp: string, text: string) {
+    function buildMessageSended(username: string, rating: number, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");
 
         let divInfo = document.createElement("div");
         divInfo.setAttribute("class", "d-flex justify-content-between");
         let pDate = document.createElement("p");
         pDate.setAttribute("class", "small mb-1 text-muted");
-        pDate.innerHTML = timestamp;
+        pDate.innerHTML = normalPersonDateTransform(timestamp);
         let pUsername = document.createElement("p");
         pUsername.setAttribute("class", "small mb-1");
-        pUsername.innerHTML = username;
+        pUsername.innerHTML = username + " " + rating + "<i class='fa-regular fa-star'></i>";
 
         let divText = document.createElement("div");
         divText.setAttribute("class", "d-flex flex-row justify-content-end mb-4 pt-1");
@@ -165,6 +182,67 @@ async function openChat(chatId: number) {
                 }
             })
     }
+}
+
+function normalPersonDateTransform(timestamp: string): string {
+    let date = new Date(timestamp);
+    return date.toLocaleString();
+}
+
+export function searchNotification() {
+    fetch("/isAnUserLogged")
+        .then((response) => response.json())
+        .then((data) => {
+            if (data) {
+                let intervalId = setInterval(searchUserChats, 5000);
+                fetch("/createInterval/" + intervalId)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data) {
+
+                        }
+                    })
+            }
+        })
+}
+
+export function stopSearchNotification() {
+    fetch("/deleteInterval")
+        .then((response) => response.json())
+        .then((data) => {
+            clearInterval(data);
+        })
+}
+
+export function searchUserChats() {
+    console.log("Lois");
+    fetch("/chat/allUserChat")
+        .then((response) => response.json())
+        .then((data) => {
+            if (chatVersions.get(data.id) == undefined) {
+                chatVersions.set(data.id, new Map<number, number>());
+            }
+            for (let id of data.chatIds) {
+                if (chatVersions.get(data.id).get(id) == undefined) {
+                    chatVersions.get(data.id).set(id, 0);
+                }
+                fetch("/chat/version/" + id)
+                    .then((serializedVersion) => serializedVersion.json())
+                    .then((version) => {
+                        if ((version > chatVersions.get(data.id).get(id))) {
+                            fetch("/chat/one/"+id)
+                                .then((serializedChat) => serializedChat.json())
+                                .then((chat) => {
+                                    if (chat.user1.id != data.id) {
+                                        document.getElementById("alert").removeAttribute("hidden");
+                                        chatVersions.get(data.id).set(id, version);
+                                        
+                                    }
+                                })
+                        }
+                    })
+            }
+        })
 }
 
 export default addClickChat;

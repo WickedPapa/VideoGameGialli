@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projectwork.videogamelover.model.accounts.IAccountManager;
 import com.projectwork.videogamelover.model.entities.Chat;
 import com.projectwork.videogamelover.model.entities.Message;
 import com.projectwork.videogamelover.model.entities.User;
@@ -21,6 +22,7 @@ import com.projectwork.videogamelover.model.repositories.MessageRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
 import com.projectwork.videogamelover.view.CreateMessageDTO;
 import com.projectwork.videogamelover.view.MessageDTO;
+import com.projectwork.videogamelover.view.UserChatsDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -33,7 +35,9 @@ public class ChatRestController {
 	UserRepository userRepo;
 	@Autowired
 	MessageRepository messageRepo;
-
+	@Autowired
+	IAccountManager accountManager;
+	
 	@GetMapping("/chat/{friendId}")
 	public int findChat(HttpSession session, @PathVariable("friendId") int friendId){
 		Optional<User> optfriend = userRepo.findById(friendId);
@@ -52,6 +56,16 @@ public class ChatRestController {
 			}
 		}
 		return optChat.get().getId();
+	}
+	
+	//Da controllare da lucidi
+	@GetMapping("/chat/one/{idChat}")
+	public Chat findOneChat(HttpSession session, @PathVariable("idChat") int idChat){
+		Optional<Chat> optChat = chatRepo.findById(idChat);
+		if(optChat.isEmpty()) {
+			return null;
+		}
+		return optChat.get();
 	}
 	
 	@PostMapping("/chat")
@@ -89,11 +103,31 @@ public class ChatRestController {
 		if(optChat.isEmpty()) {
 			return new LinkedList<>();
 		}
-		System.out.println("ciao");
 		List<MessageDTO> conversation = new LinkedList<>();
+		
 		for(Message m : messageRepo.findByConversationOrderByTimestamp(optChat.get())) {
-			conversation.add(new MessageDTO(m.getUser().getId(), m.getTimestamp(), m.getText()));
+			conversation.add(new MessageDTO(
+					m.getUser().getId(),
+					accountManager.getAccount(m.getUser().getAccountId()).getUsername(),
+					m.getUser().getRating(), 
+					m.getTimestamp(), m.getText()));
 		}
 		return conversation;
+	}
+	
+	@GetMapping("/chat/allUserChat")
+	public UserChatsDTO getAllUserChat(HttpSession session){
+		List<Integer> chatIds = new LinkedList<>();
+		Object obj = session.getAttribute("logged");
+		if(obj instanceof User) {
+			User user = (User)obj;
+			List<Chat> chats = chatRepo.findAllByUser1OrUser2(user, user);
+			for(Chat chat : chats) {
+				chatIds.add(chat.getId());
+			}
+			UserChatsDTO dto = new UserChatsDTO(user.getId(), chatIds);
+			return dto;
+		}
+		return null;
 	}
 }
