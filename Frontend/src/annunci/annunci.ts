@@ -5,9 +5,11 @@ import insertion from '../interfaces/insertion';
 import expandInsertion from './annuncio'
 import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
 import showProfile from '../profiloUtente/profile';
-
+import category from '../interfaces/category';
+let categoryList: category[] = [];
+let categories: string[] = [];
 let list: insertion[] = [];
-let filteredList: insertion[]=[]
+let filteredList: insertion[] = [];
 let view: number = 6
 let type: string;
 let genres: string[];
@@ -16,54 +18,78 @@ let consolles: string[];
 export async function createPage() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
 
     fetch("/whoIsLogged")
-    .then((response) => response.json())
-    .then((data) => {
-        if (data == "ADMIN" || data == "USER") {
-            document.getElementById("addInsertion2").removeAttribute("hidden");
-            let btn = document.getElementById("addInsertion2");
-            btn.onclick=()=>{
-                document.getElementById("main").innerHTML=creaAnnuncio;
-                createInsertionPage();
-            }
-           
-        } else {
-            document.getElementById("addInsertion2").setAttribute("hidden", "true");
-            type = "GUEST"
-        }
+        .then((response) => response.json())
+        .then((data) => {
+            if (data == "ADMIN" || data == "USER") {
+                document.getElementById("addInsertion2").removeAttribute("hidden");
+                let btn = document.getElementById("addInsertion2");
+                btn.onclick = () => {
+                    document.getElementById("main").innerHTML = creaAnnuncio;
+                    createInsertionPage();
+                }
 
-    list=[];
-    fetch('/insertion')
-    .then((response) => response.json())
-    .then((data) => {
-        for(let d of data){
-            list.push(d);
-        }
-        createPagination();
-        showResults(1);
-        assignFilters();         
-    })
-    })
+            } else {
+                document.getElementById("addInsertion2").setAttribute("hidden", "true");
+                type = "GUEST"
+            }
+
+            list = [];
+            fetch('/insertion')
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let d of data) {
+                        list.push(d);
+                    }
+
+                    fetch("/category")
+                        .then((response) => response.json())
+                        .then((data) => {
+                            for (let c of data) {
+                                categoryList.push(c);
+                            }
+
+                            createPagination();
+                            showResults(1);
+                            assignFilters();
+
+                        })
+                })
+        })
 }
 
 
 
-async function getAllInsertions(){
-    
-  await  fetch('/insertion')
-    .then((response) => response.json())
-    .then((data) => {
-        list=[];
-        for(let d of data){
-            list.push(d);
-        }
-    });
-   } 
 
 
 
 
 
-  async function showResults(i: number) {
+
+
+
+
+
+
+
+
+
+async function getAllInsertions() {
+
+    await fetch('/insertion')
+        .then((response) => response.json())
+        .then((data) => {
+            list = [];
+            for (let d of data) {
+                list.push(d);
+            }
+        });
+}
+
+
+
+
+
+async function showResults(i: number) {
 
     let content = document.getElementById("insertionContent");
     content.innerHTML = "";
@@ -74,7 +100,7 @@ async function getAllInsertions(){
             return;
         }
 
-        if (!list[start].approved || list[start].outcome!="WIP") {
+        if (!list[start].approved || list[start].outcome != "WIP") {
             continue;
         }
 
@@ -82,17 +108,17 @@ async function getAllInsertions(){
         let col = document.createElement("div")
         col.setAttribute("class", "col-4 text-center");
         col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
-        col.onmouseover=()=>{
+        col.onmouseover = () => {
             col.setAttribute("style", "background-color: rgba(0,0,0,0.6)");
         }
-        col.onmouseout=()=>{
+        col.onmouseout = () => {
             col.setAttribute("style", "background-color: rgba(0,0,0,0.2)");
         }
-        let insertionOne=list[start];
+        let insertionOne = list[start];
         col.onclick = () => {
             expandInsertion(insertionOne)
         }
-       
+
         let title = document.createElement("h1");
         let image = document.createElement("img");
         let description = document.createElement("h5");
@@ -105,7 +131,7 @@ async function getAllInsertions(){
         image.src = list[start].tradeGame.cover.link;
         image.setAttribute('class', 'mb-2 border border-3 border-info')
         image.setAttribute('style', 'height:200px;width:auto;')
-        title.innerHTML = '<b>'+list[start].title+'</b>';
+        title.innerHTML = '<b>' + list[start].title + '</b>';
 
         title.setAttribute('class', 'mx-auto mt-2 rounded-top bg-light border-bottom border-3 border-primary');
 
@@ -115,15 +141,15 @@ async function getAllInsertions(){
         game.innerHTML = list[start].tradeGame.name;
         game.setAttribute('class', 'mb-0 bg-light');
 
-        
-        for(let i= 0; i<list[start].tradeGame.genre.length; i++){
+
+        for (let i = 0; i < list[start].tradeGame.genre.length; i++) {
             genre.innerHTML += list[start].tradeGame.genre[i].genre + " ";
             genre.setAttribute('class', 'mb-0 bg-light');
-            
+
         }
         year.innerHTML = "" + list[start].tradeGame.year;
         year.setAttribute('class', 'mb-0 bg-light');
-        
+
 
         console.innerHTML = list[start].tradeGame.console.console;
         console.setAttribute('class', 'mb-0 bg-light');
@@ -132,10 +158,10 @@ async function getAllInsertions(){
         trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
         trades.setAttribute('class', 'mb-0 bg-light');
 
-        date.innerHTML= list[start].publicationDate;
+        date.innerHTML = list[start].publicationDate;
         date.setAttribute('class', 'rounded-bottom border-bottom border-3 border-primary bg-light');
 
-        col.append(title,image,description,game,genre,year,console,trades,date)
+        col.append(title, image, description, game, genre, year, console, trades, date)
         content.append(col);
 
     }
@@ -174,6 +200,27 @@ export function createPagination() {
 
 
 
+function setAllCategories() {
+    categories = [];
+    for (let i = 0; i < categoryList.length; i++) {
+        if (!(categories.includes(categoryList[i].descriptor))) {
+            categories.push(categoryList[i].descriptor)
+            let ul = document.getElementById("categories");
+            let li = document.createElement("li");
+            li.id = "" + categoryList[i].id;
+            let btn = document.createElement("button");
+            btn.setAttribute("class", "dropdown-item");
+            btn.innerHTML = categoryList[i].descriptor;
+            btn.onclick = () => {
+                searchByCategory(Number(li.id));
+            }
+            ul.append(li);
+            li.append(btn);
+        }
+    }
+
+}
+
 
 function setAllConsolles() {
     consolles = []
@@ -187,7 +234,7 @@ function setAllConsolles() {
             btn.setAttribute("class", "dropdown-item");
             btn.innerHTML = list[i].tradeGame.console.console;
             btn.onclick = () => {
-                searchByGameConsolle(li.id); 
+                searchByGameConsolle(li.id);
             }
             ul.append(li);
             li.append(btn);
@@ -242,39 +289,64 @@ function setAllYears() {
 
 
 async function searchByAll() {             /*La funziona del bottone che cerca tutti gli annunci senza filtri*/
-list=[];
- fetch('/insertion')
-.then((response) => response.json())
-.then((data) => {
-    for(let d of data){
-        list.push(d);
-    }
-    setAllGenres();
-    createPagination();
-    showResults(1);
-});
+    list = [];
+    fetch('/insertion')
+        .then((response) => response.json())
+        .then((data) => {
+            for (let d of data) {
+                list.push(d);
+            }
+            setAllGenres();
+            createPagination();
+            showResults(1);
+        });
 
 }
 
 
-export  function searchByTitle(title: string) {
+function searchByCategory(insertionId: number) {
+    filteredList = [];
+    let chosenCategory: category;
+    for (let element of categoryList) {
+        if (element.id == insertionId) {
+            chosenCategory = element
+        }
+    }
+    for (let i = 0; i < chosenCategory.list.length; i++) {
+        for (let j = 0; j < list.length; j++) {
+            if (list[j].id == chosenCategory.list[i].id) {
+                filteredList.push(list[j])
+            }
+        }
+    }
+    list = [];
+    list = filteredList
+    createPagination();
+    showResults(1).then(() => {
+        getAllInsertions();
+    })
+
+
+}
+
+export function searchByTitle(title: string) {
     filteredList = []
     for (let element of list) {
         let gameName = element.tradeGame.name
         let insertionTitle = element.title
-        if ( (gameName.toUpperCase().includes(title.toUpperCase())) 
-        ||(insertionTitle.toUpperCase().includes(title.toUpperCase()))) {
+        if ((gameName.toUpperCase().includes(title.toUpperCase()))
+            || (insertionTitle.toUpperCase().includes(title.toUpperCase()))) {
             filteredList.push(element)
         }
     }
     list = [];
     list = filteredList
     createPagination();
-    showResults(1).then(()=>{
+    showResults(1).then(() => {
         getAllInsertions();
     })
-    
-    
+
+
 }
 
 
@@ -285,7 +357,7 @@ function searchByGameConsolle(console: string) {
         if (element.tradeGame.console.console == console) {
             filteredList.push(element);
         }
-    
+
     }
     list = [];
     list = filteredList
@@ -330,12 +402,14 @@ function searchByYear(year: number) {
 
 
 
-export function assignFilters() {             
-    
-let allGames = document.getElementById("selectAll")
+export function assignFilters() {
+
+    let allGames = document.getElementById("selectAll")
     allGames.onclick = () => {
         searchByAll();
     }
+
+    setAllCategories();
 
     setAllConsolles();
 
