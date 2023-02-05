@@ -3,6 +3,7 @@ package com.projectwork.videogamelover.model.entities;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import com.projectwork.videogamelover.model.enums.Outcome;
 
@@ -160,13 +161,37 @@ public class Insertion {
 	public void setOutcome(Outcome outcome) {
 		this.outcome = outcome;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(approved, description, gallery, id, outcome, publicationDate, publisher, title, tradeGame,
+				wishList);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Insertion other = (Insertion) obj;
+		return approved == other.approved && Objects.equals(description, other.description)
+				&& Objects.equals(gallery, other.gallery) && id == other.id && outcome == other.outcome
+				&& Objects.equals(publicationDate, other.publicationDate) && Objects.equals(publisher, other.publisher)
+				&& Objects.equals(title, other.title) && Objects.equals(tradeGame, other.tradeGame)
+				&& Objects.equals(wishList, other.wishList);
+	}
+
+	@Override
+	public String toString() {
+		return "Insertion [id=" + id + ", approved=" + approved + ", title=" + title + ", description=" + description
+				+ ", publisher=" + publisher + ", gallery=" + gallery + ", tradeGame=" + tradeGame + ", wishList="
+				+ wishList + ", publicationDate=" + publicationDate + ", outcome=" + outcome + "]";
+	}
 }

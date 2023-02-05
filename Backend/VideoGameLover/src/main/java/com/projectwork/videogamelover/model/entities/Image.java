@@ -56,5 +56,12 @@ public class Image {
 		Image other = (Image) obj;
 		return id == other.id && Objects.equals(link, other.link);
 	}
+
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", link=" + link + "]";
+	}
+	
+	
 }
 

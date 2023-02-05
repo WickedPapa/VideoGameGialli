@@ -165,9 +165,12 @@ public class InsertionRestController {
 			}
 		}
 		buyer.getVideogames().remove(index);
-		
+		System.out.println(buyer);
 		buyer = userRepo.save(buyer);
+		System.out.println(buyer);
+		System.out.println(publisher);
 		userRepo.save(publisher);
+		System.out.println(publisher);
 		//dovremmo aggiornare la sessione del publisher (se fosse loggato al momento dello scambio)
 		session.setAttribute("logged", buyer);
 		Optional<Insertion> opt = insertionRepo.findById(dto.getInsertionId());

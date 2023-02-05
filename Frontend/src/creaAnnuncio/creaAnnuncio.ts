@@ -150,6 +150,7 @@ function getUserGames() {
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
                 li.setAttribute("class", "dropdown-item");
                 li.setAttribute("id", "itemSelected");
+                li.setAttribute("style", "width: 300px");
                 title.innerHTML = game.name;
                 title.setAttribute("class", "my-auto");
                 pic.src = game.cover.link;
@@ -164,8 +165,6 @@ function getUserGames() {
                     console.log("gioco da Scambiare: "+ giocoDaScambiare);
                     gameToTrade=game;
                     showSelectedTradeGame()
-                   // let btn = document.getElementById("selectedTradeGame");
-                    //btn.append(li);
                 }
                 
                 row.append(col, colPic);

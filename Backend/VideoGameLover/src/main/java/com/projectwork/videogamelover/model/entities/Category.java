@@ -65,5 +65,12 @@ public class Category {
 	public void setList(List<Insertion> list) {
 		this.list = list;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", descriptor=" + descriptor + ", list=" + list + "]";
+	}
+	
 	
 }

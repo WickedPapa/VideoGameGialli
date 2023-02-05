@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -51,4 +53,28 @@ public class Chat {
 	public void setUser2(User user2) {
 		this.user2 = user2;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, user1, user2);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chat other = (Chat) obj;
+		return id == other.id && Objects.equals(user1, other.user1) && Objects.equals(user2, other.user2);
+	}
+
+	@Override
+	public String toString() {
+		return "Chat [id=" + id + ", user1=" + user1 + ", user2=" + user2 + "]";
+	}
+	
+	
 }

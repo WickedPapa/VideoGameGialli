@@ -42,15 +42,15 @@ public class ChatRestController {
 	public int findChat(HttpSession session, @PathVariable("friendId") int friendId){
 		Optional<User> optfriend = userRepo.findById(friendId);
 		Object obj = session.getAttribute("logged");
-		if(optfriend.isEmpty() || obj == null || !(obj instanceof User)) {
+		if(!(optfriend.isPresent()) || obj == null || !(obj instanceof User)) {
 			return -1;
 		}
 		User user = (User)obj;
 		User friend = optfriend.get();
 		Optional<Chat> optChat = chatRepo.findByUser1AndUser2(user, friend);
-		if(optChat.isEmpty()) {
+		if(!optChat.isPresent()) {
 			optChat = chatRepo.findByUser1AndUser2(friend, user);
-			if(optChat.isEmpty()) {
+			if(!optChat.isPresent()) {
 				Chat chat = chatRepo.save(new Chat(user, friend));
 				return chat.getId();
 			}
@@ -62,7 +62,7 @@ public class ChatRestController {
 	@GetMapping("/chat/one/{idChat}")
 	public Chat findOneChat(HttpSession session, @PathVariable("idChat") int idChat){
 		Optional<Chat> optChat = chatRepo.findById(idChat);
-		if(optChat.isEmpty()) {
+		if(!optChat.isPresent()) {
 			return null;
 		}
 		return optChat.get();
@@ -71,11 +71,11 @@ public class ChatRestController {
 	@PostMapping("/chat")
 	public boolean createMessage(@RequestBody CreateMessageDTO dto) {
 		Optional<User> optUser = userRepo.findById(dto.getUserId());
-		if(optUser.isEmpty()) {
+		if(!optUser.isPresent()) {
 			return false;
 		}
 		Optional<Chat> optChat = chatRepo.findById(dto.getChatId());
-		if(optChat.isEmpty()) {
+		if(!optChat.isPresent()) {
 			return false;
 		}
 		if(dto.getText().equals("") || dto.getText()==null) {
@@ -91,7 +91,7 @@ public class ChatRestController {
 	@GetMapping("/chat/version/{chatId}")
 	public int chatVersion(@PathVariable("chatId") int chatId) {
 		Optional<Chat> optChat = chatRepo.findById(chatId);
-		if(optChat.isEmpty()) {
+		if(!optChat.isPresent()) {
 			return -1;
 		}
 		return messageRepo.findByConversation(optChat.get()).size();
@@ -100,7 +100,7 @@ public class ChatRestController {
 	@GetMapping("/chat/conversation/{chatId}")
 	public List<MessageDTO> getConversation(@PathVariable("chatId") int chatId){
 		Optional<Chat> optChat = chatRepo.findById(chatId);
-		if(optChat.isEmpty()) {
+		if(!optChat.isPresent()) {
 			return new LinkedList<>();
 		}
 		List<MessageDTO> conversation = new LinkedList<>();

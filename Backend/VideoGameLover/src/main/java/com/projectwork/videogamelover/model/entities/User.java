@@ -2,6 +2,7 @@ package com.projectwork.videogamelover.model.entities;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,4 +62,31 @@ public class User{
 	public void setVideogames(List<VideoGame> videogames) {
 		this.videogames = videogames;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountId, id, rating, videogames);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return accountId == other.accountId && id == other.id && rating == other.rating
+				&& Objects.equals(videogames, other.videogames);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", rating=" + rating + ", accountId=" + accountId + ", videogames=" + videogames
+				+ "]";
+	}
+	
+	
+
 }

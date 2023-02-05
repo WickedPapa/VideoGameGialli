@@ -115,4 +115,12 @@ public class VideoGame {
 				&& Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
 				&& year == other.year;
 	}
+
+	@Override
+	public String toString() {
+		return "VideoGame [id=" + id + ", name=" + name + ", genre=" + genre + ", year=" + year + ", console=" + console
+				+ ", cover=" + cover + "]";
+	}
+	
+	
 }
