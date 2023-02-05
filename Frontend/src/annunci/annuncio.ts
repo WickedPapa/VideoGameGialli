@@ -5,6 +5,7 @@ import annunci from './annunci.html'
 import videogame from '../interfaces/videogame';
 import userInfo from '../interfaces/userInfo';
 import user from '../interfaces/user';
+import createHome from '../home/home';
 
 export function expandInsertion(insertion:any) {
     
@@ -163,6 +164,7 @@ function confirmProposal(proposal: any) {
                 alert("ma hai già questo gioco!");
             }else{
                 alert("Scambio effettuato!")
+                createHome();
             }
         })
 }

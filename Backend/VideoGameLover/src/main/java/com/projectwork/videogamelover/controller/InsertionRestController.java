@@ -164,7 +164,7 @@ public class InsertionRestController {
 				index = i;
 			}
 		}
-		publisher.getVideogames().remove(index);
+		buyer.getVideogames().remove(index);
 		
 		buyer = userRepo.save(buyer);
 		userRepo.save(publisher);
