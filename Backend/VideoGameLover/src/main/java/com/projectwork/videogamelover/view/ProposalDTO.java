@@ -4,6 +4,7 @@ import com.projectwork.videogamelover.model.entities.User;
 import com.projectwork.videogamelover.model.entities.VideoGame;
 
 public class ProposalDTO {
+	private int insertionId;
 	private VideoGame tradeGame;
 	private VideoGame wishGame;
 	private User publisher;
@@ -12,12 +13,25 @@ public class ProposalDTO {
 
 	}
 
-	public ProposalDTO(VideoGame tradeGame, VideoGame wishGame, User publisher) {
+	
+	public ProposalDTO(int insertionId, VideoGame tradeGame, VideoGame wishGame, User publisher) {
 		super();
+		this.insertionId = insertionId;
 		this.tradeGame = tradeGame;
 		this.wishGame = wishGame;
 		this.publisher = publisher;
 	}
+
+
+	public int getInsertionId() {
+		return insertionId;
+	}
+
+
+	public void setInsertionId(int insertionId) {
+		this.insertionId = insertionId;
+	}
+
 
 	public VideoGame getTradeGame() {
 		return tradeGame;

@@ -7,7 +7,7 @@ import userInfo from '../interfaces/userInfo';
 import user from '../interfaces/user';
 
 export function expandInsertion(insertion:any) {
-    console.log(insertion)
+    
 
     /*Imposto la pagina principale con il template del singolo annuncio */
     let main = document.getElementById("main");
@@ -95,7 +95,7 @@ export function expandInsertion(insertion:any) {
                 let img = document.createElement("img");
                 img.src = insertion.wishList[i].cover.link;
                 img.setAttribute("class", "card-img-top")
-                img.onclick = () => { createProposal(insertion.wishList[i], insertion.tradeGame, insertion.publisher) }
+                img.onclick = () => { createProposal(insertion.id ,insertion.wishList[i], insertion.tradeGame, insertion.publisher) }
                 document.getElementById("img-item-" + (i + 1)).append(img);
                 let p = document.createElement("p");
                 p.setAttribute("class", "card-text");
@@ -116,18 +116,19 @@ export function expandInsertion(insertion:any) {
 
 }
 
-function createProposal(wishGame: videogame, tradeGame: videogame, publisher: user) {
+function createProposal(insertionId:number, wishGame: videogame, tradeGame: videogame, publisher: user) {
     let proposalDiv = document.getElementById("insertion-confirm");
     proposalDiv.innerHTML = "";
     let h3 = document.createElement("h3");
     h3.innerHTML = "Sei sicuro di voler scambiare " + wishGame.name + " per " + tradeGame.name + "?";
     let btn = document.createElement("button");
     btn.setAttribute("type", "button");
-    btn.setAttribute("class", "btn btn-outline-success");
+    btn.setAttribute("class", "btn btn-success");
     btn.innerHTML = "Conferma";
     h3.setAttribute("style", "font-size:20px; color:white")
     proposalDiv.append(h3, btn)
     const proposal = {
+        insertionId: insertionId,
         tradeGame: tradeGame,
         wishGame: wishGame,
         publisher: publisher
@@ -158,8 +159,10 @@ function confirmProposal(proposal: any) {
             else if (!data.hasGame) {
                 alert("non possiedi il gioco");
             }
-            else if(!data.alreadyHave) {
+            else if(data.alreadyHave) {
                 alert("ma hai già questo gioco!");
+            }else{
+                alert("Scambio effettuato!")
             }
         })
 }

@@ -74,7 +74,7 @@ async function getAllInsertions(){
             return;
         }
 
-        if (!list[start].approved) {
+        if (!list[start].approved || list[start].outcome!="WIP") {
             continue;
         }
 

@@ -1,5 +1,7 @@
 package com.projectwork.videogamelover.model.accounts;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.projectwork.videogamelover.model.entities.Admin;
 import com.projectwork.videogamelover.model.entities.User;
+import com.projectwork.videogamelover.model.entities.VideoGame;
 import com.projectwork.videogamelover.model.enums.AccountType;
 import com.projectwork.videogamelover.model.repositories.AdminRepository;
 import com.projectwork.videogamelover.model.repositories.UserRepository;
@@ -17,6 +20,7 @@ import com.projectwork.videogamelover.view.LoginDTO;
 import com.projectwork.videogamelover.view.UpdateAccountDTO;
 import com.projectwork.videogamelover.view.UpdatePasswordDTO;
 
+import jakarta.persistence.ManyToMany;
 import jakarta.servlet.http.HttpSession;
 
 public class AccountManager implements IAccountManager {
@@ -80,9 +84,7 @@ public class AccountManager implements IAccountManager {
 
 				return true;
 
-			}
-
-			else if (optAdmin.isPresent()) {
+			}else if (optAdmin.isPresent()) {
 				AccountDTO account = getAccount(response.getBody());
 
 				InfoDTO info = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
@@ -91,6 +93,20 @@ public class AccountManager implements IAccountManager {
 				session.setAttribute("logged", optAdmin.get());
 				session.setAttribute("type", AccountType.ADMIN);
 				session.setAttribute("info", info);
+
+				return true;
+			}else{
+
+				User user = new User(response.getBody());
+				userRepo.save(user);
+				AccountDTO account = getAccount(response.getBody());
+
+				InfoDTO infoDto = new InfoDTO(account.getUsername(), account.getName(), account.getSurname(),
+						account.getEmail());
+
+				session.setAttribute("logged", user);
+				session.setAttribute("type", AccountType.USER);
+				session.setAttribute("info", infoDto);
 
 				return true;
 			}

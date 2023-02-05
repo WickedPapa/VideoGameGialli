@@ -18,7 +18,7 @@ public class Insertion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private boolean approved = true;
+	private boolean approved = false;
 	private String title;
 	private String description;
 	@ManyToOne

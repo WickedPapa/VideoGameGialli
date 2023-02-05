@@ -6,143 +6,24 @@ import createInsertionPage from '../creaAnnuncio/creaAnnuncio'
 let list: insertion[] = [];
 let view: number = 6
 
-export function createPage2() {       /*Inizializza tutto ciò che serve alla pagina per funzionare */
-
+export function createPage2() {
+    list = [];
     fetch('/insertion')
     .then((response) => response.json())
     .then((data) => {
         for(let d of data){
             list.push(d);
         }
-
-        document.getElementById("selectAll2").onclick = searchByAll2;
-        assignFilters2();
         document.getElementById("createCategory").onclick = createCategory;
         let btn = document.getElementById("addInsertion");
         btn.onclick=()=>{
             document.getElementById("main").innerHTML=creaAnnuncio;
             createInsertionPage();
         }
-        //createInsertion();
-        //getAllInsertions2();
         createPagination2();
         showResults2(1);
-
-
-    });
-
-   
-
-}
-
-
-function searchByAll2() {             /*La funziona del bottone che cerca tutti gli annunci senza filtri*/
-    createPagination2();
-    showResults2(1);
-}
-
-
-function assignFilters2() {             /*Assegna le funzioni ai pulsanti nelle dropDownList da provare*/
-    let generi = document.getElementById("genres2").children
-    for (let g of generi) {
-        (g as HTMLButtonElement).onclick = () => {
-            searchByGenre2(g.id);
-        }
-    }
-    let anni = document.getElementById("years2").children
-    for (let a of anni) {
-        (a as HTMLButtonElement).onclick = () => {
-            searchByYear2(Number((a as HTMLButtonElement).id));
-        }
-    }
-    
-    let searchTitle = document.getElementById("searchTitle2") as HTMLInputElement;
-    searchTitle.onkeydown = (e) => {
-        if (e.key == 'Enter') {
-            searchByTitle2(searchTitle.value)
-        }
-    }
-
-    let searchButton = document.getElementById("searchButton2");
-    searchButton.onclick = () => {
-        searchByTitle2(searchTitle.value)
-    }
-
-    /*let searchTitle = document.getElementById("searchTitle2") as HTMLInputElement;
-    searchTitle.onkeydown = (e) => {
-        if (e.key == 'Enter') {
-            searchByTitle2(searchTitle.value)
-        }
-    }
-    let searchButton = document.getElementById("searchButton2");
-    searchButton.onclick = () => {
-        searchByTitle2(searchTitle.value)
-    }*/
-}
-
-
-function searchByTitle2(title: string) {
-    getAllInsertions2();
-    let filteredList = []
-    for (let element of list) {
-        let titolo = element.title;
-        let gameName = element.tradeGame.name
-        if ((titolo.toUpperCase().includes(title.toUpperCase()))
-            || (gameName.toUpperCase().includes(title.toUpperCase()))) {
-            filteredList.push(element)
-        }
-    }
-    list = [];
-    list = filteredList
-    createPagination2();
-    showResults2(1);
-}
-
-
-function searchByGenre2(genre: String) {
-    console.log(genre);
-    let filteredList = []
-    for (let element of list) {
-        for (let i = 0; i < element.tradeGame.genre.length; i++) {
-            if (element.tradeGame.genre[i].genre == genre) {
-                filteredList.push(element);
-                i=element.tradeGame.genre.length;
-            }
-        }
-    }
-    list = [];
-    list = filteredList
-    createPagination2();
-    showResults2(1);
-}
-
-function searchByYear2(year: number) {
-    console.log(year);
-    let filteredList = [];
-    for (let element of list) {
-        if (element.tradeGame.year == year) {
-            filteredList.push(element)
-        }
-    }
-    list = [];
-    list = filteredList
-    createPagination2();
-    showResults2(1);
-}
-
-
-function getAllInsertions2(){
-    list = [];
-    fetch('/insertion')
-    .then((response) => response.json())
-    .then((data) => {
-        for(let d of data){
-            list.push(d);
-        }
     });
 }
-
-
 
 function createPagination2() {
     let size: number = list.length
@@ -185,11 +66,6 @@ function showResults2(i: number) {
             return;
         }
 
-        if (!list[start].approved) {
-            continue;
-        }
-
-
         let col = document.createElement("div")
         let juan = list[start].title  //"" + start;
         //Juan è l'id dei bottoni, sarà l'id delle inserzioni quando si implementeranno gli annunci dal db
@@ -220,7 +96,7 @@ function showResults2(i: number) {
         let title = document.createElement("h2");
         title.setAttribute('style','font-weight: bold;');
         let description = document.createElement("p");
-        title.innerHTML = list[start].title;
+        title.innerHTML = list[start].title + " | " + list[start].outcome;
         description.innerHTML = "" + list[start].tradeGame.name;
         for(let i= 0; i<list[start].tradeGame.genre.length; i++){
             description.innerHTML += ", " + list[start].tradeGame.genre[i].genre + "";
@@ -229,13 +105,44 @@ function showResults2(i: number) {
 
         description.innerHTML += ", " + list[start].tradeGame.console.console;
 
+        let col2 = document.createElement("div");
+        let btn_show = document.createElement("button");
+        let btn_approve = document.createElement("button");
+        let ins = list[start];
+        let id = list[start].id;
+        btn_approve.id = "btn_approve"+id;
+        btn_show.setAttribute("class", "btn btn-primary btn-sm");
+        btn_show.innerHTML = "Mostra annuncio";
+        if(list[start].approved){
+            btn_approve.setAttribute("class", "btn btn-success btn-sm");
+            btn_approve.innerHTML = "Annuncio approvato";
+        }else{
+            btn_approve.setAttribute("class", "btn btn-warning btn-sm");
+            btn_approve.innerHTML = "Da approvare";
+        }
+        
+        btn_approve.onclick = ()=>{changeInsertionStatus(id);}
+        btn_show.onclick = ()=>{expandInsertion(ins);} 
         col.append(title,description)
-        content.append(col);
-
+        col2.append(btn_show, btn_approve);
+        content.append(col, col2);
     }
+}
 
-    console.log(checkedList);
 
+function changeInsertionStatus(id:number){
+    fetch("/insertion/"+id)
+    .then((response)=>response.json())
+    .then((data)=>{
+        let btn_approve = document.getElementById("btn_approve"+id);
+        if(data){
+            btn_approve.setAttribute("class", "btn btn-success btn-sm");
+            btn_approve.innerHTML = "Annuncio approvato";
+        }else{
+            btn_approve.setAttribute("class", "btn btn-warning btn-sm");
+            btn_approve.innerHTML = "Da approvare";
+        }
+    })
 }
 
 export default createPage2
@@ -270,7 +177,6 @@ export function addInsertionToList(ins: string){
 }
 
 export function createCategory(){
-    console.log(checkedList)
     
     const obj={
         description: (document.getElementById("categoryName") as HTMLInputElement).value,
@@ -302,7 +208,6 @@ export function createCategory(){
     //TODO: LA FEEEEEEEEEEEEETCH!!!
     //TODO: inserisci gli elementi di checkedList in una categoria nel DB
     //TODO: Metodo da fare per inserire gli elementi nel database haha
-    console.log("Categoria creata più o meno");
 
     //Svuota il valore della casella di testo e la lista
 

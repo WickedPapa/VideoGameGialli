@@ -61,7 +61,17 @@ function getAllGames() {
             }
             let wishGames = document.getElementById("wishGames");
             wishGames.innerHTML = "";
-            for (let game of fullList) {
+            for (let i=0;i<fullList.length;i++) {
+                let control = true;
+                for(let j=0; j<userList.length;j++){
+                    if(fullList[i].id == userList[j].id){
+                        control=false;
+                        continue;
+                    }
+                }
+                if(!control){
+                    continue;
+                }
                 let li = document.createElement("li");
                 let liBtn = document.createElement("button");
                 let title = document.createElement("p");
@@ -73,14 +83,14 @@ function getAllGames() {
                 row.setAttribute("class", "mx-auto pb-4 row border-bottom border-2 border-primary");
                 col.setAttribute("class", "col-2 mx-auto ms-0 my-auto");
                 colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
-                pic.setAttribute('src', game.cover.link);
-                pic.setAttribute('alt', game.name);
+                pic.setAttribute('src', fullList[i].cover.link);
+                pic.setAttribute('alt', fullList[i].name);
                 pic.setAttribute('class', 'border border-2 border-info rounded')
                 pic.setAttribute('style', 'width:300%');    
-                liBtn.id = game.name;
+                liBtn.id = fullList[i].name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
-                title.innerHTML = game.name;
+                title.innerHTML = fullList[i].name;
                 title.setAttribute("class", "my-auto");
                 liBtn.onclick = () => {
 
@@ -97,7 +107,7 @@ function getAllGames() {
                     }
                     if (test) {
                         wishList[index] = li.innerHTML;
-                        listId[index] = game.id
+                        listId[index] = fullList[i].id
                         index++;
                     }
                     console.log("Giochi desiderati: "+listId);
@@ -245,7 +255,13 @@ function sendAll (){
 
     fetch("/insertion", request)
     .then((response)=>response.json())
-    .then((data)=>console.log(data));
+    .then((data)=>{
+        if(data){
+            alert("Annuncio inserito!");
+        }else{
+            alert("Ops, qualcosa è andato storto!");
+        }
+    });
 }
 
 

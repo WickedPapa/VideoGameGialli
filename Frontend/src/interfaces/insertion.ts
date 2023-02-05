@@ -3,6 +3,7 @@ import user from './user'
 import videogame from './videogame'
 
 export interface insertion{
+    id: number,
     approved: boolean,
     title: string,
     description: string,
