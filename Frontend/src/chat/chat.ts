@@ -59,7 +59,6 @@ function findChat(idReceiver: number) {
                         chatBox.innerHTML = chatHeaderTemplate + chatBodyTemplate + chatFooterTemplate;
                         let chatTitle = document.getElementById("chatTitle");
                         chatTitle.innerHTML = userInfo.username + " " + userInfo.rating + " <i class='fa-regular fa-star'></i>";
-                        //let idRefresh = setInterval(()=>{openChat(Number(idChat));}, 1000);
                         openChat(Number(idChat));
                     })
             }
@@ -67,7 +66,8 @@ function findChat(idReceiver: number) {
 }
 
 async function openChat(chatId: number) {
-    document.getElementById("chatBody").innerHTML = "";
+    let chatDiv = document.getElementById("chatBody");
+    chatDiv.innerHTML = "";
     document.getElementById("backToList").onclick = showUsersChat;
     await fetch("/chat/conversation/" + chatId)
         .then((serializedConversation) => serializedConversation.json())
@@ -88,15 +88,32 @@ async function openChat(chatId: number) {
                             textBox.value = "";
                         }
                     }
+                    let lastMessageTimeStamp: any;
                     for (let message of conversation) {
                         if (message.username == thisUserInfo.username) {
                             buildMessageSended(thisUserInfo.username, thisUserInfo.rating, message.timestamp, message.text);
+                            lastMessageTimeStamp = message.timestamp;
                         } else {
                             buildMessageRecived(message.username, message.rating, message.timestamp, message.text);
+                            lastMessageTimeStamp = message.timestamp;
                         }
                     }
+                    chatDiv.scrollTop = chatDiv.scrollHeight;
+                    let idRefresh =  setInterval(() => { refresh(idRefresh, chatId, lastMessageTimeStamp) }, 2000);
+                    console.log(idRefresh);
                 })
         })
+
+    async function refresh(id:NodeJS.Timer, chatId: number, lastMessageTimeStamp: any) {
+        await fetch("/chat/conversation/" + chatId)
+            .then((serializedConversation) => serializedConversation.json())
+            .then((conversation: message[]) => {
+                if (lastMessageTimeStamp != conversation[conversation.length - 1].timestamp) {
+                    clearInterval(id);
+                    openChat(Number(chatId));
+                }
+            })
+    }
 
     function buildMessageRecived(username: string, rating: number, timestamp: string, text: string) {
         let chatBody = document.getElementById("chatBody");
@@ -230,13 +247,13 @@ export function searchUserChats() {
                     .then((serializedVersion) => serializedVersion.json())
                     .then((version) => {
                         if ((version > chatVersions.get(data.id).get(id))) {
-                            fetch("/chat/one/"+id)
+                            fetch("/chat/one/" + id)
                                 .then((serializedChat) => serializedChat.json())
                                 .then((chat) => {
                                     if (chat.user1.id != data.id) {
                                         document.getElementById("alert").removeAttribute("hidden");
                                         chatVersions.get(data.id).set(id, version);
-                                        
+
                                     }
                                 })
                         }
