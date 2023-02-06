@@ -88,7 +88,7 @@ function getAllGames() {
                 pic.setAttribute('src', fullList[i].cover.link);
                 pic.setAttribute('alt', fullList[i].name);
                 pic.setAttribute('class', 'border border-2 border-info rounded')
-                pic.setAttribute('style', 'height:64px;width:64px;'); 
+                pic.setAttribute('style', 'height:64px;width:auto;'); 
                 liBtn.id = fullList[i].name;
                 liBtn.setAttribute("type", "button");
                 liBtn.setAttribute("class", "dropdown-item");
@@ -155,7 +155,7 @@ function getUserGames() {
                 title.setAttribute("class", "my-auto");
                 pic.src = game.cover.link;
                 pic.setAttribute('class','border border-2 border-info rounded');
-                pic.setAttribute('style', 'height:64px;width:64px;');  
+                pic.setAttribute('style', 'height:64px;width:auto;');  
                 console.log(game.name);
                 liBtn.id = game.name;
                 liBtn.setAttribute("type", "button");
@@ -199,7 +199,7 @@ function showSelectedTradeGame(){
     colPic.setAttribute("class", "col-2 mx-auto me-1 my-auto");
     title.setAttribute("class", "my-auto");
     pic.setAttribute('class','border border-2 border-info rounded');
-    pic.setAttribute('style', 'height:64px;width:64px;');  
+    pic.setAttribute('style', 'height:64px;width:auto;');  
     liBtn.setAttribute("type", "button");
     liBtn.setAttribute("class", "p-0 mx-auto my-auto dropdown-item");
 
