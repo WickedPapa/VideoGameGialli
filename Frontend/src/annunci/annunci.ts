@@ -8,6 +8,7 @@ import showProfile from '../profiloUtente/profile';
 import category from '../interfaces/category';
 let categoryList: category[] = [];
 let categories: string[] = [];
+let fullList: insertion[] = [];
 let list: insertion[] = [];
 let filteredList: insertion[] = [];
 let view: number = 6
@@ -38,7 +39,12 @@ export async function createPage() {       /*Inizializza tutto ciò che serve al
                 .then((response) => response.json())
                 .then((data) => {
                     for (let d of data) {
-                        list.push(d);
+                        if (!d.approved || d.outcome != "WIP") {
+                            fullList.push(d);
+                        } else {
+                            fullList.push(d);
+                            list.push(d);
+                        }
                     }
 
                     fetch("/category")
@@ -92,18 +98,16 @@ async function getAllInsertions() {
 async function showResults(i: number) {
 
     let content = document.getElementById("insertionContent");
+    let content2 = document.getElementById("insertionContent2");
     content.innerHTML = "";
     let start = (i - 1) * view;
     let stop = (i * view) - 1;
+    let startCopy = start;
     for (start; start <= stop; start++) {
         if (start >= list.length) {
             return;
         }
-
-        if (!list[start].approved || list[start].outcome != "WIP") {
-            continue;
-        }
-
+        
 
         let col = document.createElement("div")
         col.setAttribute("class", "col-4 text-center");
@@ -128,17 +132,20 @@ async function showResults(i: number) {
         let console = document.createElement("h5");
         let trades = document.createElement("h5");
         let date = document.createElement("h5");
+        let div = document.createElement("div");
+        div.setAttribute("style", "height:37%;");
+        div.setAttribute("class", "rounded-top bg-light border-bottom border-3 border-primary rounded-bottom bg-light");
         image.src = list[start].tradeGame.cover.link;
         image.setAttribute('class', 'mb-2 border border-3 border-info')
         image.setAttribute('style', 'height:200px;width:auto;')
         title.innerHTML = '<b>' + list[start].title + '</b>';
 
         title.setAttribute('class', 'mx-auto mt-2 rounded-top bg-light border-bottom border-3 border-primary');
+        title.setAttribute('style', 'height: 20%');
+        description.innerHTML = "<b>"+list[start].description+"</b>";
+        description.setAttribute('class', 'mb-0');
 
-        description.innerHTML = list[start].description;
-        description.setAttribute('class', 'mb-0 border-top border-3 border-primary bg-light');
-
-        game.innerHTML = list[start].tradeGame.name;
+        game.innerHTML = "<b>"+list[start].tradeGame.name+"</b>";
         game.setAttribute('class', 'mb-0 bg-light');
 
 
@@ -155,14 +162,20 @@ async function showResults(i: number) {
         console.setAttribute('class', 'mb-0 bg-light');
 
 
-        trades.innerHTML = "Accetterei Scambio con: " + list[start].wishList[0].name;
+        trades.innerHTML = "Accetterei Scambio con: <b>" + list[start].wishList[0].name+"</b>";
         trades.setAttribute('class', 'mb-0 bg-light');
 
         date.innerHTML = list[start].publicationDate;
-        date.setAttribute('class', 'rounded-bottom border-bottom border-3 border-primary bg-light');
+        div.append(game, description, trades, date);
+        col.append(title, image, div);
 
-        col.append(title, image, description, game, genre, year, console, trades, date)
-        content.append(col);
+        if(start>=startCopy && start<=(stop/2)){
+            content.append(col);
+        }else{
+            content2.append(col);
+        }
+
+        
 
     }
 }

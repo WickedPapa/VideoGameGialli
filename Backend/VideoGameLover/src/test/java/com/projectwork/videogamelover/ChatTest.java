@@ -21,16 +21,7 @@ public class ChatTest {
 	ChatRestController chatController;
 	
 	@Test
-	public void test(HttpSession session) {
-		//creare o trovare chat (id dei 2 utenti) restituisce id
-		//creare un messaggio (id chat, id utente, testo)
-		//creare un messaggio (id chat, id utente diverso, testo)
-		//chiedere versione chat assert 2
-		//creare un messaggio (id chat, id utente, testo)
-		//creare un messaggio (id chat, id utente diverso, testo)
-		//chiedere versione chat assert 4
-		//richiedere tutti i messaggi (id chat) restituisce MessageDTO(id utente, timestamp, text)
-		
+	public void test(HttpSession session) {		
 		
 		int idChat = chatController.findChat(session, 253);
 		chatController.createMessage(new CreateMessageDTO(idChat, 252, "Ciao Mondo!"));
@@ -44,5 +35,6 @@ public class ChatTest {
 		assertEquals("Ciao Mondo!", messages.get(0).getText());
 		assertEquals(252, messages.get(2).getUserId());
 		assertEquals("Ciao!", messages.get(3).getText());
+		
 	}
 }

@@ -14,6 +14,7 @@ export function createPage2() {
         for(let d of data){
             list.push(d);
         }
+        list.reverse();
         document.getElementById("createCategory").onclick = createCategory;
         let btn = document.getElementById("addInsertion");
         btn.onclick=()=>{
