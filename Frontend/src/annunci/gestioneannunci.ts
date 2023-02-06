@@ -107,18 +107,27 @@ function showResults2(i: number) {
 
         let col2 = document.createElement("div");
         let btn_show = document.createElement("button");
+        let img_show = document.createElement("img");
         let btn_approve = document.createElement("button");
+        let img_approve = '<img src="./img/button/aprvBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
+        let img_disapprove = '<img src="./img/button/disaprvBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
         let ins = list[start];
         let id = list[start].id;
+        img_show.src = "./img/button/showBtn.png";
+        img_show.setAttribute('style', 'border:none;image-rendering: pixelated;')
+        img_show.height = 35;
         btn_approve.id = "btn_approve"+id;
-        btn_show.setAttribute("class", "btn btn-primary btn-sm");
-        btn_show.innerHTML = "Mostra annuncio";
+        btn_show.setAttribute("class", "btn p-0 btn-sm");
+        btn_show.append(img_show);
         if(list[start].approved){
-            btn_approve.setAttribute("class", "btn btn-success btn-sm");
-            btn_approve.innerHTML = "Annuncio approvato";
+            btn_approve.setAttribute("class", "btn p-0 btn-sm");
+            btn_approve.innerHTML = "";
+            btn_approve.innerHTML = img_approve;
         }else{
-            btn_approve.setAttribute("class", "btn btn-warning btn-sm");
-            btn_approve.innerHTML = "Da approvare";
+            btn_approve.setAttribute("class", "btn p-0 btn-sm");
+            btn_approve.innerHTML = "";
+            btn_approve.innerHTML = img_disapprove;
+
         }
         
         btn_approve.onclick = ()=>{changeInsertionStatus(id);}
@@ -135,12 +144,15 @@ function changeInsertionStatus(id:number){
     .then((response)=>response.json())
     .then((data)=>{
         let btn_approve = document.getElementById("btn_approve"+id);
+        let img_approve = '<img src="./img/button/aprvBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
+        let img_disapprove = '<img src="./img/button/disaprvBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
         if(data){
-            btn_approve.setAttribute("class", "btn btn-success btn-sm");
-            btn_approve.innerHTML = "Annuncio approvato";
+            btn_approve.innerHTML = "";
+            btn_approve.innerHTML = img_approve;
         }else{
-            btn_approve.setAttribute("class", "btn btn-warning btn-sm");
-            btn_approve.innerHTML = "Da approvare";
+            btn_approve.setAttribute("class", "btn p-0 btn-sm");
+            btn_approve.innerHTML = "";
+            btn_approve.innerHTML = img_disapprove;
         }
     })
 }

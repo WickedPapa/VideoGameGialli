@@ -81,7 +81,8 @@ for(let i = homeList.length-1; i > homeList.length-5 && i >= 0; i--){
     img.setAttribute('style', 'height:250px;width:auto');
     let annTitle = document.createElement('h1');
     annTitle.setAttribute('class', 'card-title border-top border-2 border-info');
-    annTitle.innerHTML = homeList[i].title;
+    annTitle.innerHTML = '<b>'+homeList[i].title+'</b>';
+
     let clCard = document.createElement('div');
     clCard.setAttribute('class', 'card bg-secondary');
     clCard.setAttribute('id', 'annCard');

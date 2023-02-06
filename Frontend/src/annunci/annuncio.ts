@@ -20,10 +20,11 @@ export function expandInsertion(insertion:any) {
         createPage();
     }
     let back = document.getElementById("back")
-    //back.append(button);
+
 
     let title = document.createElement("h1");
     title.innerHTML = '<b>'+insertion.title+'</b>';
+    title.setAttribute('class', 'bg-light border-bottom rounded-top border-primary border-top border-2')
 
     back.append(title);
 
@@ -54,7 +55,7 @@ export function expandInsertion(insertion:any) {
         let img = document.createElement("img");
         img.src = insertion.gallery[i].link;
         img.setAttribute('style', 'height:350px;width:auto;')
-        img.setAttribute("class", "d-block w-100");
+        img.setAttribute("class", "rounded my-3 d-block w-100");
         img.alt = "Gallery Image" + (i + 1)
         div.append(img);
         inner.append(div)
@@ -71,7 +72,6 @@ export function expandInsertion(insertion:any) {
 
     let p = document.createElement("p");
     p.setAttribute("class", "card-text");
-    p.setAttribute("style", "font-size: 1.5em;")
     p.innerHTML = "Genere: ";
     for (let i = 0; i < insertion.tradeGame.genre.length; i++) {
         p.innerHTML += insertion.tradeGame.genre[i].genre + " "
@@ -104,7 +104,6 @@ export function expandInsertion(insertion:any) {
                 document.getElementById("img-item-" + (i + 1)).append(img);
                 let p = document.createElement("p");
                 p.setAttribute("class", "card-text");
-                p.setAttribute("style", "font-size: 1.5em;");
                 p.innerHTML = "Genere: ";
                 for (let j = 0; j < insertion.wishList[i].genre.length; j++) {
                     p.innerHTML += insertion.wishList[i].genre[j].genre + " "

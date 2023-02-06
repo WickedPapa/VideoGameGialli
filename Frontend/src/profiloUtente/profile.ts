@@ -60,7 +60,8 @@ function showAdminProfile() {
 
             let buttons = document.getElementById("buttons-profile");
             let btn1 = document.createElement("button");
-            btn1.setAttribute("class", "btn btn-primary my-1");
+            buttons.setAttribute("style", "border:none;");
+            btn1.setAttribute("class", "btn p-0 my-1");
             btn1.onclick = () => {
                 let obj = {
                     'username': (document.getElementById("username") as HTMLInputElement).value,
@@ -84,12 +85,12 @@ function showAdminProfile() {
                     })
 
             }
-            btn1.innerHTML = "Cambia Username"
+            btn1.innerHTML = '<img src="./img/button/newuserBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             buttons.append(btn1)
 
             let buttonEmail = document.getElementById("buttons-profile");
             let btn2 = document.createElement("button");
-            btn2.setAttribute("class", "btn btn-primary   my-4");
+            btn2.setAttribute("class", "btn p-0 my-4");
             btn2.onclick = () => {
                 let obj = {
                     'username': "",
@@ -113,13 +114,14 @@ function showAdminProfile() {
 
                     })
             }
-            btn2.innerHTML = "Cambia Email"
+            btn2.innerHTML = '<img src="./img/button/newmailBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             buttons.append(btn2);
 
             let cp = document.getElementById("cp");
             let btn3 = document.createElement("button");
-            btn3.setAttribute("class", "btn btn-primary")
-            btn3.innerHTML = "Cambia Password"
+            cp.setAttribute('style', 'border:none;');
+            btn3.setAttribute("class", "btn p-0")
+            btn3.innerHTML = '<img src="./img/button/newpassBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             btn3.onclick = () => {
                 let obj = {
                     'oldPassword': (document.getElementById("oldPassword") as HTMLInputElement).value,
@@ -169,7 +171,8 @@ function showUserProfile() {
 
             let buttons = document.getElementById("buttons-profile");
             let btn1 = document.createElement("button");
-            btn1.setAttribute("class", "btn btn-primary my-1");
+            buttons.setAttribute("style", "border:none;");
+            btn1.setAttribute("class", "p-0 btn my-1");
             btn1.onclick = () => {
 
                 let obj = {
@@ -194,12 +197,12 @@ function showUserProfile() {
                     })
             }
 
-            btn1.innerHTML = "Cambia Username"
+            btn1.innerHTML = '<img src="./img/button/newuserBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             buttons.append(btn1)
 
             let buttonEmail = document.getElementById("buttons-profile");
             let btn2 = document.createElement("button");
-            btn2.setAttribute("class", "btn btn-primary   my-4");
+            btn2.setAttribute("class", "btn p-0   my-4");
             btn2.onclick = () => {
 
                 let obj = {
@@ -223,7 +226,7 @@ function showUserProfile() {
                         showProfile();
                     })
             }
-            btn2.innerHTML = "Cambia Email"
+            btn2.innerHTML = '<img src="./img/button/newmailBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             buttons.append(btn2);
 
             cp.append(btn3);
@@ -243,8 +246,9 @@ function showUserProfile() {
 
     let cp = document.getElementById("cp");
     let btn3 = document.createElement("button");
-    btn3.setAttribute("class", "btn btn-primary")
-    btn3.innerHTML = "Cambia Password"
+    cp.setAttribute('style', 'border:none;');
+    btn3.setAttribute("class", "btn p-0")
+    btn3.innerHTML = '<img src="./img/button/newpassBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
     btn3.onclick = () => {
         let obj = {
             'oldPassword': (document.getElementById("oldPassword") as HTMLInputElement).value,

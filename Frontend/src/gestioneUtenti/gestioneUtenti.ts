@@ -17,17 +17,28 @@ function showUsers(num: number) {
         let btn_profile = document.createElement("button");
         btn_profile.setAttribute("class", "btn");
         btn_profile.onclick = showProfile;
-        li.setAttribute('class', 'list-group-item');
-        li.setAttribute('onmouseover', "setAttribute('class', 'list-group-item active')");
-        li.setAttribute('onmouseout', "setAttribute('class', 'list-group-item')");
+        li.setAttribute('class', 'border-bottom border-2 border-primary list-group-item');
+        li.setAttribute("style", "border: none")
+        li.setAttribute('onmouseover', "setAttribute('class', 'border-bottom border-2 border-light list-group-item active')");
+        li.setAttribute('onmouseout', "setAttribute('class', 'border-bottom border-2 border-primary list-group-item ')");
         let span = document.createElement("span");
         span.setAttribute("class", "float-end");
-        let btn_ban = document.createElement("button");
+        let btn_ban = document.createElement("button") ;
         let btn_adm = document.createElement("button");
-        btn_ban.setAttribute("class", "btn btn-danger btn-sm");
-        btn_adm.setAttribute("class", "btn btn-success btn-sm");
-        btn_ban.innerHTML = "Banna";
-        btn_adm.innerHTML = "Rendi Admin";
+        let ban_img = document.createElement("img");
+        let adm_img = document.createElement("img");
+
+        btn_ban.setAttribute("class", "p-0 my-0 btn btn-sm");
+        ban_img.src = "./img/button/bannBtn.png";
+        ban_img.setAttribute('style', 'border:none;image-rendering: pixelated;')
+        ban_img.height = 35;
+        btn_ban.appendChild(ban_img);
+
+        btn_adm.setAttribute("class", "p-0 my-0 btn btn-sm");
+        adm_img.src = "./img/button/adminBtn.png";
+        adm_img.setAttribute('style', 'border:none;image-rendering: pixelated;')
+        adm_img.height = 35;
+        btn_adm.appendChild(adm_img);
         btn_ban.onclick = () => { kickHisAssOutOfThisSite(users[i].userId)};
         btn_adm.onclick = () => { makeHimAdmin(users[i].userId) };
         span.append(btn_adm, btn_ban);
