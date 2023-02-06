@@ -236,3 +236,28 @@ nav button {
 .buttonhover:hover {
   transform: scale(1.1, 0.8);
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+  z-index: 1;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5e5e5e; 
+  box-shadow: inset 0 0 5px black;
+  transition: 0.7;
+
+}
