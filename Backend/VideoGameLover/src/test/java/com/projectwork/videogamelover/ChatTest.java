@@ -25,7 +25,7 @@ public class ChatTest {
 		
 		int idChat = chatController.findChat(session, 253);
 		chatController.createMessage(new CreateMessageDTO(idChat, 252, "Ciao Mondo!"));
-		chatController.createMessage(new CreateMessageDTO(idChat, 253, "Ciao Stronzo!"));
+		chatController.createMessage(new CreateMessageDTO(idChat, 253, "Ciao a te!"));
 		assertEquals(2, chatController.chatVersion(idChat));
 		chatController.createMessage(new CreateMessageDTO(idChat, 252, "Ciao Mondoooo!"));
 		chatController.createMessage(new CreateMessageDTO(idChat, 253, "Ciao!"));

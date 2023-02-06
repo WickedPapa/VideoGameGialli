@@ -228,7 +228,6 @@ function showUserProfile() {
             }
             btn2.innerHTML = '<img src="./img/button/newmailBtn.png" style="border:none;image-rendering:pixelated;" height="35">'
             buttons.append(btn2);
-
             cp.append(btn3);
             let gamesList = document.getElementById("gamesList");
             let h3 = document.createElement("h3");

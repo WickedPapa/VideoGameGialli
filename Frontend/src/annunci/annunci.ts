@@ -100,6 +100,7 @@ async function showResults(i: number) {
     let content = document.getElementById("insertionContent");
     let content2 = document.getElementById("insertionContent2");
     content.innerHTML = "";
+    content2.innerHTML = "";
     let start = (i - 1) * view;
     let stop = (i * view) - 1;
     let startCopy = start;
